@@ -443,6 +443,8 @@ MonoBehaviour:
   initialAngle: 30
   velocityScale: 0.6
   spinScale: 20
+  hitPoint: -0.5
+  stickLength: 3
 --- !u!54 &759000005
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ public class StickThrowTest : MonoBehaviour
 
     [SerializeField] float velocityScale = 1f;
     [SerializeField] float spinScale = 15f;
+    [SerializeField][Range(-0.5f, 0.5f)] float hitPoint = 0f;
+    [SerializeField] float stickLength = 1f;
 
     void Start()
     {
@@ -32,12 +34,19 @@ public class StickThrowTest : MonoBehaviour
 
         Vector3 velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
 
-        float angleBetweenObjects = Vector3.Angle(Vector3.forward, planarTarget - planarPosition);
+        float angleBetweenObjects = Vector3.SignedAngle(Vector3.forward, planarTarget - planarPosition, Vector3.up);
         Vector3 finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
 
+        Vector3 lateralForce = -transform.right * (hitPoint * velocityScale * initialVelocity);
+        rigid.AddForce(lateralForce, ForceMode.VelocityChange);
+
+        Vector3 localHitOffset = transform.right * (hitPoint * stickLength);
+        Vector3 worldHitPoint = transform.position + localHitOffset;
+
         // rigid.velocity = finalVelocity;
-        rigid.AddForce(finalVelocity * velocityScale, ForceMode.VelocityChange);
-        rigid.angularVelocity = transform.right * spinScale;
+        rigid.AddForceAtPosition(finalVelocity * velocityScale, worldHitPoint, ForceMode.VelocityChange);
+        rigid.AddForce(-transform.right * (hitPoint * velocityScale * initialVelocity), ForceMode.VelocityChange);
+        rigid.angularVelocity = transform.up * (hitPoint * spinScale);
     }
 
 }
