@@ -21,10 +21,10 @@ public class StickThrowTest : MonoBehaviour
         float angle = initialAngle * Mathf.Deg2Rad;
 
         Vector3 planarTarget = new Vector3(p.x, 0, p.z);
-        Vector3 planarPosition = new Vector3(transform.position.x, 0, transform.position.y);
+        Vector3 planarPosition = new Vector3(transform.position.x, 0, transform.position.z);
 
         float distance = Vector3.Distance(planarTarget, planarPosition);
-        float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt(0.5f * gravity * Mathf.Pow(distance, 2));
+        float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt(0.5f * gravity * Mathf.Pow(distance, 2)) / 6f;
 
         Vector3 velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
 
