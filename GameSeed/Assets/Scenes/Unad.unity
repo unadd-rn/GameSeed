@@ -249,7 +249,7 @@ Transform:
   m_GameObject: {fileID: 492492070}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.39, y: -0.18999994, z: 6.52}
+  m_LocalPosition: {x: -1.39, y: -1.35, z: 6.52}
   m_LocalScale: {x: 3, y: 0.1, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 657130002}
   - component: {fileID: 657130001}
   - component: {fileID: 657130000}
+  - component: {fileID: 657130004}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -392,6 +393,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &657130004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657129999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c157e1f19af1a4418497c6f97e2026e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: 24
 --- !u!1 &759000003
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +441,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 492492075}
   initialAngle: 45
+  velocityScale: 0.6
+  spinScale: 15
 --- !u!54 &759000005
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -436,8 +452,8 @@ Rigidbody:
   m_GameObject: {fileID: 759000003}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.1
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -534,7 +550,7 @@ Transform:
   m_GameObject: {fileID: 759000003}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.39, y: -0.57, z: -5.87}
+  m_LocalPosition: {x: -1.39, y: -1.2, z: -5.87}
   m_LocalScale: {x: 3, y: 0.1, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []

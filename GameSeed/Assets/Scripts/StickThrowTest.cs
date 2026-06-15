@@ -10,6 +10,9 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField]
     float initialAngle;
 
+    [SerializeField] float velocityScale = 1f;
+    [SerializeField] float spinScale = 15f;
+
     void Start()
     {
         var rigid = GetComponent<Rigidbody>();
@@ -19,20 +22,22 @@ public class StickThrowTest : MonoBehaviour
         float gravity = Physics.gravity.magnitude;
 
         float angle = initialAngle * Mathf.Deg2Rad;
+        float height = transform.position.y - Target.position.y;
 
         Vector3 planarTarget = new Vector3(p.x, 0, p.z);
         Vector3 planarPosition = new Vector3(transform.position.x, 0, transform.position.z);
 
         float distance = Vector3.Distance(planarTarget, planarPosition);
-        float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt(0.5f * gravity * Mathf.Pow(distance, 2)) / 6f;
+        float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * gravity * distance * distance) / (distance * Mathf.Tan(angle) - height));
 
         Vector3 velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
 
         float angleBetweenObjects = Vector3.Angle(Vector3.forward, planarTarget - planarPosition);
         Vector3 finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
 
-        rigid.velocity = finalVelocity;
-
+        // rigid.velocity = finalVelocity;
+        rigid.AddForce(finalVelocity * velocityScale, ForceMode.VelocityChange);
+        rigid.angularVelocity = transform.right * spinScale;
     }
 
 }
