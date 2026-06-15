@@ -15,8 +15,13 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField][Range(-0.5f, 0.5f)] float hitPoint = 0f;
     [SerializeField] float stickLength = 1f;
 
-    void Start()
+    IEnumerator Start()
     {
+        Debug.Log("Game started. Waiting for 3 seconds...");
+
+        // This line pauses the function for 3 seconds
+        yield return new WaitForSeconds(5f);
+
         var rigid = GetComponent<Rigidbody>();
 
         Vector3 p = Target.position;
@@ -47,6 +52,8 @@ public class StickThrowTest : MonoBehaviour
         rigid.AddForceAtPosition(finalVelocity * velocityScale, worldHitPoint, ForceMode.VelocityChange);
         rigid.AddForce(-transform.right * (hitPoint * velocityScale * initialVelocity), ForceMode.VelocityChange);
         rigid.angularVelocity = transform.up * (hitPoint * spinScale);
+
+        Debug.Log("3 seconds have passed! Executing action.");
     }
 
 }
