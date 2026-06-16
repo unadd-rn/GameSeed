@@ -11,18 +11,16 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private Slider hitPointSlider;
     [SerializeField] private GameObject sliderContainer;
 
-<<<<<<< Updated upstream
     [SerializeField] float velocityScale = 1f;
     [SerializeField] float spinScale = 15f;
     private float hitPoint = 0f;
     [SerializeField] float stickLength = 1f;
     private Rigidbody rigid;
-=======
+    
     [Header("Launch")]
     public float velocityScale = 1f;
     [SerializeField] private float launchForce = 5f;
     [SerializeField] private float up = 2f;
->>>>>>> Stashed changes
 
     [Header("Tralala trilili")]
     [SerializeField] private float stickLength = 1f;
