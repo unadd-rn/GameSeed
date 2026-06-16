@@ -10,12 +10,6 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private Canvas uiCanvas;
     [SerializeField] private Slider hitPointSlider;
     [SerializeField] private GameObject sliderContainer;
-
-    [SerializeField] float velocityScale = 1f;
-    [SerializeField] float spinScale = 15f;
-    private float hitPoint = 0f;
-    [SerializeField] float stickLength = 1f;
-    private Rigidbody rigid;
     
     [Header("Launch")]
     public float velocityScale = 1f;
