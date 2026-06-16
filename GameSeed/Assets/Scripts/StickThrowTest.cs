@@ -13,7 +13,7 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField]
     float initialAngle;
 
-    [SerializeField] float velocityScale = 1f;
+    public float velocityScale = 1f;
     [SerializeField] float spinScale = 15f;
     private float hitPoint = 0f;
     [SerializeField] float stickLength = 1f;
