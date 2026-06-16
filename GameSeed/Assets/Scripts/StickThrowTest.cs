@@ -1,33 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StickThrowTest : MonoBehaviour
 {
     [SerializeField]
     Transform Target;
+
+    [SerializeField] private Slider hitPointSlider;
     
     [SerializeField]
     float initialAngle;
 
     [SerializeField] float velocityScale = 1f;
     [SerializeField] float spinScale = 15f;
-    [SerializeField][Range(-0.5f, 0.5f)] float hitPoint = 0f;
+    private float hitPoint = 0f;
     [SerializeField] float stickLength = 1f;
+    private Rigidbody rigid;
 
-    IEnumerator Start()
+    void Start()
     {
-        Debug.Log("Game started. Waiting for 3 seconds...");
+        rigid = GetComponent<Rigidbody>();
 
-        // This line pauses the function for 3 seconds
-        yield return new WaitForSeconds(5f);
+        if (hitPointSlider == null)
+        {
+            hitPointSlider = FindObjectOfType<Slider>();
+        }
+    }
 
-        var rigid = GetComponent<Rigidbody>();
+    public void Throw()
+    {
+        if (hitPointSlider != null)
+        {
+            hitPoint = hitPointSlider.value;
+        }
 
         Vector3 p = Target.position;
 
         float gravity = Physics.gravity.magnitude;
-
         float angle = initialAngle * Mathf.Deg2Rad;
         float height = transform.position.y - Target.position.y;
 
@@ -48,12 +59,13 @@ public class StickThrowTest : MonoBehaviour
         Vector3 localHitOffset = transform.right * (hitPoint * stickLength);
         Vector3 worldHitPoint = transform.position + localHitOffset;
 
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+
         // rigid.velocity = finalVelocity;
         rigid.AddForceAtPosition(finalVelocity * velocityScale, worldHitPoint, ForceMode.VelocityChange);
-        rigid.AddForce(-transform.right * (hitPoint * velocityScale * initialVelocity), ForceMode.VelocityChange);
-        rigid.angularVelocity = -transform.up * (hitPoint * spinScale);
-
-        Debug.Log("3 seconds have passed! Executing action.");
+        // rigid.AddForce(-transform.right * (hitPoint * velocityScale * initialVelocity), ForceMode.VelocityChange);
+        rigid.angularVelocity = transform.right * (hitPoint * spinScale);
     }
 
 }
