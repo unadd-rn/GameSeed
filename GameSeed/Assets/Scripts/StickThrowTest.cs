@@ -51,7 +51,7 @@ public class StickThrowTest : MonoBehaviour
         // rigid.velocity = finalVelocity;
         rigid.AddForceAtPosition(finalVelocity * velocityScale, worldHitPoint, ForceMode.VelocityChange);
         rigid.AddForce(-transform.right * (hitPoint * velocityScale * initialVelocity), ForceMode.VelocityChange);
-        rigid.angularVelocity = transform.up * (hitPoint * spinScale);
+        rigid.angularVelocity = -transform.up * (hitPoint * spinScale);
 
         Debug.Log("3 seconds have passed! Executing action.");
     }
