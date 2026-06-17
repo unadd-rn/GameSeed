@@ -22,7 +22,7 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private LayerMask stickLayer;
 
     [Header("UI Offset")]
-    [SerializeField] private float sliderOffsetY = 0.5f;
+    [SerializeField] private float sliderOffsetY = 15f;
     private Rigidbody rigid;
     private Collider stickCollider;
     private Camera mainCamera;
@@ -101,12 +101,13 @@ public class StickThrowTest : MonoBehaviour
     private bool IsPointerOverUI()
     {
         if (EventSystem.current == null) return false;
-
         #if UNITY_EDITOR
         return EventSystem.current.IsPointerOverGameObject();
         #elif UNITY_IOS || UNITY_ANDROID
         if (Input.touchCount > 0)
+        {
             return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+        }
         return EventSystem.current.IsPointerOverGameObject();
         #else
         return EventSystem.current.IsPointerOverGameObject();
@@ -133,14 +134,17 @@ public class StickThrowTest : MonoBehaviour
     private void UpdateSliderPosition()
     {
         if (sliderContainer == null) return;
-        
         float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
         Vector3 sliderOffset = transform.forward * (sliderOffsetY * directionMult);
-        
         sliderContainer.transform.position = transform.position + sliderOffset;
-        sliderContainer.transform.rotation = Quaternion.LookRotation(
-            sliderContainer.transform.position - mainCamera.transform.position
-        );
+        Vector3 desiredRight = transform.right;
+        Vector3 desiredUp = (directionMult < 0) ? transform.forward : -transform.forward;
+        Vector3 desiredForward = -transform.up;
+        if (desiredForward.y > 0)
+        {
+            desiredForward = transform.up;
+        }
+        sliderContainer.transform.rotation = Quaternion.LookRotation(desiredForward, desiredUp);
     }
 
     private void ProcessInput()
@@ -176,7 +180,7 @@ public class StickThrowTest : MonoBehaviour
             float dotForward = Vector3.Dot(toTap, transform.forward);
             throwDirectionZ = dotForward >= 0 ? -1f : 1f;
             Debug.DrawLine(mainCamera.transform.position, targetWorldPoint, Color.red, 0.5f);
-            Debug.Log($"[DIRECTION TAP] dot={dotForward:F2} -> {(throwDirectionZ > 0 ? "BACKWARD" : "FORWARD")}");
+            Debug.Log($"[DIRECTION TAP] dot={dotForward:F2} -> {(throwDirectionZ > 0 ? "FORWARD" : "BACKWARD")}");
         }
     }
 
@@ -186,6 +190,11 @@ public class StickThrowTest : MonoBehaviour
 
         if (hitPointSlider != null)
             hitPoint = hitPointSlider.value;
+
+        if (transform.up.y > 0)
+        {
+            hitPoint *= -1f;
+        }
 
         SetUIVisible(false);
         hasBeenThrown = true;
