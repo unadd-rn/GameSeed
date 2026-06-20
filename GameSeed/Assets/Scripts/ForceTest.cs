@@ -12,6 +12,8 @@ public class ForceTest : MonoBehaviour
     private float barDirection = 1f;
 
     public StickThrowTest stickThrowTest;
+    // Inside ForceTest.cs
+    [SerializeField] private StickData stickData;
 
     public void ChangeForce()
     {
@@ -19,7 +21,7 @@ public class ForceTest : MonoBehaviour
         if (newValue >= 1f) { newValue = 1f; barDirection = -1f; }
         if (newValue <= 0f) { newValue = 0; barDirection = 1f; }
         forceBarTracker.fillAmount = newValue;
-        stickThrowTest.velocityScale = newValue * 5f;
+        stickData.velocityScale = newValue * 5f;
     }
 
     // Start is called before the first frame update
