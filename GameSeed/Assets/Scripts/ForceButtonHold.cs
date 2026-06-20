@@ -4,32 +4,44 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class ForceButtonHold : MonoBehaviour
+// , IPointerUpHandler, IPointerDownHandler
 {
     [Header("Components")]
-    public Image button;
+    // public Image button;
 
     public ForceTest forceTest;
 
     private bool isPressed;
     // Update is called once per frame
 
-    void Update()
+    void Start()
+    {
+        isPressed = false;
+    }
+
+    void FixedUpdate()
     {
         if (isPressed)
         {
             forceTest.ChangeForce();
-            Debug.Log("Button is being held down");
+            // Debug.Log("Button is being held down");
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void ButtonForce()
     {
-        isPressed = true;
+        if(isPressed) isPressed = false;
+        else isPressed = true;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isPressed = false;
-    }
+    // public void OnPointerDown(PointerEventData eventData)
+    // {
+    //     isPressed = true;
+    // }
+
+    // public void OnPointerUp(PointerEventData eventData)
+    // {
+    //     isPressed = false;
+    // }
 }
