@@ -63,10 +63,6 @@ public class StickThrowTest : MonoBehaviour
     private void HandleTouchStart()
     {
         isTouching = true;
-        if (IsPointerOverUI())
-        {
-            interactionStartedOnUI = true;
-        }
     }
 
     private void HandleTouchEnd()
@@ -75,14 +71,18 @@ public class StickThrowTest : MonoBehaviour
         interactionStartedOnUI = false;
     }
 
-    private bool IsPressingThisFrame()
+    private bool IsPressJustStarted()
     {
         #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-        {
-            interactionStartedOnUI = IsPointerOverUI();
-            return true;
-        }
+        return Input.GetMouseButtonDown(0);
+        #else
+        return controls.Player.TouchPress.WasPressedThisFrame();
+        #endif
+    }
+
+    private bool IsPressing()
+    {
+        #if UNITY_EDITOR
         return Input.GetMouseButton(0);
         #else
         return isTouching;
@@ -101,17 +101,11 @@ public class StickThrowTest : MonoBehaviour
     private bool IsPointerOverUI()
     {
         if (EventSystem.current == null) return false;
-        #if UNITY_EDITOR
-        return EventSystem.current.IsPointerOverGameObject();
-        #elif UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount > 0)
-        {
-            return EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
-        }
-        return EventSystem.current.IsPointerOverGameObject();
-        #else
-        return EventSystem.current.IsPointerOverGameObject();
-        #endif
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = GetInputScreenPosition();
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
     void Update()
@@ -119,7 +113,11 @@ public class StickThrowTest : MonoBehaviour
         if (!hasBeenThrown)
         {
             UpdateSliderPosition();
-            if (IsPressingThisFrame() && !interactionStartedOnUI)
+            if (IsPressJustStarted())
+            {
+                interactionStartedOnUI = IsPointerOverUI();
+            }
+            if (IsPressing() && !interactionStartedOnUI)
             {
                 ProcessInput();
             }
