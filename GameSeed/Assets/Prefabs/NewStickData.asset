@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: NewStickData
   m_EditorClassIdentifier: 
   velocityScale: 0.5
-  launchForce: 10
+  launchForce: 7
   up: 2
   stickLength: 2
-  spinScale: 500
+  spinScale: 150
   stickLayer:
     serializedVersion: 2
     m_Bits: 64
-  sliderOffsetY: 1.5
+  sliderOffsetY: 1
