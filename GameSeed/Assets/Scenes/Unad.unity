@@ -1469,18 +1469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d6b3f7538a1b64681a20a7231dc9aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stickData: {fileID: 11400000, guid: d8b81e7981efdbb4bad2b769d6909090, type: 2}
   uiCanvas: {fileID: 723641173}
   hitPointSlider: {fileID: 622238499}
   sliderContainer: {fileID: 622238497}
-  velocityScale: 0.5
-  launchForce: 10
-  up: 2
-  stickLength: 2
-  spinScale: 500
-  stickLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  sliderOffsetY: 1.5
 --- !u!54 &1216302331
 Rigidbody:
   m_ObjectHideFlags: 0

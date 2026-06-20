@@ -6,23 +6,14 @@ using UnityEngine.EventSystems;
 
 public class StickThrowTest : MonoBehaviour
 {
+    [Header("Ini Buat Data")]
+    [SerializeField] private StickData stickData;
+
     [Header("UI Stuff")]
     [SerializeField] private Canvas uiCanvas;
     [SerializeField] private Slider hitPointSlider;
     [SerializeField] private GameObject sliderContainer;
-    
-    [Header("Launch")]
-    public float velocityScale = 1f;
-    [SerializeField] private float launchForce = 5f;
-    [SerializeField] private float up = 2f;
 
-    [Header("Tralala trilili")]
-    [SerializeField] private float stickLength = 1f;
-    [SerializeField] private float spinScale = 15f;
-    [SerializeField] private LayerMask stickLayer;
-
-    [Header("UI Offset")]
-    [SerializeField] private float sliderOffsetY = 15f;
     private Rigidbody rigid;
     private Collider stickCollider;
     private Camera mainCamera;
@@ -133,10 +124,11 @@ public class StickThrowTest : MonoBehaviour
     {
         if (sliderContainer == null) return;
         float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
-        Vector3 sliderOffset = transform.forward * (sliderOffsetY * directionMult);
+        Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+        Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
         sliderContainer.transform.position = transform.position + sliderOffset;
-        Vector3 desiredRight = transform.right;
-        Vector3 desiredUp = (directionMult < 0) ? transform.forward : -transform.forward;
+        Vector3 desiredUp = (directionMult < 0) ? stableForward : -stableForward;
         Vector3 desiredForward = -transform.up;
         if (desiredForward.y > 0)
         {
@@ -154,18 +146,18 @@ public class StickThrowTest : MonoBehaviour
             return;
         Ray ray = mainCamera.ScreenPointToRay(screenPosition);
         Debug.DrawRay(ray.origin, ray.direction * 20f, Color.yellow, 0.5f);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, stickLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, stickData.stickLayer))
         {
             if (hit.collider == stickCollider)
             {
+                Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+                if (stableForward == Vector3.zero) stableForward = Vector3.forward;
                 Vector3 localHitPoint = transform.InverseTransformPoint(hit.point);
-                float calculatedHit = localHitPoint.x / stickLength;
+                float calculatedHit = localHitPoint.x / stickData.stickLength;
                 calculatedHit = Mathf.Clamp(calculatedHit, -0.5f, 0.5f);
                 Debug.DrawLine(mainCamera.transform.position, hit.point, Color.green, 0.5f);
-                Debug.Log($"[STICK TAP] Hit X-Offset: {calculatedHit}");
-                
                 if (hitPointSlider != null)
-                    hitPointSlider.value = calculatedHit;
+                    hitPointSlider.value = calculatedHit*-1f;
                 return;
             }
         }
@@ -175,10 +167,11 @@ public class StickThrowTest : MonoBehaviour
         {
             Vector3 targetWorldPoint = ray.GetPoint(rayDistance);
             Vector3 toTap = targetWorldPoint - transform.position;
-            float dotForward = Vector3.Dot(toTap, transform.forward);
+            Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+            float dotForward = Vector3.Dot(toTap, stableForward);
             throwDirectionZ = dotForward >= 0 ? -1f : 1f;
             Debug.DrawLine(mainCamera.transform.position, targetWorldPoint, Color.red, 0.5f);
-            Debug.Log($"[DIRECTION TAP] dot={dotForward:F2} -> {(throwDirectionZ > 0 ? "FORWARD" : "BACKWARD")}");
         }
     }
 
@@ -189,31 +182,34 @@ public class StickThrowTest : MonoBehaviour
         if (hitPointSlider != null)
             hitPoint = hitPointSlider.value;
 
-        if (transform.up.y > 0)
-        {
-            hitPoint *= -1f;
-        }
-
         SetUIVisible(false);
         hasBeenThrown = true;
 
-        rigid.isKinematic = false;
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+        rigid.isKinematic = true;
+        rigid.isKinematic = false;
 
-        float calcForce = launchForce * velocityScale;
+        float calcForce = stickData.launchForce * stickData.velocityScale;
 
-        Vector3 forward = transform.forward * (calcForce * throwDirectionZ);
-        Vector3 upward = transform.up * up;
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        if (flatForward == Vector3.zero) flatForward = Vector3.forward;
+
+        Vector3 forward = flatForward * (calcForce * throwDirectionZ);
+        Vector3 upward = Vector3.up * stickData.up;
         Vector3 finalVelocity = forward + upward;
 
-        Vector3 localHitOffset = transform.right * (hitPoint * stickLength);
+        Vector3 localHitOffset = transform.right * (hitPoint * stickData.stickLength);
         Vector3 worldHitPoint = transform.position + localHitOffset;
 
         rigid.AddForceAtPosition(finalVelocity, worldHitPoint, ForceMode.VelocityChange);
 
-        Vector3 logRoll = transform.right * (hitPoint * spinScale);
-        Vector3 flatSpin = transform.up * (hitPoint * (spinScale * 0.3f));
+        Vector3 spinAxisX = transform.right; 
+        Vector3 spinAxisY = Vector3.up; 
+
+        Vector3 logRoll = spinAxisX * (hitPoint * (stickData.spinScale * 0.4f));
+        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
+        
         rigid.angularVelocity = logRoll + flatSpin;
 
         StartCoroutine(ResetAfterThrow());
@@ -229,6 +225,10 @@ public class StickThrowTest : MonoBehaviour
 
     private void ResetStick()
     {
+        rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
+        rigid.isKinematic = true;
+        rigid.isKinematic = false;
         if (hitPointSlider != null)
             hitPointSlider.value = 0f;
         hasBeenThrown = false;
