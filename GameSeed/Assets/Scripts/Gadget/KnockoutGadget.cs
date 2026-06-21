@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class KnockoutGadget : BaseGadget
 {
-    // bikin canTeleport di player, awalnya false
     public override void Apply(GameObject target)
     {
-        // canTeleport = true
+        
     }
 }
