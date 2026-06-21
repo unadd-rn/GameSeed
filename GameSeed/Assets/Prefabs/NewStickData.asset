@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityScale: 0.5
   launchForce: 7
-  up: 2
+  up: 2.5
   stickLength: 2
   spinScale: 150
   stickLayer:
     serializedVersion: 2
     m_Bits: 64
-  sliderOffsetY: 1
+  sliderOffsetY: 0.5
