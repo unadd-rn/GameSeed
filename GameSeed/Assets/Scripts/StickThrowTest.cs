@@ -22,8 +22,8 @@ public class StickThrowTest : MonoBehaviour
     private PlayerControls controls;
     private bool isTouching = false;
     private float throwDirectionZ = 1f;
-    private Vector3 startLocalPosition;
-    private Quaternion startLocalRotation;
+    //private Vector3 startLocalPosition;
+    //private Quaternion startLocalRotation;
     private bool hasBeenThrown = false;
     private bool interactionStartedOnUI = false;
 
@@ -33,8 +33,9 @@ public class StickThrowTest : MonoBehaviour
         stickCollider = GetComponent<Collider>();
         mainCamera = Camera.main;
         controls = new PlayerControls();
-        startLocalPosition = transform.localPosition;
-        startLocalRotation = transform.localRotation;
+        //startLocalPosition = transform.localPosition;
+        //startLocalRotation = transform.localRotation; 
+        // gw pindahin health yh
     }
 
     void OnEnable()

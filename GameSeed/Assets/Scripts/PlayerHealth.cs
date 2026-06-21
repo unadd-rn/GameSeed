@@ -17,6 +17,18 @@ public class PlayerHealth : MonoBehaviour
     public static event Action OnPlayerHit;
     public static event Action OnPlayerOutOfBound;
 
+    [Header("Invincibility Settings")]
+    public float invincibilityDuration = 0.5f; // Berapa lama stik kebal setelah kena hit (dalam detik)
+    private float lastDamageTime = -100f;
+
+    [Header("Respawn Settings")]
+    public float pindahLength = 2f; //buat kl ada enemy
+    public float checkRadius = 1.5f; // Radius bola sensor untuk mengecek musuh
+    
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+    private Rigidbody rigid;
+
    // [Header("Effects")]
     // [SerializeField] private HitFlash _hitFlash; 
     // ni buat nnti aja la
@@ -25,6 +37,9 @@ public class PlayerHealth : MonoBehaviour
     {
         if(DeathUI != null) DeathUI.SetActive(false);
         health = 3;
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+        rigid = GetComponent<Rigidbody>();
         UpdateUI();
     }
 
@@ -33,16 +48,25 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(1f, 'h'); 
+            Debug.Log("Kena Hit boi");
         }
 
         if (collision.gameObject.CompareTag("OutOfBound"))
         {
             TakeDamage(1f, 'o');
+            Debug.Log("Out Of Bound !!!");
         }
     }
 
     public void TakeDamage(float amount, char status)
     {
+        //ini invinciblenya cuma kalo hit aja gk outofbound cuz takutnya dia jatoh pas masih invicible dn gk bisa respawn....
+        if (status != 'o' && Time.time < lastDamageTime + invincibilityDuration)
+        {
+            return; //ini nih masih invincible
+        }
+        lastDamageTime = Time.time; //kl ngedamage di luar cooldown
+
         health -= amount;
 
         if (status == 'h') 
@@ -54,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
         if (status == 'o') 
         {
             OnPlayerOutOfBound?.Invoke(); 
-            // pindahin script respawn disini
+            RespawnPlayer();
         }
 
         UpdateUI();      
@@ -63,6 +87,42 @@ public class PlayerHealth : MonoBehaviour
         {
             Die();
             return;
+        }
+    }
+
+    private void RespawnPlayer()
+    {
+        Vector3 targetRespawnPos = startPosition;
+        bool isSpaceClear = false;
+
+        // looping buat mastiin tempat respawn benar-benar kosong dari musuh
+        while (!isSpaceClear)
+        {
+            isSpaceClear = true;
+            
+            // Bikin sensor berbentuk bola untuk mengecek area sekitar
+            Collider[] hitColliders = Physics.OverlapSphere(targetRespawnPos, checkRadius);
+            
+            foreach (Collider hit in hitColliders)
+            {
+                if (hit.CompareTag("Enemy"))
+                {
+                    // kl ada musuh di dorong ke z positif
+                    targetRespawnPos += startRotation * Vector3.forward * pindahLength;
+                    isSpaceClear = false; // Karena digeser, harus dicek ulang
+                    break;
+                }
+            }
+        }
+
+        transform.position = targetRespawnPos;
+        transform.rotation = startRotation;
+
+        // jg jg kl blm velocity 0 biar balik 0 lg
+        if (rigid != null)
+        {
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
         }
     }
     
