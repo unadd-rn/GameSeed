@@ -22,8 +22,6 @@ public class StickThrowTest : MonoBehaviour
     private PlayerControls controls;
     private bool isTouching = false;
     private float throwDirectionZ = 1f;
-    private Vector3 startLocalPosition;
-    private Quaternion startLocalRotation;
     private bool hasBeenThrown = false;
     private bool interactionStartedOnUI = false;
 
@@ -33,8 +31,6 @@ public class StickThrowTest : MonoBehaviour
         stickCollider = GetComponent<Collider>();
         mainCamera = Camera.main;
         controls = new PlayerControls();
-        startLocalPosition = transform.localPosition;
-        startLocalRotation = transform.localRotation;
     }
 
     void OnEnable()
@@ -49,6 +45,12 @@ public class StickThrowTest : MonoBehaviour
         controls.Player.TouchPress.started -= ctx => HandleTouchStart();
         controls.Player.TouchPress.canceled -= ctx => HandleTouchEnd();
         controls.Player.Disable();
+    }
+
+    public void OnStickPlaced()
+    {
+        SetUIVisible(true);
+        UpdateSliderPosition();
     }
 
     private void HandleTouchStart()
@@ -120,21 +122,22 @@ public class StickThrowTest : MonoBehaviour
         if (sliderContainer != null) sliderContainer.SetActive(visible);
     }
 
+    private void GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight)
+    {
+        stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+        stableRight = Vector3.Cross(Vector3.up, stableForward).normalized;
+    }
+
     private void UpdateSliderPosition()
     {
         if (sliderContainer == null) return;
+        GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
         float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
-        Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
         Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
         sliderContainer.transform.position = transform.position + sliderOffset;
         Vector3 desiredUp = (directionMult < 0) ? stableForward : -stableForward;
-        Vector3 desiredForward = -transform.up;
-        if (desiredForward.y > 0)
-        {
-            desiredForward = transform.up;
-        }
-        sliderContainer.transform.rotation = Quaternion.LookRotation(desiredForward, desiredUp);
+        sliderContainer.transform.rotation = Quaternion.LookRotation(Vector3.down, desiredUp);
     }
 
     private void ProcessInput()
@@ -144,20 +147,19 @@ public class StickThrowTest : MonoBehaviour
         if (float.IsInfinity(screenPosition.x) || float.IsNaN(screenPosition.x) ||
             float.IsInfinity(screenPosition.y) || float.IsNaN(screenPosition.y))
             return;
+
         Ray ray = mainCamera.ScreenPointToRay(screenPosition);
-        Debug.DrawRay(ray.origin, ray.direction * 20f, Color.yellow, 0.5f);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, stickData.stickLayer))
         {
             if (hit.collider == stickCollider)
             {
-                Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-                if (stableForward == Vector3.zero) stableForward = Vector3.forward;
-                Vector3 localHitPoint = transform.InverseTransformPoint(hit.point);
-                float calculatedHit = localHitPoint.x / stickData.stickLength;
+                GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
+                Vector3 stickToHitVector = hit.point - transform.position;
+                float projectionOnStableRight = Vector3.Dot(stickToHitVector, stableRight);
+                float calculatedHit = projectionOnStableRight / stickData.stickLength;
                 calculatedHit = Mathf.Clamp(calculatedHit, -0.5f, 0.5f);
-                Debug.DrawLine(mainCamera.transform.position, hit.point, Color.green, 0.5f);
                 if (hitPointSlider != null)
-                    hitPointSlider.value = calculatedHit*-1f;
+                    hitPointSlider.value = calculatedHit * -1f;
                 return;
             }
         }
@@ -167,11 +169,9 @@ public class StickThrowTest : MonoBehaviour
         {
             Vector3 targetWorldPoint = ray.GetPoint(rayDistance);
             Vector3 toTap = targetWorldPoint - transform.position;
-            Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-            if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+            GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
             float dotForward = Vector3.Dot(toTap, stableForward);
             throwDirectionZ = dotForward >= 0 ? -1f : 1f;
-            Debug.DrawLine(mainCamera.transform.position, targetWorldPoint, Color.red, 0.5f);
         }
     }
 
@@ -192,19 +192,18 @@ public class StickThrowTest : MonoBehaviour
 
         float calcForce = stickData.launchForce * stickData.velocityScale;
 
-        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        if (flatForward == Vector3.zero) flatForward = Vector3.forward;
+        GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
 
-        Vector3 forward = flatForward * (calcForce * throwDirectionZ);
+        Vector3 forward = stableForward * (calcForce * throwDirectionZ);
         Vector3 upward = Vector3.up * stickData.up;
         Vector3 finalVelocity = forward + upward;
 
-        Vector3 localHitOffset = transform.right * (hitPoint * stickData.stickLength);
+        Vector3 localHitOffset = stableRight * (hitPoint * stickData.stickLength);
         Vector3 worldHitPoint = transform.position + localHitOffset;
 
         rigid.AddForceAtPosition(finalVelocity, worldHitPoint, ForceMode.VelocityChange);
 
-        Vector3 spinAxisX = transform.right; 
+        Vector3 spinAxisX = stableRight; 
         Vector3 spinAxisY = Vector3.up; 
 
         Vector3 logRoll = spinAxisX * (hitPoint * (stickData.spinScale * 0.4f));
