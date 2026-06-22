@@ -16,7 +16,7 @@ MonoBehaviour:
   launchForce: 7
   up: 2.5
   stickLength: 2
-  spinScale: 150
+  spinScale: 250
   stickLayer:
     serializedVersion: 2
     m_Bits: 64

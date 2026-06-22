@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 public class MobileInputManager : MonoBehaviour
 {
     [SerializeField] private StickThrowTest stickThrowTest;
-    [SerializeField] private float dragSensitivity = 0.002f; // Adjust to fit your screen resolution scaling
-
+    [SerializeField] private float dragSensitivity = 0.002f;
     private PlayerControls controls;
     private Vector2 touchStartPos;
     private bool isAiming = false;
