@@ -18,10 +18,22 @@ public class ThrowEnemy : MonoBehaviour
     private float throwDirectionZ = 1f;
     private bool hasBeenThrown = false;
 
+    private WaitForSeconds throwWaitInitial;
+    private WaitForSeconds throwWaitFinal;
+    
+
+    public StickData StickDataRef
+    {
+        get { return stickData; }
+    }
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         stickCollider = GetComponent<Collider>();
+        
+        throwWaitInitial = new WaitForSeconds(0.2f);
+        throwWaitFinal = new WaitForSeconds(0.5f);
     }
 
     public void OnStickPlaced()
@@ -100,8 +112,7 @@ public class ThrowEnemy : MonoBehaviour
         // tapi dia tuh kayak lupa mulu kalau dia kinematic
         // ini gw nyala matiin 
         // biar unitynya kek 'oh anjay ini ada physicsnya deng'
-        rigid.isKinematic = true;
-        rigid.isKinematic = false;
+        rigid.WakeUp();
 
         // mulai ini ke bawah itu pusing banget jadi gw jelasin pelan2
 
