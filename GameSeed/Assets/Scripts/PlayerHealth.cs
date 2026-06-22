@@ -50,12 +50,12 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(1f, 'h'); 
             Debug.Log("Kena Hit boi");
         }
-
-        if (collision.gameObject.CompareTag("OutOfBound"))
-        {
-            TakeDamage(1f, 'o');
-            Debug.Log("Out Of Bound !!!");
-        }
+        
+        // if (collision.gameObject.CompareTag("OutOfBound"))
+        // {
+        //    TakeDamage(1f, 'o');
+        //    Debug.Log("Out Of Bound !!!");
+        //}
     }
 
     public void TakeDamage(float amount, char status)
