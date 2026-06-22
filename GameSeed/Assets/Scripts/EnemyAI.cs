@@ -1,50 +1,181 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 public class EnemyAI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Collider placementAreaCollider;
     [SerializeField] private ThrowEnemy throwEnemyScript;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Rigidbody rigid;
 
     [Header("AI Settings")]
     [SerializeField] private float thinkDelay = 1.5f;
+    [SerializeField] private int monteCarloSimulations = 20;
     private bool hasPlaced = false;
+
+    private WaitForSeconds delayWait;
+    private WaitForSeconds shortWait;
+
+    private List<Vector3> debugPredictedPositions = new List<Vector3>();
+    private Vector3 debugBestFinalPosition;
+
+    //bawah ini struct MoveScenario
+    //Jujur ini pertama kalinya gw bikin struct di C#
+    //Kek anjay akhirnya kepake juga alpro
+    //emang bajingan cuma anjay kepake juga
+
+    public struct MoveScenario
+    {
+        public Vector3 placementPosition;
+        public float hitPoint;
+        public float throwDirectionZ;
+        public float score;
+    }
+
+    void Awake()
+    {
+        delayWait = new WaitForSeconds(thinkDelay);
+        shortWait = new WaitForSeconds(1.0f);
+    }
 
     public void StartTurn()
     {
         StartCoroutine(ExecuteAITurn());
     }
-
-    private IEnumerator ExecuteAITurn()
+    private Vector3 PlaceStickRandomly()
     {
-        yield return new WaitForSeconds(thinkDelay);
-        if (!hasPlaced)
-        {
-            PlaceStickRandomly();
-            hasPlaced = true;
-            yield return new WaitForSeconds(1.0f);
-        }
-        float randomHitPoint = Random.Range(-0.5f, 0.5f);
-        throwEnemyScript.SetAIHitPoint(randomHitPoint);
-        float randomDirection = Random.value > 0.5f ? 1f : -1f;
-        throwEnemyScript.SetAIThrowDirection(randomDirection);
-        yield return new WaitForSeconds(thinkDelay);
-        throwEnemyScript.Throw();
-    }
-
-    private void PlaceStickRandomly()
-    {
-        if (placementAreaCollider == null) return;
+        if (placementAreaCollider == null) return transform.position;
         Bounds bounds = placementAreaCollider.bounds;
         float randomX = Random.Range(bounds.min.x, bounds.max.x);
         float randomZ = Random.Range(bounds.min.z, bounds.max.z);
         Vector3 targetPosition = new Vector3(randomX, bounds.center.y, randomZ);
-        transform.position = targetPosition;
+        return targetPosition;
+    }
+
+    private IEnumerator ExecuteAITurn()
+    {
+        yield return new WaitForSeconds(thinkDelay);
+        Debug.Log("Has Placed");
+        if (!hasPlaced)
+        {
+            Vector3 randomPos = PlaceStickRandomly();
+            transform.position = randomPos;
+            hasPlaced = true;
+        }
+
         if (throwEnemyScript != null)
         {
             throwEnemyScript.enabled = true;
             throwEnemyScript.OnStickPlaced();
         }
+        yield return new WaitForSeconds(1.0f);
+
+        MoveScenario bestScene = RunMonteCarlo();
+        throwEnemyScript.SetAIHitPoint(bestScene.hitPoint);
+        throwEnemyScript.SetAIThrowDirection(bestScene.throwDirectionZ);
+        yield return new WaitForSeconds(thinkDelay);
+        throwEnemyScript.Throw();
+    }
+
+    private MoveScenario RunMonteCarlo()
+    {
+        debugPredictedPositions.Clear();
+
+        MoveScenario bestScenario = new MoveScenario();
+        bestScenario.score = float.MinValue;
+
+        Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+
+        float gravity = Mathf.Abs(Physics.gravity.y);
+        float exactAirTime = (2f * throwEnemyScript.StickDataRef.up) / gravity;
+
+        for (int i = 0; i <= monteCarloSimulations; i++)
+        {
+            MoveScenario testScenario = new MoveScenario();
+
+            testScenario.hitPoint = Random.Range(-0.5f, 0.5f);
+            testScenario.placementPosition = transform.position;
+
+            Vector3 toPlayer = playerTransform.position - testScenario.placementPosition;
+            float dotForward = Vector3.Dot(toPlayer, stableForward);
+            testScenario.throwDirectionZ = dotForward > 0.5f ? 1f : -1f;
+
+            testScenario.score = EvaluateScore(testScenario);
+
+            // dari sini
+            float calcForce = throwEnemyScript.StickDataRef.launchForce * throwEnemyScript.StickDataRef.velocityScale;
+            Vector3 forwardVelocity = stableForward * (calcForce * testScenario.throwDirectionZ);
+            Vector3 landingPos = testScenario.placementPosition + (forwardVelocity * exactAirTime);
+
+            debugPredictedPositions.Add(landingPos);
+            //sampe sini hapus kalau mau build
+            //gizmos juga
+
+            if (testScenario.score > bestScenario.score)
+            {
+                bestScenario = testScenario;
+                debugBestFinalPosition = landingPos;
+            }
+        }
+        return bestScenario;
+    }
+
+    private float EvaluateScore(MoveScenario scenario)
+    {
+        float score = 0f;
+        Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+
+        float calcForce = throwEnemyScript.StickDataRef.launchForce * throwEnemyScript.StickDataRef.velocityScale;
+        Vector3 forwardVelocity = stableForward * (calcForce * scenario.throwDirectionZ);
+
+        float gravity = Mathf.Abs(Physics.gravity.y);
+        float exactAirTime = (2f * throwEnemyScript.StickDataRef.up) / gravity;
+        Vector3 estimatedLandingPos = scenario.placementPosition + (forwardVelocity * exactAirTime);
+
+        float distanceToPlayer = Vector3.Distance(estimatedLandingPos, playerTransform.position);
+
+        score += 100f / (distanceToPlayer + 1f);
+
+        RaycastHit hit;
+        Vector3 directionToPlayer = playerTransform.position - scenario.placementPosition;
+        if(Physics.Raycast(scenario.placementPosition, directionToPlayer, out hit, 15f))
+        {
+            if(hit.transform == playerTransform)
+            {
+                score += 50;
+            }
+        }
+
+        Vector3 playerForward = playerTransform.forward;
+        Vector3 directionFromPlayer = (estimatedLandingPos - playerTransform.position).normalized;
+        float alignment = Vector3.Dot(playerForward, directionFromPlayer); 
+        
+        if (alignment > 0.7f)
+        {
+            score -= 30f;
+        }
+
+        return score;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (debugPredictedPositions == null || debugPredictedPositions.Count == 0) return;
+
+        Gizmos.color = Color.yellow;
+
+        foreach(Vector3 pos in debugPredictedPositions)
+        {
+            Gizmos.DrawSphere(pos + Vector3.up * 0.5f, 0.3f);
+        }
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, debugBestFinalPosition);
+        Gizmos.DrawSphere(debugBestFinalPosition, 0.4f);
     }
 }
