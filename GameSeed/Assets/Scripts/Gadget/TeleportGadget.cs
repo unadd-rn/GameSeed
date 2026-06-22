@@ -9,11 +9,13 @@ public class TeleportGadget : BaseGadget
     // bikin canTeleport di player, awalnya false
     public override void Apply(GameObject target)
     {
-        // canTeleport = true
+        PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
+        if(playerCap != null) playerCap.canTeleport = true;
     }
 
     public override void Remove(GameObject target)
     {
-        // canTeleport = false
+        PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
+        if(playerCap != null) playerCap.canTeleport = false;
     }
 }

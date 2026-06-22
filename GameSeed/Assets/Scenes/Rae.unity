@@ -1451,7 +1451,6 @@ GameObject:
   - component: {fileID: 1216302332}
   - component: {fileID: 1216302331}
   - component: {fileID: 1216302330}
-  - component: {fileID: 1216302336}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1588,24 +1587,6 @@ Transform:
   - {fileID: 760765701}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1216302336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216302329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa5c7004da5dc6a4a836e263aecbef95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minX: -2.58
-  maxX: -0.24
-  minZ: -5.16
-  maxZ: 1.93
-  enemy: {fileID: 1579927678}
-  minDistanceToEnemy: 2
 --- !u!1 &1263996155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,7 +2124,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1216302336}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TeleportationMechanism, Assembly-CSharp
         m_MethodName: Teleport
         m_Mode: 1
