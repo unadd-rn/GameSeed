@@ -22,10 +22,14 @@ public class StickThrowTest : MonoBehaviour
     private PlayerControls controls;
     private bool isTouching = false;
     private float throwDirectionZ = 1f;
-    //private Vector3 startLocalPosition;
-    //private Quaternion startLocalRotation;
+    private Vector3 startLocalPosition;
+    private Quaternion startLocalRotation;
     private bool hasBeenThrown = false;
     private bool interactionStartedOnUI = false;
+    private Vector3 debugWorldHitPoint;
+    private Vector3 debugSpinAxisX;
+    private Vector3 debugSpinAxisY;
+    private bool isDebugDataCalculated = false;
 
     void Awake()
     {
@@ -33,9 +37,14 @@ public class StickThrowTest : MonoBehaviour
         stickCollider = GetComponent<Collider>();
         mainCamera = Camera.main;
         controls = new PlayerControls();
-        //startLocalPosition = transform.localPosition;
-        //startLocalRotation = transform.localRotation; 
-        // gw pindahin health yh
+        startLocalPosition = transform.localPosition;
+        startLocalRotation = transform.localRotation;
+    }
+
+    public void OnStickPlaced()
+    {
+        SetUIVisible(true);
+        UpdateSliderPosition();
     }
 
     void OnEnable()
@@ -102,6 +111,11 @@ public class StickThrowTest : MonoBehaviour
 
     void Update()
     {
+        if (TurnManager.Instance != null && TurnManager.Instance.GetCurrentState() != TurnState.PlayerThrowing)
+        {
+            return; 
+        }
+
         if (!hasBeenThrown)
         {
             UpdateSliderPosition();
@@ -140,6 +154,10 @@ public class StickThrowTest : MonoBehaviour
 
     private void ProcessInput()
     {
+        if (TurnManager.Instance != null && TurnManager.Instance.GetCurrentState() != TurnState.PlayerThrowing)
+        {
+            return;
+        }
         if (interactionStartedOnUI || IsPointerOverUI()) return;
         Vector2 screenPosition = GetInputScreenPosition();
         if (float.IsInfinity(screenPosition.x) || float.IsNaN(screenPosition.x) ||
@@ -151,10 +169,13 @@ public class StickThrowTest : MonoBehaviour
         {
             if (hit.collider == stickCollider)
             {
-                Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-                if (stableForward == Vector3.zero) stableForward = Vector3.forward;
-                Vector3 localHitPoint = transform.InverseTransformPoint(hit.point);
-                float calculatedHit = localHitPoint.x / stickData.stickLength;
+                //apa ini? INI BUAT UI KARENA JELEK
+                GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
+
+                //ini intinya ngitung jari tuh sejauh apa dari tengah
+                Vector3 stickToHitVector = hit.point - transform.position;
+                float projectionOnStableRight = Vector3.Dot(stickToHitVector, stableRight);
+                float calculatedHit = throwDirectionZ * (projectionOnStableRight / stickData.stickLength);
                 calculatedHit = Mathf.Clamp(calculatedHit, -0.5f, 0.5f);
                 Debug.DrawLine(mainCamera.transform.position, hit.point, Color.green, 0.5f);
                 if (hitPointSlider != null)
@@ -179,6 +200,7 @@ public class StickThrowTest : MonoBehaviour
     public void Throw()
     {
         if (hasBeenThrown) return;
+        TurnManager.Instance.SetState(TurnState.Waiting);
 
         if (hitPointSlider != null)
             hitPoint = hitPointSlider.value;
@@ -193,25 +215,35 @@ public class StickThrowTest : MonoBehaviour
 
         float calcForce = stickData.launchForce * stickData.velocityScale;
 
-        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        if (flatForward == Vector3.zero) flatForward = Vector3.forward;
+        GetStableStickAxes(out Vector3 flatForward, out Vector3 stableRight);
 
         Vector3 forward = flatForward * (calcForce * throwDirectionZ);
         Vector3 upward = Vector3.up * stickData.up;
         Vector3 finalVelocity = forward + upward;
 
-        Vector3 localHitOffset = transform.right * (hitPoint * stickData.stickLength);
+        //ini ke bawah ga sepenting itu sih cuma posisi hit
+        Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
         Vector3 worldHitPoint = transform.position + localHitOffset;
+        debugWorldHitPoint = worldHitPoint;
 
         rigid.AddForceAtPosition(finalVelocity, worldHitPoint, ForceMode.VelocityChange);
 
-        Vector3 spinAxisX = transform.right; 
-        Vector3 spinAxisY = Vector3.up; 
+        //spin biar estetik tapi kayaknya terlalu kuat nanti gw kurangin
+        // nanti bilangin yak kalau terlalu spinny
+        // kalau pukul di tengah ga spin
+        Vector3 spinAxisX = stableRight; 
+        Vector3 spinAxisY = Vector3.up;
 
-        Vector3 logRoll = spinAxisX * (hitPoint * (stickData.spinScale * 0.4f));
+        debugSpinAxisX = spinAxisX;
+        debugSpinAxisY = spinAxisY;
+        isDebugDataCalculated = true; 
+
+        Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
         Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
+        Debug.Log("Throw Direction:" + throwDirectionZ);
+        Debug.Log("Hitpoint Strength:" + throwDirectionZ * hitPoint);
         
-        rigid.angularVelocity = logRoll + flatSpin;
+        rigid.angularVelocity += logRoll + flatSpin;
 
         StartCoroutine(ResetAfterThrow());
     }
@@ -235,5 +267,27 @@ public class StickThrowTest : MonoBehaviour
         hasBeenThrown = false;
         interactionStartedOnUI = false;
         SetUIVisible(true);
+        TurnManager.Instance.SetState(TurnState.EnemyTurn);
+    }
+
+    private void GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight)
+    {
+        stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+        stableRight = Vector3.Cross(Vector3.up, stableForward).normalized;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!isDebugDataCalculated) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(debugWorldHitPoint, 0.1f);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(debugWorldHitPoint, debugSpinAxisX);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(debugWorldHitPoint, debugSpinAxisY);
     }
 }
