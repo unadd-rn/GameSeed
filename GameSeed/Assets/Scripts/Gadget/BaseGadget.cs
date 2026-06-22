@@ -9,7 +9,8 @@ public abstract class BaseGadget : ScriptableObject
     public string gadgetName = "Default";
     [TextArea(3,5)]
     public string description = "This is the description of the gadget";
-    public Sprite model; // bentukannya(?)
+    public Sprite model; // icon buat gambar
+    public GameObject prefab; // bentuk 3dny
     
 
     [Header("Stats")]
@@ -21,6 +22,13 @@ public abstract class BaseGadget : ScriptableObject
     public float sizeZ;
 
     /* Others */
-    [HideInInspector] public bool isEquipped = false;
     public abstract void Apply(GameObject target);
+    public abstract void Remove(GameObject target);
+}
+
+public class GadgetInstance
+{
+    public BaseGadget data;
+    public bool isEquipped;
+    public int currentDurability;
 }

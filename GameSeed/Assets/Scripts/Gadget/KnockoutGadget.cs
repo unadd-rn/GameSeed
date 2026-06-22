@@ -10,4 +10,9 @@ public class KnockoutGadget : BaseGadget
     {
         
     }
+
+    public override void Remove(GameObject target)
+    {
+        
+    }
 }

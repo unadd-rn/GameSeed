@@ -11,4 +11,9 @@ public class TeleportGadget : BaseGadget
     {
         // canTeleport = true
     }
+
+    public override void Remove(GameObject target)
+    {
+        // canTeleport = false
+    }
 }
