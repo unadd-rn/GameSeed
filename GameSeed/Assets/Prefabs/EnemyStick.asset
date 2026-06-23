@@ -18,8 +18,8 @@ MonoBehaviour:
   stickBody: {fileID: 0}
   damage: 1
   weight: 1
-  velocityScale: 0.5
-  launchForce: 2.5
+  velocityScale: 0.94009054
+  launchForce: 3.5
   up: 2.5
   stickLength: 2
   spinScale: 150

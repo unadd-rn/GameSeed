@@ -19,7 +19,7 @@ MonoBehaviour:
   damage: 1
   weight: 1
   velocityScale: 0.8502189
-  launchForce: 5
+  launchForce: 3.5
   up: 2.5
   stickLength: 2
   spinScale: 150
