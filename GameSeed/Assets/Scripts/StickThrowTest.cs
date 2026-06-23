@@ -156,29 +156,15 @@ public class StickThrowTest : MonoBehaviour
 
     private void UpdateSliderPosition()
     {
-        // LU JUGA JELEK
         if (sliderContainer == null) return;
-        float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
         GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
-        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
-        
-        // gw lupa kenapa valuenya ini?
-        // intinya ini ditaro depan atau belakang
+
+        float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
         Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
-        Vector3 offsetY = Vector3.up * 0.2f * directionMult;
-        Vector3 targetPos = transform.position + sliderOffset + offsetY;
-        
-        // ini biar UInya ga ke flip walaupun stiknya keflip
-        // JANGAN DIUBAHHH INI RUSAK MULU
+        sliderContainer.transform.position = transform.position + sliderOffset;
+
         Vector3 desiredUp = (directionMult < 0) ? stableForward : -stableForward;
-        Vector3 desiredForward = -transform.up;
-        if (desiredForward.y > 0)
-        {
-            desiredForward = transform.up;
-            targetPos -= offsetY * 2;
-        }
-        sliderContainer.transform.position = targetPos;
-        sliderContainer.transform.rotation = Quaternion.LookRotation(desiredForward, desiredUp);
+        sliderContainer.transform.rotation = Quaternion.LookRotation(Vector3.down, desiredUp);
     }
 
     private void ProcessInput()

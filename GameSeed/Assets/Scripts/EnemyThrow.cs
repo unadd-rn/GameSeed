@@ -34,6 +34,7 @@ public class ThrowEnemy : MonoBehaviour
         
         throwWaitInitial = new WaitForSeconds(0.2f);
         throwWaitFinal = new WaitForSeconds(0.5f);
+        SetUIVisible(false);
     }
 
     public void OnStickPlaced()

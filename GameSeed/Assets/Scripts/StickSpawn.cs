@@ -63,6 +63,7 @@ public class StickSpawn : MonoBehaviour
                 this.enabled = false;
             }
             TurnManager.Instance.SetState(TurnState.EnemyTurn);
+            hasPlaced = true;
         }
 
         if (throwScript != null && TurnManager.Instance.GetCurrentState() == TurnState.PlayerThrowing)
