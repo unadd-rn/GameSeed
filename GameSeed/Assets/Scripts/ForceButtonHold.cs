@@ -4,8 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class ForceButtonHold : MonoBehaviour
-// , IPointerUpHandler, IPointerDownHandler
+public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     [Header("Components")]
     // public Image button;
@@ -20,12 +19,12 @@ public class ForceButtonHold : MonoBehaviour
         isPressed = false;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (isPressed)
         {
             forceTest.ChangeForce();
-            // Debug.Log("Button is being held down");
+            Debug.Log("Button is being held down");
         }
     }
 
@@ -35,13 +34,14 @@ public class ForceButtonHold : MonoBehaviour
         else isPressed = true;
     }
 
-    // public void OnPointerDown(PointerEventData eventData)
-    // {
-    //     isPressed = true;
-    // }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isPressed = true;
+        forceTest.ChangeForce();
+    }
 
-    // public void OnPointerUp(PointerEventData eventData)
-    // {
-    //     isPressed = false;
-    // }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isPressed = false;
+    }
 }
