@@ -25,4 +25,9 @@ public class StickData : ScriptableObject
 
     [Header("UI Layout Configuration")]
     public float sliderOffsetY = 1.5f;
+
+    [Header("Gadget-Related")]
+    public float sizeX;
+    public float sizeZ;
+    public SlotDefinition[] slots; // ada 9 di sepanjang stik
 }

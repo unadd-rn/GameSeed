@@ -21,3 +21,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   sliderOffsetY: 0.5
+  sizeX: 0
+  sizeZ: 0
+  slots:
+  - slotId: 0
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 1
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 2
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 3
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 4
+    localPosition: {x: 0, y: 0, z: 0}

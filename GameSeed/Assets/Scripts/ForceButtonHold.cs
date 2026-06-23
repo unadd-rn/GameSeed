@@ -7,12 +7,17 @@ using UnityEngine;
 public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     [Header("Components")]
-    public Image button;
+    // public Image button;
 
     public ForceTest forceTest;
 
     private bool isPressed;
     // Update is called once per frame
+
+    void Start()
+    {
+        isPressed = false;
+    }
 
     void Update()
     {
@@ -23,9 +28,16 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         }
     }
 
+    public void ButtonForce()
+    {
+        if(isPressed) isPressed = false;
+        else isPressed = true;
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         isPressed = true;
+        forceTest.ChangeForce();
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -43,7 +43,8 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Labby??");
 //blm ada
-        StartCoroutine(LoadLevelAfterDelay("Unad", 1.5f));
+        // StartCoroutine(LoadLevelAfterDelay("Unad", 1.5f));
+        SceneManager.LoadScene("Rae - Garage");
     }
 
     IEnumerator LoadLevelAfterDelay(string levelName, float delay)

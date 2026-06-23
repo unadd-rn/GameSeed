@@ -8,7 +8,7 @@ public class ForceTest : MonoBehaviour
     [SerializeField] private int forceValue = 10;
     [SerializeField] private Image forceBarTracker;
     // public Button forceController;
-    public float barSpeed = 0.45f;
+    public float barSpeed = 0.6f;
     private float barDirection = 1f;
 
     public StickThrowTest stickThrowTest;
