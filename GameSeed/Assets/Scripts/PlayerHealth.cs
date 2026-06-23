@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(1f, 'h'); 
             Debug.Log("Kena Hit boi");
         }
-
+        
         if (collision.gameObject.CompareTag("OutOfBound"))
         {
             TakeDamage(1f, 'o');
@@ -128,7 +128,7 @@ public class PlayerHealth : MonoBehaviour
     
     void UpdateUI()
     {
-        Debug.Log($"Health:{health}");
+        // Debug.Log($"Health:{health}");
         
         // array biar gampang di-looping
         GameObject[] heartSlots = { HPos1, HPos2, HPos3 };

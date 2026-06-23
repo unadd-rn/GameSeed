@@ -3,6 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewStickData", menuName = "Stick Throw/Stick Data")]
 public class StickData : ScriptableObject
 {
+    [Header("Info Visual")]
+    public string stickName;
+    public string description;
+    public Sprite stickIcon; // Gambar untuk di UI Inventory
+    public GameObject stickBody;
+
     [Header("Launch Settings")]
     public float velocityScale = 0.5f;
     public float launchForce = 10f;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class StickThrowTest : MonoBehaviour
 {
@@ -49,27 +50,25 @@ public class StickThrowTest : MonoBehaviour
 
     void OnEnable()
     {
-        // enable buat baca input terus masukin ke event listener
         controls.Player.Enable();
-        controls.Player.TouchPress.started += ctx => HandleTouchStart();
-        controls.Player.TouchPress.canceled += ctx => HandleTouchEnd();
+        controls.Player.TouchPress.started += HandleTouchStart;
+        controls.Player.TouchPress.canceled += HandleTouchEnd;
     }
 
     void OnDisable()
     {
-        // ini gara2 memory leak pas anunya di destroy
-        controls.Player.TouchPress.started -= ctx => HandleTouchStart();
-        controls.Player.TouchPress.canceled -= ctx => HandleTouchEnd();
+        controls.Player.TouchPress.started -= HandleTouchStart;
+        controls.Player.TouchPress.canceled -= HandleTouchEnd;
         controls.Player.Disable();
     }
 
     // ini berdua buat guard di hp cuma idk bener atau kagak
-    private void HandleTouchStart()
+    private void HandleTouchStart(InputAction.CallbackContext ctx)
     {
         isTouching = true;
     }
 
-    private void HandleTouchEnd()
+    private void HandleTouchEnd(InputAction.CallbackContext ctx)
     {
         isTouching = false;
         interactionStartedOnUI = false;
@@ -104,13 +103,10 @@ public class StickThrowTest : MonoBehaviour
         // sama kayak tadi
         // TouchPosition itu action juga di input manager thingy
         // nilainya vector buat ngembaliin posisi ajjh
-        #if UNITY_EDITOR
-        return Input.mousePosition;
-        #else
         return controls.Player.TouchPosition.ReadValue<Vector2>();
-        #endif
     }
 
+    private List<RaycastResult> raycastResults = new List<RaycastResult>();
     private bool IsPointerOverUI()
     {
         // biar kalau mencet ui worldnya ga kepencet
@@ -119,11 +115,12 @@ public class StickThrowTest : MonoBehaviour
         //kek misal lu maw maju terus pencet throw kan UInya di atas
         // eh malah ubah arah, jadi ini buat guard aja
         if (EventSystem.current == null) return false;
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-        eventDataCurrentPosition.position = GetInputScreenPosition();
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;
+
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = GetInputScreenPosition();
+        raycastResults.Clear();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+        return raycastResults.Count > 0;
     }
 
     void Update()
@@ -135,7 +132,6 @@ public class StickThrowTest : MonoBehaviour
 
         if (!hasBeenThrown)
         {
-            UpdateSliderPosition();
             if (IsPressJustStarted())
             {
                 interactionStartedOnUI = IsPointerOverUI();
@@ -163,7 +159,8 @@ public class StickThrowTest : MonoBehaviour
         // gw lupa kenapa valuenya ini?
         // intinya ini ditaro depan atau belakang
         Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
-        sliderContainer.transform.position = transform.position + sliderOffset;
+        Vector3 offsetY = Vector3.up * stickData.sliderOffsetY;
+        sliderContainer.transform.position = transform.position + sliderOffset + offsetY;
         
         // ini biar UInya ga ke flip walaupun stiknya keflip
         // JANGAN DIUBAHHH INI RUSAK MULU
@@ -182,7 +179,6 @@ public class StickThrowTest : MonoBehaviour
         {
             return;
         }
-        if (interactionStartedOnUI || IsPointerOverUI()) return;
         Vector2 screenPosition = GetInputScreenPosition();
         if (float.IsInfinity(screenPosition.x) || float.IsNaN(screenPosition.x) ||
             float.IsInfinity(screenPosition.y) || float.IsNaN(screenPosition.y))
@@ -249,8 +245,7 @@ public class StickThrowTest : MonoBehaviour
         // tapi dia tuh kayak lupa mulu kalau dia kinematic
         // ini gw nyala matiin 
         // biar unitynya kek 'oh anjay ini ada physicsnya deng'
-        rigid.isKinematic = true;
-        rigid.isKinematic = false;
+        rigid.WakeUp();
 
         // mulai ini ke bawah itu pusing banget jadi gw jelasin pelan2
 
@@ -303,19 +298,20 @@ public class StickThrowTest : MonoBehaviour
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
         Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
-        Debug.Log("Throw Direction:" + throwDirectionZ);
-        Debug.Log("Hitpoint Strength:" + throwDirectionZ * hitPoint);
         
         rigid.angularVelocity += logRoll + flatSpin;
 
         StartCoroutine(ResetAfterThrow());
     }
 
+    private WaitForSeconds throwWaitInitial = new WaitForSeconds(0.2f);
+    private WaitForSeconds throwWaitFinal = new WaitForSeconds(0.5f);
+
     private IEnumerator ResetAfterThrow()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return throwWaitInitial;
         yield return new WaitUntil(() => rigid.velocity.sqrMagnitude < 0.05f);
-        yield return new WaitForSeconds(0.5f);
+        yield return throwWaitFinal;
         ResetStick();
     }
 
@@ -323,13 +319,20 @@ public class StickThrowTest : MonoBehaviour
     {
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
-        rigid.isKinematic = true;
-        rigid.isKinematic = false;
-        if (hitPointSlider != null)
-            hitPointSlider.value = 0f;
+        
+        Vector3 currentEuler = transform.localRotation.eulerAngles;
+        
+        float rotX = (currentEuler.x > 180) ? currentEuler.x - 360 : currentEuler.x;
+        float rotZ = (currentEuler.z > 180) ? currentEuler.z - 360 : currentEuler.z;
+
+        if (Mathf.Abs(Mathf.Abs(rotX) - 90f) < 20f) currentEuler.x = (rotX > 0) ? 180f : 0f;
+        if (Mathf.Abs(Mathf.Abs(rotZ) - 90f) < 20f) currentEuler.z = (rotZ > 0) ? 180f : 0f;
+        
+        rigid.WakeUp();
+        transform.localRotation = Quaternion.Euler(currentEuler);
+        rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;
-        interactionStartedOnUI = false;
-        SetUIVisible(true);
         TurnManager.Instance.SetState(TurnState.EnemyTurn);
     }
 
