@@ -37,6 +37,8 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.PlayerThrowing:
+                if (playerThrowScript != null) playerThrowScript.enabled = true;
+                playerThrowScript.SetUIVisible(true);
                 break;
 
             case TurnState.EnemyTurn:
