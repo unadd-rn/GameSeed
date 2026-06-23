@@ -20,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
     [Header("Respawn Settings")]
     public float pindahLength = 2f; //buat kl ada enemy
     public float checkRadius = 1.5f; // Radius bola sensor untuk mengecek musuh
+    [SerializeField] private EnemyAI enemyAI;
     
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -33,8 +34,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if(WinUI != null) WinUI.SetActive(false);
         health = 3;
-        startPosition = transform.position;
-        startRotation = transform.rotation;
         rigid = GetComponent<Rigidbody>();
         UpdateUI();
     }
@@ -90,7 +89,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void RespawnEnemy()
     {
-        Vector3 targetRespawnPos = startPosition;
+        Vector3 targetRespawnPos = enemyAI.refEnemyPosition;
         bool isSpaceClear = false;
 
         // looping buat mastiin tempat respawn benar-benar kosong dari musuh
@@ -126,7 +125,7 @@ public class EnemyHealth : MonoBehaviour
     
     void UpdateUI()
     {
-        // Debug.Log($"Health:{health}");
+        Debug.Log($"Enemy Health:{health}");
         if(Bar!=null) Bar.gameObject.SetActive(true);//nnti kl dah ada mode invisible masukkin ke if
         // array biar gampang di-looping
         Image[] heartSlots = { HPos1, HPos2, HPos3, HPos4, HPos5, HPos6 };

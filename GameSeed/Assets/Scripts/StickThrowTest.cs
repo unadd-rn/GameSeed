@@ -14,6 +14,7 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private Canvas uiCanvas;
     [SerializeField] private Slider hitPointSlider;
     [SerializeField] private GameObject sliderContainer;
+    [SerializeField] private GameObject buttonThrow;
 
     private Rigidbody rigid;
     private Collider stickCollider;
@@ -152,6 +153,7 @@ public class StickThrowTest : MonoBehaviour
     public void SetUIVisible(bool visible)
     {
         if (sliderContainer != null) sliderContainer.SetActive(visible);
+        if (buttonThrow != null) buttonThrow.SetActive(visible);
     }
 
     private void UpdateSliderPosition()
@@ -276,9 +278,6 @@ public class StickThrowTest : MonoBehaviour
         Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
         Vector3 worldHitPoint = transform.position + localHitOffset;
         debugWorldHitPoint = worldHitPoint;
-
-        Debug.Log("Throw Direction:" + throwDirectionZ);
-        Debug.Log("Hitpoint Strength:" + throwDirectionZ * hitPoint);
 
         // p.s. ini pake ForceMode.VelocityChange
         // artinya mau ubah mass gimanapun ga ngaruh ke throw

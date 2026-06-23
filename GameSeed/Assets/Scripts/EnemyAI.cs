@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
 
     private List<Vector3> debugPredictedPositions = new List<Vector3>();
     private Vector3 debugBestFinalPosition;
+    public Vector3 refEnemyPosition;
 
     //bawah ini struct MoveScenario
     //Jujur ini pertama kalinya gw bikin struct di C#
@@ -62,6 +63,7 @@ public class EnemyAI : MonoBehaviour
         {
             Vector3 randomPos = PlaceStickRandomly();
             transform.position = randomPos;
+            refEnemyPosition = randomPos;
             TurnManager.Instance.SetState(TurnState.PlayerThrowing);
             hasPlaced = true;
         }
@@ -97,7 +99,7 @@ public class EnemyAI : MonoBehaviour
         float gravity = Mathf.Abs(Physics.gravity.y);
         float exactAirTime = (2f * throwEnemyScript.StickDataRef.up) / gravity;
 
-        for (int i = 0; i <= monteCarloSimulations; i++)
+        for (int i = 0; i < monteCarloSimulations; i++)
         {
             MoveScenario testScenario = new MoveScenario();
 
@@ -155,7 +157,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        float checkRadius = throwEnemyScript.StickDataRef.stickLength * 0.5f;
+        float checkRadius = throwEnemyScript.StickDataRef.stickLength * 0.25f;
         Collider[] hitCollider = Physics.OverlapSphere(estimatedLandingPos, checkRadius);
 
         foreach (Collider col in hitCollider)

@@ -2557,6 +2557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placementAreaCollider: {fileID: 1561170823}
   throwScript: {fileID: 1216302330}
+  spawnPositionPlayer: {x: 0, y: 0, z: 0}
 --- !u!114 &1216302337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,16 +2572,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathUI: {fileID: 0}
   health: 3
-  HPos1: {fileID: 1053108537}
-  HPos2: {fileID: 176807376}
-  HPos3: {fileID: 492123557}
-  fullHeartSprite: {fileID: 21300000, guid: fefa5710f8caf4948a3a71325d0f1b7b, type: 3}
-  halfHeartSprite: {fileID: 21300000, guid: fefa5710f8caf4948a3a71325d0f1b7b, type: 3}
+  HPos1: {fileID: 1053108539}
+  HPos2: {fileID: 176807378}
+  HPos3: {fileID: 492123558}
+  HPos4: {fileID: 0}
+  HPos5: {fileID: 0}
+  HPos6: {fileID: 0}
+  Bar: {fileID: 0}
   redColor: {r: 1, g: 0, b: 0, a: 1}
   blueColor: {r: 0, g: 0, b: 1, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
+  stickSpawn: {fileID: 0}
 --- !u!114 &1216302338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3922,6 +3926,7 @@ GameObject:
   - component: {fileID: 2055251481}
   - component: {fileID: 2055251482}
   - component: {fileID: 2055251488}
+  - component: {fileID: 2055251489}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -4088,6 +4093,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ArenaWall: {fileID: 1007127307}
+--- !u!114 &2055251489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055251480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b46e2ed724f9a47bf49d51da7a5883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinUI: {fileID: 0}
+  health: 3
+  HPos1: {fileID: 0}
+  HPos2: {fileID: 0}
+  HPos3: {fileID: 0}
+  HPos4: {fileID: 0}
+  HPos5: {fileID: 0}
+  HPos6: {fileID: 0}
+  Bar: {fileID: 0}
+  redColor: {r: 1, g: 0, b: 0, a: 1}
+  blueColor: {r: 0, g: 0, b: 1, a: 1}
+  invincibilityDuration: 0.5
+  pindahLength: 2
+  checkRadius: 1.5
 --- !u!1 &2136723119
 GameObject:
   m_ObjectHideFlags: 0
