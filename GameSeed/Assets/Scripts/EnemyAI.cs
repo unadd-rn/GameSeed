@@ -151,6 +151,18 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
+        float checkRadius = throwEnemyScript.StickDataRef.stickLength * 0.5f;
+        Collider[] hitCollider = Physics.OverlapSphere(estimatedLandingPos, checkRadius);
+
+        foreach (Collider col in hitCollider)
+        {
+            if (col.CompareTag("OutOfBound"))
+            {
+                Debug.Log("Out of bound detected!");
+                score -= 500;
+            }
+        }
+
         Vector3 playerForward = playerTransform.forward;
         Vector3 directionFromPlayer = (estimatedLandingPos - playerTransform.position).normalized;
         float alignment = Vector3.Dot(playerForward, directionFromPlayer); 

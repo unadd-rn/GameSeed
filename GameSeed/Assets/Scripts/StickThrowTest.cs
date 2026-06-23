@@ -40,6 +40,7 @@ public class StickThrowTest : MonoBehaviour
         controls = new PlayerControls();
         startLocalPosition = transform.localPosition;
         startLocalRotation = transform.localRotation;
+        SetUIVisible(true);
     }
 
     public void OnStickPlaced()
@@ -103,7 +104,11 @@ public class StickThrowTest : MonoBehaviour
         // sama kayak tadi
         // TouchPosition itu action juga di input manager thingy
         // nilainya vector buat ngembaliin posisi ajjh
+        #if UNITY_EDITOR
+        return Input.mousePosition;
+        #else
         return controls.Player.TouchPosition.ReadValue<Vector2>();
+        #endif
     }
 
     private List<RaycastResult> raycastResults = new List<RaycastResult>();
@@ -132,6 +137,7 @@ public class StickThrowTest : MonoBehaviour
 
         if (!hasBeenThrown)
         {
+            UpdateSliderPosition();
             if (IsPressJustStarted())
             {
                 interactionStartedOnUI = IsPointerOverUI();
@@ -143,7 +149,7 @@ public class StickThrowTest : MonoBehaviour
         }
     }
 
-    private void SetUIVisible(bool visible)
+    public void SetUIVisible(bool visible)
     {
         if (sliderContainer != null) sliderContainer.SetActive(visible);
     }
@@ -153,14 +159,14 @@ public class StickThrowTest : MonoBehaviour
         // LU JUGA JELEK
         if (sliderContainer == null) return;
         float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
-        Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
         if (stableForward == Vector3.zero) stableForward = Vector3.forward;
         
         // gw lupa kenapa valuenya ini?
         // intinya ini ditaro depan atau belakang
         Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
-        Vector3 offsetY = Vector3.up * stickData.sliderOffsetY;
-        sliderContainer.transform.position = transform.position + sliderOffset + offsetY;
+        Vector3 offsetY = Vector3.up * 0.2f;
+        Vector3 targetPos = transform.position + sliderOffset + offsetY;
         
         // ini biar UInya ga ke flip walaupun stiknya keflip
         // JANGAN DIUBAHHH INI RUSAK MULU
@@ -169,7 +175,9 @@ public class StickThrowTest : MonoBehaviour
         if (desiredForward.y > 0)
         {
             desiredForward = transform.up;
+            targetPos -= offsetY * 2;
         }
+        sliderContainer.transform.position = targetPos;
         sliderContainer.transform.rotation = Quaternion.LookRotation(desiredForward, desiredUp);
     }
 
@@ -241,6 +249,8 @@ public class StickThrowTest : MonoBehaviour
         // reset dulu velocitynya
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+
+        rigid.constraints = RigidbodyConstraints.None;
         
         // tapi dia tuh kayak lupa mulu kalau dia kinematic
         // ini gw nyala matiin 
@@ -280,6 +290,9 @@ public class StickThrowTest : MonoBehaviour
         Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
         Vector3 worldHitPoint = transform.position + localHitOffset;
         debugWorldHitPoint = worldHitPoint;
+
+        Debug.Log("Throw Direction:" + throwDirectionZ);
+        Debug.Log("Hitpoint Strength:" + throwDirectionZ * hitPoint);
 
         // p.s. ini pake ForceMode.VelocityChange
         // artinya mau ubah mass gimanapun ga ngaruh ke throw

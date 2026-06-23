@@ -160,8 +160,6 @@ public class ThrowEnemy : MonoBehaviour
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
         Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
-        Debug.Log("Throw Direction:" + throwDirectionZ);
-        Debug.Log("Hitpoint Strength:" + throwDirectionZ * hitPoint);
         
         rigid.angularVelocity += logRoll + flatSpin;
 
@@ -195,6 +193,6 @@ public class ThrowEnemy : MonoBehaviour
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;
-        TurnManager.Instance.SetState(TurnState.PlayerPlacement);
+        TurnManager.Instance.SetState(TurnState.PlayerThrowing);
     }
 }
