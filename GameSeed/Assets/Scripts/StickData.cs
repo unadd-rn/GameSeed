@@ -9,6 +9,11 @@ public class StickData : ScriptableObject
     public Sprite stickIcon; // Gambar untuk di UI Inventory
     public GameObject stickBody;
 
+    [Header("Stats")]
+    public float damage = 1f;
+    public float launchForce = 10f;
+    public float weight = 1f;
+
     [Header("Launch Settings")]
     public float velocityScale = 0.5f;
     public float launchForce = 10f;
