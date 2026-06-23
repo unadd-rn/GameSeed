@@ -295,7 +295,7 @@ public class StickThrowTest : MonoBehaviour
         isDebugDataCalculated = true; 
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
-        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
+        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.1f)); 
         
         rigid.angularVelocity += logRoll + flatSpin;
 

@@ -33,6 +33,7 @@ public class EnemyAI : MonoBehaviour
         public Vector3 placementPosition;
         public float hitPoint;
         public float throwDirectionZ;
+        public float velocityScale;
         public float score;
     }
 
@@ -81,6 +82,7 @@ public class EnemyAI : MonoBehaviour
             MoveScenario bestScene = RunMonteCarlo();
             throwEnemyScript.SetAIHitPoint(bestScene.hitPoint);
             throwEnemyScript.SetAIThrowDirection(bestScene.throwDirectionZ);
+            throwEnemyScript.StickDataRef.velocityScale = bestScene.velocityScale;
             yield return new WaitForSeconds(thinkDelay);
             throwEnemyScript.Throw();
         }
@@ -105,6 +107,7 @@ public class EnemyAI : MonoBehaviour
 
             testScenario.hitPoint = Random.Range(-0.5f, 0.5f);
             testScenario.placementPosition = transform.position;
+            testScenario.velocityScale = Random.Range(0f, 5f);
 
             Vector3 toPlayer = playerTransform.position - testScenario.placementPosition;
             float dotForward = Vector3.Dot(toPlayer, stableForward);
@@ -113,9 +116,17 @@ public class EnemyAI : MonoBehaviour
             testScenario.score = EvaluateScore(testScenario);
 
             // dari sini
-            float calcForce = throwEnemyScript.StickDataRef.launchForce * throwEnemyScript.StickDataRef.velocityScale;
+            float calcForce = throwEnemyScript.StickDataRef.launchForce * testScenario.velocityScale;
             Vector3 forwardVelocity = stableForward * (calcForce * testScenario.throwDirectionZ);
-            Vector3 landingPos = testScenario.placementPosition + (forwardVelocity * exactAirTime);
+            Vector3 baseLandingPos = testScenario.placementPosition + (forwardVelocity * exactAirTime);
+
+            Vector3 stableRight = Vector3.Cross(Vector3.up, stableForward).normalized;
+
+            float spinDriftMultiplier = 3.0f; 
+            Vector3 spinDrift = stableRight * (testScenario.hitPoint * spinDriftMultiplier);
+
+            // 4. Titik jatuh final yang udah ngebaca spin
+            Vector3 landingPos = baseLandingPos + spinDrift;
 
             debugPredictedPositions.Add(landingPos);
             //sampe sini hapus kalau mau build
@@ -136,12 +147,24 @@ public class EnemyAI : MonoBehaviour
         Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         if (stableForward == Vector3.zero) stableForward = Vector3.forward;
 
-        float calcForce = throwEnemyScript.StickDataRef.launchForce * throwEnemyScript.StickDataRef.velocityScale;
+        float calcForce = throwEnemyScript.StickDataRef.launchForce * scenario.velocityScale;
         Vector3 forwardVelocity = stableForward * (calcForce * scenario.throwDirectionZ);
 
         float gravity = Mathf.Abs(Physics.gravity.y);
         float exactAirTime = (2f * throwEnemyScript.StickDataRef.up) / gravity;
-        Vector3 estimatedLandingPos = scenario.placementPosition + (forwardVelocity * exactAirTime);
+        Vector3 baseLandingPos = scenario.placementPosition + (forwardVelocity * exactAirTime);
+
+        // 3. INI YANG BARU: Estimasi efek dari Spin / HitPoint
+        // Cari arah kanan/kiri dari tongkat
+        Vector3 stableRight = Vector3.Cross(Vector3.up, stableForward).normalized;
+
+        // Bikin pengali seberapa ngaruh spin itu bikin tongkatnya geser pas nggelinding.
+        // Lu bisa otak-atik angka 3.0f ini. Makin gede, makin AI nganggep spin itu bikin nyasar jauh.
+        float spinDriftMultiplier = 3.0f; 
+        Vector3 spinDrift = stableRight * (scenario.hitPoint * spinDriftMultiplier);
+
+        // 4. Titik jatuh final yang udah ngebaca spin
+        Vector3 estimatedLandingPos = baseLandingPos + spinDrift;
 
         float distanceToPlayer = Vector3.Distance(estimatedLandingPos, playerTransform.position);
 

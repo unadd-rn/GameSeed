@@ -93,6 +93,17 @@ public class ThrowEnemy : MonoBehaviour
         throwDirectionZ = directionZ >= 0 ? 1f : -1f;
     }
 
+    public void SetAIPower(float randomPower0To1)
+    {
+        if (hasBeenThrown) return;
+        
+        // Kita limit minimal 0.2f (20%) biar musuhnya gak bego banget lempar dengan force 0
+        float clampedPower = Mathf.Clamp(randomPower0To1, 0.2f, 1f);
+        
+        // Dikali 5f biar hitungannya persis sama kayak yang ada di ForceTest
+        stickData.velocityScale = clampedPower * 5f; 
+    }
+
     public void Throw()
     {
         if (hasBeenThrown) return;
