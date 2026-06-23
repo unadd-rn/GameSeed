@@ -24,6 +24,9 @@ public abstract class BaseGadget : ScriptableObject
     /* Others */
     public abstract void Apply(GameObject target);
     public abstract void Remove(GameObject target);
+
+    [Header("Arc Carousel")]
+    public bool isActiveGadget;
 }
 
 public class GadgetInstance
