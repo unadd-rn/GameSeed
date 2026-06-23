@@ -8,9 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float health = 3;
     
     [Header("UI References")]
-    public GameObject HPos1, HPos2, HPos3;
-    public Sprite fullHeartSprite; 
-    public Sprite halfHeartSprite; 
+    public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
     public Color redColor = Color.red;
     public Color blueColor = Color.blue; // Bisa diubah warnanya di inspector
 
@@ -47,8 +45,16 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamage(1f, 'h'); 
-            Debug.Log("Kena Hit boi");
+            Debug.Log($"[LOG TABRAKAN] Player menabrak: {collision.gameObject.name} dengan Tag: {collision.gameObject.tag}");
+            if (collision.transform.position.y > transform.position.y)
+            {
+                TakeDamage(1f, 'h'); 
+                Debug.Log("Kena Hit boi");
+            }
+            else
+            {
+                Debug.Log("nyentuh tp bukan dr atas ble");
+            }
         }
         
         if (collision.gameObject.CompareTag("OutOfBound"))
@@ -129,47 +135,30 @@ public class PlayerHealth : MonoBehaviour
     void UpdateUI()
     {
         // Debug.Log($"Health:{health}");
-        
+        if(Bar!=null) Bar.gameObject.SetActive(true);//nnti kl dah ada mode invisible masukkin ke if
         // array biar gampang di-looping
-        GameObject[] heartSlots = { HPos1, HPos2, HPos3 };
+        Image[] heartSlots = { HPos1, HPos2, HPos3, HPos4, HPos5, HPos6 };
 
         for (int i = 0; i < heartSlots.Length; i++)
         {
-            // Ambil komponen Image dari masing-masing GameObject
-            Image heartImage = heartSlots[i].GetComponent<Image>();
-            
-            if (heartImage == null) continue; 
+            if(heartSlots[i]==null) continue;
 
-            float blueHealthAmount = health - 3f - i;
-            float redHealthAmount = health - i;
+            float blueHealthAmount = health - 3f - i*0.5f;
+            float redHealthAmount = health - i*0.5f;
 
-            if (blueHealthAmount >= 1f)
+            if (blueHealthAmount >= 0.5f)
             {
-                heartSlots[i].SetActive(true);
-                heartImage.sprite = fullHeartSprite;
-                heartImage.color = blueColor;
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = blueColor;
             }
-            else if (blueHealthAmount == 0.5f)
+            else if (redHealthAmount >= 0.5f)
             {
-                heartSlots[i].SetActive(true);
-                heartImage.sprite = halfHeartSprite;
-                heartImage.color = blueColor;
-            }
-            else if (redHealthAmount >= 1f)
-            {
-                heartSlots[i].SetActive(true);
-                heartImage.sprite = fullHeartSprite;
-                heartImage.color = redColor;
-            }
-            else if (redHealthAmount == 0.5f)
-            {
-                heartSlots[i].SetActive(true);
-                heartImage.sprite = halfHeartSprite;
-                heartImage.color = redColor;
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = redColor;
             }
             else
             {
-                heartSlots[i].SetActive(false);
+                heartSlots[i].gameObject.SetActive(false);
             }
         }
     }
