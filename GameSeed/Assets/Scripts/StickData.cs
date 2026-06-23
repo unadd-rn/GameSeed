@@ -11,7 +11,6 @@ public class StickData : ScriptableObject
 
     [Header("Stats")]
     public float damage = 1f;
-    public float launchForce = 10f;
     public float weight = 1f;
 
     [Header("Launch Settings")]
