@@ -95,7 +95,6 @@ public class ThrowEnemy : MonoBehaviour
     public void Throw()
     {
         if (hasBeenThrown) return;
-        TurnManager.Instance.SetState(TurnState.Waiting);
 
         if (hitPointSlider != null)
             hitPoint = hitPointSlider.value;

@@ -165,7 +165,7 @@ public class StickThrowTest : MonoBehaviour
         // gw lupa kenapa valuenya ini?
         // intinya ini ditaro depan atau belakang
         Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
-        Vector3 offsetY = Vector3.up * 0.2f;
+        Vector3 offsetY = Vector3.up * 0.2f * directionMult;
         Vector3 targetPos = transform.position + sliderOffset + offsetY;
         
         // ini biar UInya ga ke flip walaupun stiknya keflip

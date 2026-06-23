@@ -58,26 +58,30 @@ public class EnemyAI : MonoBehaviour
     private IEnumerator ExecuteAITurn()
     {
         yield return new WaitForSeconds(thinkDelay);
-        Debug.Log("Has Placed");
         if (!hasPlaced)
         {
             Vector3 randomPos = PlaceStickRandomly();
             transform.position = randomPos;
+            TurnManager.Instance.SetState(TurnState.PlayerThrowing);
             hasPlaced = true;
         }
 
-        if (throwEnemyScript != null)
+        if (throwEnemyScript != null && TurnManager.Instance.GetCurrentState() == TurnState.EnemyTurn)
         {
             throwEnemyScript.enabled = true;
             throwEnemyScript.OnStickPlaced();
         }
+
         yield return new WaitForSeconds(1.0f);
 
-        MoveScenario bestScene = RunMonteCarlo();
-        throwEnemyScript.SetAIHitPoint(bestScene.hitPoint);
-        throwEnemyScript.SetAIThrowDirection(bestScene.throwDirectionZ);
-        yield return new WaitForSeconds(thinkDelay);
-        throwEnemyScript.Throw();
+        if (throwEnemyScript != null && TurnManager.Instance.GetCurrentState() == TurnState.EnemyTurn)
+        {
+            MoveScenario bestScene = RunMonteCarlo();
+            throwEnemyScript.SetAIHitPoint(bestScene.hitPoint);
+            throwEnemyScript.SetAIThrowDirection(bestScene.throwDirectionZ);
+            yield return new WaitForSeconds(thinkDelay);
+            throwEnemyScript.Throw();
+        }
     }
 
     private MoveScenario RunMonteCarlo()
