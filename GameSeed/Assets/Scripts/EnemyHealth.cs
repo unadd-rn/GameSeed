@@ -1,19 +1,16 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Wajib ditambahkan untuk akses komponen Image
 
-public class PlayerHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
-    public GameObject DeathUI;
+    public GameObject WinUI;
     public float health = 3;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
     public Color redColor = Color.red;
     public Color blueColor = Color.blue; // Bisa diubah warnanya di inspector
-
-    public static event Action OnPlayerHit;
-    public static event Action OnPlayerOutOfBound;
 
     [Header("Invincibility Settings")]
     public float invincibilityDuration = 0.5f; // Berapa lama stik kebal setelah kena hit (dalam detik)
@@ -33,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        if(DeathUI != null) DeathUI.SetActive(false);
+        if(WinUI != null) WinUI.SetActive(false);
         health = 3;
         startPosition = transform.position;
         startRotation = transform.rotation;
@@ -43,24 +40,20 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log($"[LOG TABRAKAN] Player menabrak: {collision.gameObject.name} dengan Tag: {collision.gameObject.tag}");
+            Debug.Log($"[LOG TABRAKAN] Enemy menabrak: {collision.gameObject.name} dengan Tag: {collision.gameObject.tag}");
             if (collision.transform.position.y > transform.position.y)
             {
                 TakeDamage(1f, 'h'); 
-                Debug.Log("Kena Hit boi");
-            }
-            else
-            {
-                Debug.Log("nyentuh tp bukan dr atas ble");
+                Debug.Log("Asik kenain demej");
             }
         }
         
         if (collision.gameObject.CompareTag("OutOfBound"))
         {
             TakeDamage(1f, 'o');
-            Debug.Log("Out Of Bound !!!");
+            Debug.Log(" Enemy Out Of Bound !!!");
         }
     }
 
@@ -77,26 +70,24 @@ public class PlayerHealth : MonoBehaviour
 
         if (status == 'h') 
         {
-            OnPlayerHit?.Invoke(); 
             // pindahin script knockback disini
         }
 
         if (status == 'o') 
         {
-            OnPlayerOutOfBound?.Invoke(); 
-            RespawnPlayer();
+            RespawnEnemy();
         }
 
         UpdateUI();      
 
         if (health <= 0) 
         {
-            Die();
+            Win();
             return;
         }
     }
 
-    private void RespawnPlayer()
+    private void RespawnEnemy()
     {
         Vector3 targetRespawnPos = startPosition;
         bool isSpaceClear = false;
@@ -163,10 +154,10 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Die()
+    private void Win()
     {
 
-        // death stuff
-        if(DeathUI != null) DeathUI.SetActive(true);
+        // win stuff
+        if(WinUI != null) WinUI.SetActive(true);
     }
 }

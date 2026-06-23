@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4c8a906e77ff94ab16bda8024627b2, type: 3}
+  m_Name: DefaultStick
+  m_EditorClassIdentifier: 
+  stickName: DefaultStick
+  description: stick pertamamu
+  stickIcon: {fileID: 0}
+  stickBody: {fileID: 0}
+  damage: 1
+  weight: 1
+  velocityScale: 0.5
+  launchForce: 7
+  up: 2.5
+  stickLength: 2
+  spinScale: 150
+  stickLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  sliderOffsetY: 0.5
+  sizeX: 0
+  sizeZ: 0
+  slots:
+  - slotId: 0
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 1
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 2
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 3
+    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 4
+    localPosition: {x: 0, y: 0, z: 0}
