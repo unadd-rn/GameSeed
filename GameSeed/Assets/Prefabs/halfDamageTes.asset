@@ -10,8 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c4c8a906e77ff94ab16bda8024627b2, type: 3}
-  m_Name: NewStickData
+  m_Name: halfDamageTes
   m_EditorClassIdentifier: 
+  stickName: DefaultStick
+  description: stick pertamamu
+  stickIcon: {fileID: 0}
+  stickBody: {fileID: 0}
+  damage: 1
+  weight: 1
   velocityScale: 0.5
   launchForce: 7
   up: 2.5
