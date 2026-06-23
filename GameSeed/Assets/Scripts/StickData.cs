@@ -29,5 +29,6 @@ public class StickData : ScriptableObject
     [Header("Gadget-Related")]
     public float sizeX;
     public float sizeZ;
-    public SlotDefinition[] slots; // ada 9 di sepanjang stik
+    public SlotDefinition[] frontSlots; // ada 5 di sepanjang stik
+    public SlotDefinition[] backSlots;
 }
