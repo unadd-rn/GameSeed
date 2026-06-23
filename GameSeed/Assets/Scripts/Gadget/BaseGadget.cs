@@ -25,7 +25,7 @@ public abstract class BaseGadget : ScriptableObject
     public abstract void Apply(GameObject target);
     public abstract void Remove(GameObject target);
 
-    [Header("Arc Carousel")]
+    [Header("Radial Menu")]
     public bool isActiveGadget;
 }
 

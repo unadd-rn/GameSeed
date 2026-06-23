@@ -8,4 +8,8 @@ public class SlotDefinition
     public int slotId;
     public Vector3 localPosition; // posisi di stick
     public GadgetInstance occupant;
+
+    [System.NonSerialized]
+    public GameObject spawnedVisual;
+
 }

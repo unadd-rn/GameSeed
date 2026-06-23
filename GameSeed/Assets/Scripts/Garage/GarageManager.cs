@@ -26,8 +26,14 @@ public class GarageManager : MonoBehaviour
         bodyPanel.SetActive(false);
     }
 
+    public void RemoveBody()
+    {
+        
+    }
+
     public void BackToMenu()
     {
         SceneManager.LoadScene("Cetta");
     }
+
 }
