@@ -43,19 +43,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log($"[LOG TABRAKAN] Player menabrak: {collision.gameObject.name} dengan Tag: {collision.gameObject.tag}");
-            if (collision.transform.position.y > transform.position.y)
-            {
-                TakeDamage(1f, 'h'); 
-                Debug.Log("Kena Hit boi");
-            }
-            else
-            {
-                Debug.Log("nyentuh tp bukan dr atas ble");
-            }
-        }
+        // if (collision.gameObject.CompareTag("Enemy"))
+        // {
+        //     Debug.Log($"[LOG TABRAKAN] Player menabrak: {collision.gameObject.name} dengan Tag: {collision.gameObject.tag}");
+        //     if (collision.transform.position.y > transform.position.y)
+        //     {
+        //         TakeDamage(1f, 'h'); 
+        //         Debug.Log("Kena Hit boi");
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("nyentuh tp bukan dr atas ble");
+        //     }
+        // }
         
         if (collision.gameObject.CompareTag("OutOfBound"))
         {

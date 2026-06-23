@@ -12,12 +12,14 @@ public class CollisionHandler : MonoBehaviour
 
     private Rigidbody rb;
     private Collider col;
+    private PlayerHealth playerHealth;
     private bool hasKnockback = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -33,6 +35,22 @@ public class CollisionHandler : MonoBehaviour
 
         Vector3 knockbackDirection = (transform.position - collision.transform.position).normalized; // knockback opposite directions
         knockbackDirection = (knockbackDirection + Vector3.up * 1.5f).normalized; // ini biar keatas juga tapi kayak kurang gitu damn
+
+        if (collision.transform.position.y > transform.position.y){
+            PlayerHealth myPlayerHealth = GetComponent<PlayerHealth>();
+            EnemyHealth myEnemyHealth = GetComponent<EnemyHealth>();
+
+            if (myPlayerHealth != null) myPlayerHealth.TakeDamage(1f, 'h');
+            if (myEnemyHealth != null) myEnemyHealth.TakeDamage(1f, 'h');
+        } 
+        else
+        {
+            PlayerHealth otherPlayerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            EnemyHealth otherEnemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+
+            if (otherPlayerHealth != null) otherPlayerHealth.TakeDamage(1f, 'h');
+            if (otherEnemyHealth != null) otherEnemyHealth.TakeDamage(1f, 'h');
+        }
 
         Rigidbody otherRb = other.GetComponent<Rigidbody>();
 
