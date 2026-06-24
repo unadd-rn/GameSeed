@@ -18,6 +18,11 @@ public class GadgetManager : MonoBehaviour
     [Header("Spawned Reference")]
     public Transform stickBodyTransform;
 
+    // preview variabel
+    private GameObject previewVisual;
+    private int currentPreviewSlotIndex = -1;
+    private GadgetInstance currentPreviewGadget;
+
     public void AttachGadget(GadgetInstance gadget, int slotIndex)
     {
         if(slotIndex < 0 || slotIndex >= data.frontSlots.Length) return;
@@ -72,14 +77,16 @@ public class GadgetManager : MonoBehaviour
         
         frontSlot.occupant = null;
         backSlot.occupant = null;
-        data.frontSlots[slotIndex] = null;
-        data.backSlots[slotIndex] = null;
+        frontSlot.spawnedVisual = null;
+        backSlot.spawnedVisual = null;
     }
+
+    public void StartPreviewGAdget(GadgetInstance gadget, in)
 
     public void RemoveGadgetFromInventory(int slotIndex, StickData data)
     {
         if (gadgetOwned[slotIndex].isEquipped)
-        {
+        {   
             gadgetOwned[slotIndex].data.Remove(player);
 
         }
