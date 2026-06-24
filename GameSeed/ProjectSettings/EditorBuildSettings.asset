@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cet - lobby1.unity
     guid: b1f453954b3466d4fa3084e5892ef0e3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Rae - Garage.unity
     guid: 2d549aa0942eb8f4eb10bb48ac23cf8a
   m_configObjects: {}

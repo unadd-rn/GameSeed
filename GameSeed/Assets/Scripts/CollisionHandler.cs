@@ -29,6 +29,11 @@ public class CollisionHandler : MonoBehaviour
         CollisionHandler other = collision.gameObject.GetComponent<CollisionHandler>();
         if (other == null) return; // kalo gaada object lain gajadi
 
+        Rigidbody otherRb = other.GetComponent<Rigidbody>();
+
+        rb.WakeUp();
+        if (otherRb != null) otherRb.WakeUp();
+
         hasKnockback = true;
         other.hasKnockback = true;
         activeKnockbacks++; 
@@ -52,27 +57,40 @@ public class CollisionHandler : MonoBehaviour
             if (otherEnemyHealth != null) otherEnemyHealth.TakeDamage(1f, 'h');
         }
 
-        Rigidbody otherRb = other.GetComponent<Rigidbody>();
+        Vector3 dirToMyRb = (transform.position - collision.transform.position).normalized;
+        Vector3 dirToOtherRb = (collision.transform.position - transform.position).normalized; // Ini kebalikannya
+
+        dirToMyRb = (dirToMyRb + Vector3.up * 1.5f).normalized;
+        dirToOtherRb = (dirToOtherRb + Vector3.up * 1.5f).normalized;
 
         rb.velocity = Vector3.zero;
-        otherRb.velocity = Vector3.zero;
+        if (otherRb != null) otherRb.velocity = Vector3.zero;
 
-        rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse); // tembak
-        otherRb.AddForce(-knockbackDirection * knockbackForce, ForceMode.Impulse); // tembak ke arah berlawanan
+        rb.AddForce(dirToMyRb * knockbackForce, ForceMode.Impulse); // tembak
+        if (otherRb != null) otherRb.AddForce(dirToOtherRb * knockbackForce, ForceMode.Impulse); // tembak ke arah berlawanan
+
+        StickThrowTest myPlayerThrow = GetComponent<StickThrowTest>();
+        if (myPlayerThrow != null) myPlayerThrow.HandleKnockback();
+        else GetComponent<ThrowEnemy>()?.HandleKnockback();
+
+        StickThrowTest otherPlayerThrow = other.GetComponent<StickThrowTest>();
+        if (otherPlayerThrow != null) otherPlayerThrow.HandleKnockback();
+        else other.GetComponent<ThrowEnemy>()?.HandleKnockback();
 
         if (ArenaWall != null)
             ArenaWall.SetActive(true); // nyalain wall
 
-        StartCoroutine(KnockbackCooldown(col, collision.collider)); // start timer or something
+        StartCoroutine(KnockbackCooldown(col, collision.collider, other)); // start timer or something
     }
 
-    IEnumerator KnockbackCooldown(Collider a, Collider b)
+    IEnumerator KnockbackCooldown(Collider a, Collider b, CollisionHandler otherHandler)
     {
         Physics.IgnoreCollision(a, b, true); // matiin collision biar gak nabrak 2 kali
         yield return new WaitForSeconds(collisionCooldown);
         Physics.IgnoreCollision(a, b, false); // nyala lagi setelah 2 detik (cooldown 2f)
 
         hasKnockback = false;
+        if (otherHandler != null) otherHandler.hasKnockback = false;
         activeKnockbacks--;
 
         if (activeKnockbacks <= 0 && ArenaWall != null)
