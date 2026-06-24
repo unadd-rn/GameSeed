@@ -14,6 +14,7 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private Canvas uiCanvas;
     [SerializeField] private Slider hitPointSlider;
     [SerializeField] private GameObject sliderContainer;
+    [SerializeField] private GameObject buttonThrow;
 
     private Rigidbody rigid;
     private Collider stickCollider;
@@ -31,6 +32,7 @@ public class StickThrowTest : MonoBehaviour
     private Vector3 debugSpinAxisX;
     private Vector3 debugSpinAxisY;
     private bool isDebugDataCalculated = false;
+    private Coroutine activeResetCoroutine;
 
     void Awake()
     {
@@ -40,6 +42,7 @@ public class StickThrowTest : MonoBehaviour
         controls = new PlayerControls();
         startLocalPosition = transform.localPosition;
         startLocalRotation = transform.localRotation;
+        SetUIVisible(true);
     }
 
     public void OnStickPlaced()
@@ -103,7 +106,11 @@ public class StickThrowTest : MonoBehaviour
         // sama kayak tadi
         // TouchPosition itu action juga di input manager thingy
         // nilainya vector buat ngembaliin posisi ajjh
+        #if UNITY_EDITOR
+        return Input.mousePosition;
+        #else
         return controls.Player.TouchPosition.ReadValue<Vector2>();
+        #endif
     }
 
     private List<RaycastResult> raycastResults = new List<RaycastResult>();
@@ -132,6 +139,7 @@ public class StickThrowTest : MonoBehaviour
 
         if (!hasBeenThrown)
         {
+            UpdateSliderPosition();
             if (IsPressJustStarted())
             {
                 interactionStartedOnUI = IsPointerOverUI();
@@ -143,34 +151,23 @@ public class StickThrowTest : MonoBehaviour
         }
     }
 
-    private void SetUIVisible(bool visible)
+    public void SetUIVisible(bool visible)
     {
         if (sliderContainer != null) sliderContainer.SetActive(visible);
+        if (buttonThrow != null) buttonThrow.SetActive(visible);
     }
 
     private void UpdateSliderPosition()
     {
-        // LU JUGA JELEK
         if (sliderContainer == null) return;
+        GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
+
         float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
-        Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
-        if (stableForward == Vector3.zero) stableForward = Vector3.forward;
-        
-        // gw lupa kenapa valuenya ini?
-        // intinya ini ditaro depan atau belakang
         Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
-        Vector3 offsetY = Vector3.up * stickData.sliderOffsetY;
-        sliderContainer.transform.position = transform.position + sliderOffset + offsetY;
-        
-        // ini biar UInya ga ke flip walaupun stiknya keflip
-        // JANGAN DIUBAHHH INI RUSAK MULU
+        sliderContainer.transform.position = transform.position + sliderOffset;
+
         Vector3 desiredUp = (directionMult < 0) ? stableForward : -stableForward;
-        Vector3 desiredForward = -transform.up;
-        if (desiredForward.y > 0)
-        {
-            desiredForward = transform.up;
-        }
-        sliderContainer.transform.rotation = Quaternion.LookRotation(desiredForward, desiredUp);
+        sliderContainer.transform.rotation = Quaternion.LookRotation(Vector3.down, desiredUp);
     }
 
     private void ProcessInput()
@@ -198,7 +195,7 @@ public class StickThrowTest : MonoBehaviour
                 // ini intinya ngitung jari tuh sejauh apa dari tengah
                 Vector3 stickToHitVector = hit.point - transform.position;
                 float projectionOnStableRight = Vector3.Dot(stickToHitVector, stableRight);
-                float calculatedHit = throwDirectionZ * (projectionOnStableRight / stickData.stickLength);
+                float calculatedHit = (projectionOnStableRight / stickData.stickLength);
                 calculatedHit = Mathf.Clamp(calculatedHit, -0.5f, 0.5f);
                 Debug.DrawLine(mainCamera.transform.position, hit.point, Color.green, 0.5f);
                 if (hitPointSlider != null)
@@ -241,6 +238,8 @@ public class StickThrowTest : MonoBehaviour
         // reset dulu velocitynya
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+
+        rigid.constraints = RigidbodyConstraints.None;
         
         // tapi dia tuh kayak lupa mulu kalau dia kinematic
         // ini gw nyala matiin 
@@ -273,8 +272,11 @@ public class StickThrowTest : MonoBehaviour
         // nilainya nanti gantinya di scriptable objectnya (buat force)
         Vector3 upward = Vector3.up * stickData.up;
 
+        float sideDeflectionPower = 5f;
+        Vector3 sideways = stableRight * (hitPoint * sideDeflectionPower * throwDirectionZ);
+
         // ini ditambah aja idk
-        Vector3 finalVelocity = forward + upward;
+        Vector3 finalVelocity = forward + upward + sideways;
 
         // ini ke bawah ga sepenting itu sih cuma posisi hit
         Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
@@ -297,15 +299,34 @@ public class StickThrowTest : MonoBehaviour
         isDebugDataCalculated = true; 
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
-        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
+        Vector3 flatSpin = spinAxisY * (hitPoint * stickData.spinScale); 
         
         rigid.angularVelocity += logRoll + flatSpin;
 
-        StartCoroutine(ResetAfterThrow());
+        activeResetCoroutine = StartCoroutine(ResetAfterThrow());
     }
 
     private WaitForSeconds throwWaitInitial = new WaitForSeconds(0.2f);
     private WaitForSeconds throwWaitFinal = new WaitForSeconds(0.5f);
+
+    public void HandleKnockback()
+    {
+        if (!hasBeenThrown) return;
+        if (activeResetCoroutine != null)
+        {
+            StopCoroutine(activeResetCoroutine);
+        }
+        activeResetCoroutine = StartCoroutine(WaitForKnockbackToSettle());
+    }
+
+    private IEnumerator WaitForKnockbackToSettle()
+    {
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitUntil(() => rigid.velocity.sqrMagnitude < 0.05f);
+        yield return throwWaitFinal; 
+        
+        ResetStick();
+    }
 
     private IEnumerator ResetAfterThrow()
     {
@@ -328,8 +349,9 @@ public class StickThrowTest : MonoBehaviour
         if (Mathf.Abs(Mathf.Abs(rotX) - 90f) < 20f) currentEuler.x = (rotX > 0) ? 180f : 0f;
         if (Mathf.Abs(Mathf.Abs(rotZ) - 90f) < 20f) currentEuler.z = (rotZ > 0) ? 180f : 0f;
         
-        rigid.WakeUp();
+        rigid.isKinematic = true; 
         transform.localRotation = Quaternion.Euler(currentEuler);
+        rigid.isKinematic = false;
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;

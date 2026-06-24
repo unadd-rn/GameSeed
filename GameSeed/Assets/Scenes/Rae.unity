@@ -1742,7 +1742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1000, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1216302329
@@ -1782,6 +1782,7 @@ MonoBehaviour:
   uiCanvas: {fileID: 723641173}
   hitPointSlider: {fileID: 622238499}
   sliderContainer: {fileID: 622238497}
+  buttonThrow: {fileID: 0}
 --- !u!54 &1216302331
 Rigidbody:
   m_ObjectHideFlags: 0

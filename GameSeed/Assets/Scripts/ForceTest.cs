@@ -21,7 +21,7 @@ public class ForceTest : MonoBehaviour
         if (newValue >= 1f) { newValue = 1f; barDirection = -1f; }
         if (newValue <= 0f) { newValue = 0; barDirection = 1f; }
         forceBarTracker.fillAmount = newValue;
-        stickData.velocityScale = newValue * 5f;
+        stickData.velocityScale = newValue;
     }
 
     // Start is called before the first frame update

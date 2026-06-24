@@ -11,7 +11,9 @@ public class StickSpawn : MonoBehaviour
 
     private Camera mainCamera;
     private PlayerControls controls;
+    private bool hasPlaced = false;
     private bool isTouching = false;
+    public Vector3 spawnPositionPlayer;
 
     void Awake()
     {
@@ -49,23 +51,27 @@ public class StickSpawn : MonoBehaviour
     {
         if (placementAreaCollider == null) return;
 
-        Vector2 screenPosition = GetInputScreenPosition();
-        if (float.IsInfinity(screenPosition.x) || float.IsNaN(screenPosition.x) ||
-            float.IsInfinity(screenPosition.y) || float.IsNaN(screenPosition.y))
-            return;
-        Ray ray = mainCamera.ScreenPointToRay(screenPosition);
-        RaycastHit areaHit;
-        if (placementAreaCollider.Raycast(ray, out areaHit, Mathf.Infinity))
-        {
-            transform.position = areaHit.point;
-            
-            if (throwScript != null)
+        if(!hasPlaced){
+            Vector2 screenPosition = GetInputScreenPosition();
+            if (float.IsInfinity(screenPosition.x) || float.IsNaN(screenPosition.x) ||
+                float.IsInfinity(screenPosition.y) || float.IsNaN(screenPosition.y))
+                return;
+            Ray ray = mainCamera.ScreenPointToRay(screenPosition);
+            RaycastHit areaHit;
+            if (placementAreaCollider.Raycast(ray, out areaHit, Mathf.Infinity))
             {
-                throwScript.enabled = true; 
-                throwScript.OnStickPlaced();
-                TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+                transform.position = areaHit.point;
+                spawnPositionPlayer = areaHit.point;
+                TurnManager.Instance.SetState(TurnState.EnemyTurn);
+                hasPlaced = true;
+                this.enabled = false;
             }
-            this.enabled = false;
+        }
+
+        if (throwScript != null && TurnManager.Instance.GetCurrentState() == TurnState.PlayerThrowing)
+        {
+            throwScript.enabled = true; 
+            throwScript.OnStickPlaced();
         }
     }
 

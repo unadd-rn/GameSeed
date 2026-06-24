@@ -20,6 +20,7 @@ public class ThrowEnemy : MonoBehaviour
 
     private WaitForSeconds throwWaitInitial;
     private WaitForSeconds throwWaitFinal;
+    private Coroutine activeResetCoroutine;
     
 
     public StickData StickDataRef
@@ -34,6 +35,7 @@ public class ThrowEnemy : MonoBehaviour
         
         throwWaitInitial = new WaitForSeconds(0.2f);
         throwWaitFinal = new WaitForSeconds(0.5f);
+        SetUIVisible(false);
     }
 
     public void OnStickPlaced()
@@ -92,10 +94,20 @@ public class ThrowEnemy : MonoBehaviour
         throwDirectionZ = directionZ >= 0 ? 1f : -1f;
     }
 
+    public void SetAIPower(float randomPower0To1)
+    {
+        if (hasBeenThrown) return;
+        
+        // Kita limit minimal 0.2f (20%) biar musuhnya gak bego banget lempar dengan force 0
+        float clampedPower = Mathf.Clamp(randomPower0To1, 0.2f, 1f);
+        
+        // Dikali 5f biar hitungannya persis sama kayak yang ada di ForceTest
+        stickData.velocityScale = clampedPower * 5f; 
+    }
+
     public void Throw()
     {
         if (hasBeenThrown) return;
-        TurnManager.Instance.SetState(TurnState.Waiting);
 
         if (hitPointSlider != null)
             hitPoint = hitPointSlider.value;
@@ -140,8 +152,11 @@ public class ThrowEnemy : MonoBehaviour
         // nilainya nanti gantinya di scriptable objectnya (buat force)
         Vector3 upward = Vector3.up * stickData.up;
 
+        float sideDeflectionPower = 5f;
+        Vector3 sideways = stableRight * (hitPoint * sideDeflectionPower * throwDirectionZ);
+
         // ini ditambah aja idk
-        Vector3 finalVelocity = forward + upward;
+        Vector3 finalVelocity = forward + upward + sideways;
 
         //ini ke bawah ga sepenting itu sih cuma posisi hit
         Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
@@ -159,13 +174,29 @@ public class ThrowEnemy : MonoBehaviour
         Vector3 spinAxisY = Vector3.up;
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
-        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
-        Debug.Log("Throw Direction:" + throwDirectionZ);
-        Debug.Log("Hitpoint Strength:" + throwDirectionZ * hitPoint);
+        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale)); 
         
         rigid.angularVelocity += logRoll + flatSpin;
 
-        StartCoroutine(ResetAfterThrow());
+        activeResetCoroutine = StartCoroutine(ResetAfterThrow());
+    }
+
+    public void HandleKnockback()
+    {
+        if (!hasBeenThrown) return;
+        if (activeResetCoroutine != null)
+        {
+            StopCoroutine(activeResetCoroutine);
+        }
+        activeResetCoroutine = StartCoroutine(WaitForKnockbackToSettle());
+    }
+
+    private IEnumerator WaitForKnockbackToSettle()
+    {
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitUntil(() => rigid.velocity.sqrMagnitude < 0.05f);
+        yield return throwWaitFinal; 
+        ResetStick();
     }
 
     private IEnumerator ResetAfterThrow()
@@ -195,6 +226,6 @@ public class ThrowEnemy : MonoBehaviour
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;
-        TurnManager.Instance.SetState(TurnState.PlayerPlacement);
+        TurnManager.Instance.SetState(TurnState.PlayerThrowing);
     }
 }

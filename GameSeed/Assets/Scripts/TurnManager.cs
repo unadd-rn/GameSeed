@@ -32,11 +32,13 @@ public class TurnManager : MonoBehaviour
         {
             case TurnState.PlayerPlacement:
                 if (playerSpawnScript != null) playerSpawnScript.enabled = true;
-                if (playerThrowScript != null) playerThrowScript.enabled = false;
+                if (playerThrowScript != null) playerThrowScript.enabled = true;
                 if (enemyAIScript != null) enemyAIScript.enabled = false;
                 break;
 
             case TurnState.PlayerThrowing:
+                if (playerThrowScript != null) playerThrowScript.enabled = true;
+                playerThrowScript.SetUIVisible(true);
                 break;
 
             case TurnState.EnemyTurn:
@@ -48,12 +50,6 @@ public class TurnManager : MonoBehaviour
                     enemyAIScript.enabled = true;
                     enemyAIScript.StartTurn();
                 }
-                break;
-
-            case TurnState.Waiting:
-                if (playerSpawnScript != null) playerSpawnScript.enabled = false;
-                if (playerThrowScript != null) playerThrowScript.enabled = false;
-                if (enemyAIScript != null) enemyAIScript.enabled = false;
                 break;
         }
     }
