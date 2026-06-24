@@ -32,6 +32,7 @@ public class StickThrowTest : MonoBehaviour
     private Vector3 debugSpinAxisX;
     private Vector3 debugSpinAxisY;
     private bool isDebugDataCalculated = false;
+    private Coroutine activeResetCoroutine;
 
     void Awake()
     {
@@ -194,7 +195,7 @@ public class StickThrowTest : MonoBehaviour
                 // ini intinya ngitung jari tuh sejauh apa dari tengah
                 Vector3 stickToHitVector = hit.point - transform.position;
                 float projectionOnStableRight = Vector3.Dot(stickToHitVector, stableRight);
-                float calculatedHit = throwDirectionZ * (projectionOnStableRight / stickData.stickLength);
+                float calculatedHit = (projectionOnStableRight / stickData.stickLength);
                 calculatedHit = Mathf.Clamp(calculatedHit, -0.5f, 0.5f);
                 Debug.DrawLine(mainCamera.transform.position, hit.point, Color.green, 0.5f);
                 if (hitPointSlider != null)
@@ -271,8 +272,11 @@ public class StickThrowTest : MonoBehaviour
         // nilainya nanti gantinya di scriptable objectnya (buat force)
         Vector3 upward = Vector3.up * stickData.up;
 
+        float sideDeflectionPower = 5f;
+        Vector3 sideways = stableRight * (hitPoint * sideDeflectionPower * throwDirectionZ);
+
         // ini ditambah aja idk
-        Vector3 finalVelocity = forward + upward;
+        Vector3 finalVelocity = forward + upward + sideways;
 
         // ini ke bawah ga sepenting itu sih cuma posisi hit
         Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
@@ -295,15 +299,34 @@ public class StickThrowTest : MonoBehaviour
         isDebugDataCalculated = true; 
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
-        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.1f)); 
+        Vector3 flatSpin = spinAxisY * (hitPoint * stickData.spinScale); 
         
         rigid.angularVelocity += logRoll + flatSpin;
 
-        StartCoroutine(ResetAfterThrow());
+        activeResetCoroutine = StartCoroutine(ResetAfterThrow());
     }
 
     private WaitForSeconds throwWaitInitial = new WaitForSeconds(0.2f);
     private WaitForSeconds throwWaitFinal = new WaitForSeconds(0.5f);
+
+    public void HandleKnockback()
+    {
+        if (!hasBeenThrown) return;
+        if (activeResetCoroutine != null)
+        {
+            StopCoroutine(activeResetCoroutine);
+        }
+        activeResetCoroutine = StartCoroutine(WaitForKnockbackToSettle());
+    }
+
+    private IEnumerator WaitForKnockbackToSettle()
+    {
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitUntil(() => rigid.velocity.sqrMagnitude < 0.05f);
+        yield return throwWaitFinal; 
+        
+        ResetStick();
+    }
 
     private IEnumerator ResetAfterThrow()
     {
@@ -326,8 +349,9 @@ public class StickThrowTest : MonoBehaviour
         if (Mathf.Abs(Mathf.Abs(rotX) - 90f) < 20f) currentEuler.x = (rotX > 0) ? 180f : 0f;
         if (Mathf.Abs(Mathf.Abs(rotZ) - 90f) < 20f) currentEuler.z = (rotZ > 0) ? 180f : 0f;
         
-        rigid.WakeUp();
+        rigid.isKinematic = true; 
         transform.localRotation = Quaternion.Euler(currentEuler);
+        rigid.isKinematic = false;
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;

@@ -20,6 +20,7 @@ public class ThrowEnemy : MonoBehaviour
 
     private WaitForSeconds throwWaitInitial;
     private WaitForSeconds throwWaitFinal;
+    private Coroutine activeResetCoroutine;
     
 
     public StickData StickDataRef
@@ -151,8 +152,11 @@ public class ThrowEnemy : MonoBehaviour
         // nilainya nanti gantinya di scriptable objectnya (buat force)
         Vector3 upward = Vector3.up * stickData.up;
 
+        float sideDeflectionPower = 5f;
+        Vector3 sideways = stableRight * (hitPoint * sideDeflectionPower * throwDirectionZ);
+
         // ini ditambah aja idk
-        Vector3 finalVelocity = forward + upward;
+        Vector3 finalVelocity = forward + upward + sideways;
 
         //ini ke bawah ga sepenting itu sih cuma posisi hit
         Vector3 localHitOffset = stableRight * (hitPoint * throwDirectionZ * stickData.stickLength);
@@ -170,11 +174,29 @@ public class ThrowEnemy : MonoBehaviour
         Vector3 spinAxisY = Vector3.up;
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
-        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale * 0.15f)); 
+        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale)); 
         
         rigid.angularVelocity += logRoll + flatSpin;
 
-        StartCoroutine(ResetAfterThrow());
+        activeResetCoroutine = StartCoroutine(ResetAfterThrow());
+    }
+
+    public void HandleKnockback()
+    {
+        if (!hasBeenThrown) return;
+        if (activeResetCoroutine != null)
+        {
+            StopCoroutine(activeResetCoroutine);
+        }
+        activeResetCoroutine = StartCoroutine(WaitForKnockbackToSettle());
+    }
+
+    private IEnumerator WaitForKnockbackToSettle()
+    {
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitUntil(() => rigid.velocity.sqrMagnitude < 0.05f);
+        yield return throwWaitFinal; 
+        ResetStick();
     }
 
     private IEnumerator ResetAfterThrow()
