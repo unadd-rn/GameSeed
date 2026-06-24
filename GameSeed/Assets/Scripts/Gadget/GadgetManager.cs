@@ -81,8 +81,6 @@ public class GadgetManager : MonoBehaviour
         backSlot.spawnedVisual = null;
     }
 
-    public void StartPreviewGAdget(GadgetInstance gadget, in)
-
     public void RemoveGadgetFromInventory(int slotIndex, StickData data)
     {
         if (gadgetOwned[slotIndex].isEquipped)
