@@ -8,6 +8,8 @@ public class StickData : ScriptableObject
     public string description;
     public Sprite stickIcon; // Gambar untuk di UI Inventory
     public GameObject stickBody;
+    public Mesh stickMesh;
+    public Material stickMaterial;
 
     [Header("Stats")]
     public float damage = 1f;
