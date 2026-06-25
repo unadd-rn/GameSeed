@@ -15,7 +15,6 @@ public class TeleportationMechanism : MonoBehaviour
     public Transform enemy;
     public float minDistanceToEnemy = 0.5f;
 
-
     public void Teleport()
     {  
         Vector3 randomPoint;
@@ -33,5 +32,4 @@ public class TeleportationMechanism : MonoBehaviour
         float dist = Vector3.Distance(point, enemy.position);
         return dist < minDistanceToEnemy;
     }
-
 }

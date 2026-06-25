@@ -64,13 +64,14 @@ public class GarageManager : MonoBehaviour
             }
             GadgetInstance currentG = gadgetManager.gadgetOwned[i];
             Button currentButton = buttonsG[i];
+            // kasih aset button
 
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
                gadgetManager.StartPreviewGadget(currentG, 0);
-               // kasih aset button
-               // kasih icon gadget
+               // masukin teks stat gadget ke text di bawah(?)
+               // set active teksnya
             });
         }
     }
