@@ -2659,6 +2659,9 @@ MonoBehaviour:
   uiCanvas: {fileID: 723641173}
   hitPointSlider: {fileID: 622238499}
   sliderContainer: {fileID: 622238497}
+  buttonThrow: {fileID: 0}
+  forceController: {fileID: 0}
+  forceBar: {fileID: 0}
 --- !u!54 &1216302331
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2786,6 +2789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placementAreaCollider: {fileID: 1561170823}
   throwScript: {fileID: 1216302330}
+  spawnPositionPlayer: {x: 0, y: 0, z: 0}
 --- !u!114 &1216302337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2803,13 +2807,16 @@ MonoBehaviour:
   HPos1: {fileID: 1053108537}
   HPos2: {fileID: 176807376}
   HPos3: {fileID: 492123557}
-  fullHeartSprite: {fileID: 21300000, guid: fefa5710f8caf4948a3a71325d0f1b7b, type: 3}
-  halfHeartSprite: {fileID: 21300000, guid: fefa5710f8caf4948a3a71325d0f1b7b, type: 3}
+  HPos4: {fileID: 0}
+  HPos5: {fileID: 0}
+  HPos6: {fileID: 0}
+  Bar: {fileID: 0}
   redColor: {r: 1, g: 0, b: 0, a: 1}
   blueColor: {r: 0, g: 0, b: 1, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
+  stickSpawn: {fileID: 0}
 --- !u!114 &1216302338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4001,6 +4008,7 @@ MonoBehaviour:
   rigid: {fileID: 2055251484}
   thinkDelay: 2
   monteCarloSimulations: 100
+  refEnemyPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2055251482
 MonoBehaviour:
   m_ObjectHideFlags: 0

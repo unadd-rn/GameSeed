@@ -10,8 +10,9 @@ public abstract class BaseGadget : ScriptableObject
     [TextArea(3,5)]
     public string description = "This is the description of the gadget";
     public Sprite model; // icon buat gambar
-    public GameObject prefab; // bentuk 3dny
-    
+    // public GameObject prefab; // bentuk 3dny
+    public Mesh mesh;
+    public Material material;
 
     [Header("Stats")]
     public int durability;
@@ -27,11 +28,4 @@ public abstract class BaseGadget : ScriptableObject
 
     [Header("Radial Menu")]
     public bool isActiveGadget;
-}
-
-public class GadgetInstance
-{
-    public BaseGadget data;
-    public bool isEquipped;
-    public int currentDurability;
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GarageManager : MonoBehaviour
 {
@@ -14,15 +15,29 @@ public class GarageManager : MonoBehaviour
     [SerializeField] Transform gadgetPanelTransform;
     [SerializeField] Transform bodyPanelTransform;
     [SerializeField] GadgetManager gadgetManager;
+    [SerializeField] BodyManager bodyManager;
 
-    private Button[] buttonsG;
-    private Button[] buttonsB;
+    [Header("Confirm Button")]
+    [SerializeField] GameObject confirmButtonGadget;
+    [SerializeField] GameObject confirmButtonBody;
+
+    [Header("Text")]
+    [SerializeField] private GameObject textField;
+    [SerializeField] private TextMeshProUGUI bodyOrGadgetName;
+    [SerializeField] private TextMeshProUGUI bodyOrGadgetDesc;
+
+    private Button[] buttonsG = new Button[10];
+    private Button[] buttonsB = new Button[10];
 
     void Start()
     {
+        textField.SetActive(false);
         gadgetPanel.SetActive(false);
         bodyPanel.SetActive(true);
-        SetupButtons();
+        confirmButtonGadget.SetActive(false);
+        confirmButtonBody.SetActive(false);
+        
+        SetupGadgetButtons();
 
         if(data != null && data.stickBody != null)
         {
@@ -52,7 +67,7 @@ public class GarageManager : MonoBehaviour
         SceneManager.LoadScene("Cetta");
     }
 
-    public void SetupButtons()
+    public void SetupGadgetButtons()
     {
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
         for(int i = 0; i < buttonsG.Length; i++)
@@ -65,13 +80,57 @@ public class GarageManager : MonoBehaviour
             GadgetInstance currentG = gadgetManager.gadgetOwned[i];
             Button currentButton = buttonsG[i];
 
+            currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
                gadgetManager.StartPreviewGadget(currentG, 0);
-               // kasih aset button
-               // kasih icon gadget
+               confirmButtonGadget.SetActive(true);
+               bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
+               bodyOrGadgetDesc.text = currentG.data.description.ToString();
+               textField.SetActive(true);
             });
         }
+    }
+
+    public void SetupBodyButtons()
+    {
+        buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsB.Length; i++)
+        {
+            if(i >= bodyManager.bodyOwned.Length)
+            {
+                // apala
+                continue;
+            }
+
+            BodyInstance currentB = bodyManager.bodyOwned[i];
+            Button currentButton = buttonsB[i];
+
+            currentButton.image.sprite = currentB.data.stickIcon;
+
+            currentButton.onClick.RemoveAllListeners();
+            currentButton.onClick.AddListener(() =>
+            {
+                // bodyManager.StartPreviewBody()
+                confirmButtonBody.SetActive(true);
+                bodyOrGadgetName.text = currentB.data.name.ToString();
+                bodyOrGadgetDesc.text = currentB.data.description.ToString();
+                textField.SetActive(true);
+            });
+        }
+    }
+
+    public void RemoveGadgetFromInventory(int slotIndex)
+    {
+        if (gadgetManager.gadgetOwned[slotIndex].isEquipped)
+        {
+            gadgetManager.DetachGadgetbyID(gadgetManager.gadgetOwned[slotIndex].id);
+        }
+        for(int i = gadgetManager.gadgetOwned.Length - 1; i > slotIndex; i--)
+        {
+            gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
+        }
+        gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
     }
 }
