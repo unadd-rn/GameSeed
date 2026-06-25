@@ -22,8 +22,8 @@ public abstract class BaseGadget : ScriptableObject
     public float sizeZ;
 
     /* Others */
-    public abstract void Apply(GameObject target);
-    public abstract void Remove(GameObject target);
+    public abstract void Apply(StickData target);
+    public abstract void Remove(StickData target);
 
     [Header("Radial Menu")]
     public bool isActiveGadget;

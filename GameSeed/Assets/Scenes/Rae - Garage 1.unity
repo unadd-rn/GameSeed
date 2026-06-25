@@ -434,7 +434,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2094672894}
+      - m_Target: {fileID: 638068771}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: GadgetButton
         m_Mode: 1
@@ -1564,6 +1564,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &638068768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 638068769}
+  - component: {fileID: 638068771}
+  - component: {fileID: 638068770}
+  m_Layer: 0
+  m_Name: StickSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &638068769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638068768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2144899747}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &638068770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638068768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4f103f6ddb750448514390c11ae0b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: d8b81e7981efdbb4bad2b769d6909090, type: 2}
+  stickBodyTransform: {fileID: 0}
+--- !u!114 &638068771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638068768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca8d123596e8fb49b081cbbeedf6154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gadgetPanel: {fileID: 1108050987}
+  bodyPanel: {fileID: 1114187456}
+  data: {fileID: 11400000, guid: d8b81e7981efdbb4bad2b769d6909090, type: 2}
+  gadgetPanelTransform: {fileID: 730982709}
+  bodyPanelTransform: {fileID: 1996602427}
+  gadgetManager: {fileID: 638068770}
 --- !u!1001 &706163435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3175,7 +3240,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2094672894}
+      - m_Target: {fileID: 638068771}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: BodyButton
         m_Mode: 1
@@ -4136,7 +4201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2094672894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: BackToMenu
         m_Mode: 1
@@ -4414,52 +4479,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996602426}
   m_CullTransparentMesh: 1
---- !u!1 &2094672893
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2094672895}
-  - component: {fileID: 2094672894}
-  m_Layer: 0
-  m_Name: GarageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2094672894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2094672893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ca8d123596e8fb49b081cbbeedf6154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gadgetPanel: {fileID: 1108050987}
-  bodyPanel: {fileID: 1114187456}
---- !u!4 &2094672895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2094672893}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1117.8186, y: 741.8404, z: -12.594971}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2144899744
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,7 +4569,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 638068769}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2144899748
@@ -4604,5 +4624,4 @@ SceneRoots:
   - {fileID: 2144899747}
   - {fileID: 1787004442}
   - {fileID: 81189033}
-  - {fileID: 2094672895}
   - {fileID: 608445913}
