@@ -31,4 +31,5 @@ public class StickData : ScriptableObject
     public float sizeZ;
     public SlotDefinition[] frontSlots; // ada 5 di sepanjang stik
     public SlotDefinition[] backSlots;
+    public int canTeleport = 0;
 }
