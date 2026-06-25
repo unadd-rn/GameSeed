@@ -10,6 +10,7 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     // public Image button;
 
     public ForceTest forceTest;
+    [SerializeField] private StickThrowTest stickThrow;
 
     private bool isPressed;
     // Update is called once per frame
@@ -43,5 +44,6 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     public void OnPointerUp(PointerEventData eventData)
     {
         isPressed = false;
+        stickThrow.Throw();
     }
 }

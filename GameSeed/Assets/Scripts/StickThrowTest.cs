@@ -15,6 +15,8 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private Slider hitPointSlider;
     [SerializeField] private GameObject sliderContainer;
     [SerializeField] private GameObject buttonThrow;
+    [SerializeField] private GameObject forceController;
+    [SerializeField] private Image forceBar;
 
     private Rigidbody rigid;
     private Collider stickCollider;
@@ -47,7 +49,6 @@ public class StickThrowTest : MonoBehaviour
 
     public void OnStickPlaced()
     {
-        SetUIVisible(true);
         UpdateSliderPosition();
     }
 
@@ -155,6 +156,8 @@ public class StickThrowTest : MonoBehaviour
     {
         if (sliderContainer != null) sliderContainer.SetActive(visible);
         if (buttonThrow != null) buttonThrow.SetActive(visible);
+        if (forceController != null) forceController.SetActive(visible);
+        if (forceBar != null) forceBar.fillAmount = 0f;
     }
 
     private void UpdateSliderPosition()
