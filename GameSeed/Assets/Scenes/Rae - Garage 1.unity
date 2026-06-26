@@ -1647,10 +1647,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetPanel: {fileID: 1108050987}
   bodyPanel: {fileID: 1114187456}
-  data: {fileID: 11400000, guid: d8b81e7981efdbb4bad2b769d6909090, type: 2}
+  data: {fileID: 0}
   gadgetPanelTransform: {fileID: 730982709}
   bodyPanelTransform: {fileID: 1996602427}
   gadgetManager: {fileID: 638068770}
+  bodyManager: {fileID: 0}
+  confirmButtonGadget: {fileID: 0}
+  confirmButtonBody: {fileID: 0}
+  textField: {fileID: 0}
+  bodyOrGadgetName: {fileID: 0}
+  bodyOrGadgetDesc: {fileID: 0}
 --- !u!1001 &706163435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3554,6 +3560,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80dade0004da2c746ba7c323f44d00d7, type: 3}
+--- !u!1 &1587828858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587828860}
+  - component: {fileID: 1587828859}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1587828859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587828858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 0}
+--- !u!4 &1587828860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587828858}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 442.82977, y: 1527.4106, z: -15.266555}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1589316484
 GameObject:
   m_ObjectHideFlags: 0
@@ -4223,9 +4274,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
-        m_MethodName: BackToMenu
+      - m_Target: {fileID: 1587828859}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: Lobby1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4647,3 +4698,4 @@ SceneRoots:
   - {fileID: 1787004442}
   - {fileID: 81189033}
   - {fileID: 608445913}
+  - {fileID: 1587828860}
