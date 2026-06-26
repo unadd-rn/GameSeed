@@ -1,8 +1,8 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-// [CreateAssetMenu(menuName = "Gadgets/KnockoutGadget")]
+[CreateAssetMenu(menuName = "Gadgets/KnockoutGadget")]
 
 public class KnockoutGadget : BaseGadget
 {
