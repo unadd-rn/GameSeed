@@ -3,22 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Gadgets/TeleportGadget")]
-
 public class TeleportGadget : BaseGadget
 {
-    // bikin canTeleport di player, awalnya false
-    public override void Apply(StickData target)
+    public override void Apply(GameObject target)
     {
-        // PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
-        // if(playerCap != null) playerCap.canTeleport = true;
-        target.canTeleport++;
+        // Cari komponen kapabilitas di tubuh player
+        PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
+        if(playerCap != null) 
+        {
+            playerCap.canTeleport++;
+        }
+        else 
+        {
+            Debug.LogWarning("PlayerCapabilities tidak ditemukan di target!");
+        }
     }
 
-    public override void Remove(StickData target)
+    public override void Remove(GameObject target)
     {
-        // PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
-        // if(playerCap != null) playerCap.canTeleport = false;
-        if(target.canTeleport > 0) target.canTeleport--;
-        else Debug.Log("There is no fucking teleport left, wrong call");
+        PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
+        if(playerCap != null)
+        {
+            if(playerCap.canTeleport > 0) 
+                playerCap.canTeleport--;
+            else 
+                Debug.LogWarning("Tidak ada sisa teleport untuk dihapus.");
+        }
     }
 }
