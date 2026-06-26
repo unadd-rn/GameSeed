@@ -88,7 +88,7 @@ public class RadialMenu : MonoBehaviour
             );
             items[i].anchoredPosition = pos;
 
-            bool isActive = (i == 0);
+            bool isActive = (i == activeIndex);
             float targetScale = isActive ? 1.2f : 1f;
             items[i].localScale = Vector3.one * targetScale;
         }
