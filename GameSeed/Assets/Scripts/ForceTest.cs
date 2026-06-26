@@ -15,6 +15,13 @@ public class ForceTest : MonoBehaviour
     // Inside ForceTest.cs
     [SerializeField] private StickData stickData;
 
+    [Header("Tracker Settings")]
+    [SerializeField] private RectTransform triangleTracker;
+    [SerializeField] private bool isVertical = true;
+
+    [SerializeField] private float minYPosition = 10f; 
+    [SerializeField] private float maxYPosition = 190f;
+
     public void ChangeForce()
     {
         float newValue = forceBarTracker.fillAmount + barDirection * barSpeed * Time.deltaTime;
@@ -22,6 +29,22 @@ public class ForceTest : MonoBehaviour
         if (newValue <= 0f) { newValue = 0; barDirection = 1f; }
         forceBarTracker.fillAmount = newValue;
         stickData.velocityScale = newValue;
+        if (triangleTracker != null)
+        {
+            UpdateTrackerPosition(newValue);
+        }
+    }
+
+    private void UpdateTrackerPosition(float fillAmount)
+    {
+        Vector2 newPosition = triangleTracker.anchoredPosition;
+
+        if (isVertical)
+        {
+            newPosition.y = Mathf.Lerp(minYPosition, maxYPosition, fillAmount);
+        }
+
+        triangleTracker.anchoredPosition = newPosition;
     }
 
     // Start is called before the first frame update

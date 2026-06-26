@@ -128,7 +128,7 @@ public class EnemyAI : MonoBehaviour
             Vector3 groundSpinDrift = stableRight * (testScenario.hitPoint * groundSpinDriftMultiplier);
 
             Vector3 estimatedLandingPos = baseLandingPos + groundSpinDrift;
-            // 4. Titik jatuh final yang udah ngebaca spin
+
             Vector3 landingPos = baseLandingPos + groundSpinDrift;
 
             debugPredictedPositions.Add(landingPos);
