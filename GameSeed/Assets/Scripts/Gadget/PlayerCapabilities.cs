@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class PlayerCapabilities : MonoBehaviour
 {
-    public bool canTeleport = false;
+    public int canTeleport = 0;
+    public int canActivateSafeArea = 0;
 }
