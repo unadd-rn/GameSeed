@@ -32,4 +32,5 @@ public class StickData : ScriptableObject
     public SlotDefinition[] frontSlots; // ada 5 di sepanjang stik
     public SlotDefinition[] backSlots;
     public int canTeleport = 0;
+    public int canActivateSafeArea = 0;
 }
