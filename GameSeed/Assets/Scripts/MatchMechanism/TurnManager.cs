@@ -34,6 +34,7 @@ public class TurnManager : MonoBehaviour
                 if (playerSpawnScript != null) playerSpawnScript.enabled = true;
                 if (playerThrowScript != null) playerThrowScript.enabled = true;
                 if (enemyAIScript != null) enemyAIScript.enabled = false;
+                playerThrowScript.SetUIVisible(false);
                 break;
 
             case TurnState.PlayerThrowing:
