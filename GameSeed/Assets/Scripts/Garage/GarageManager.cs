@@ -9,7 +9,7 @@ public class GarageManager : MonoBehaviour
 {
     public GameObject gadgetPanel;
     public GameObject bodyPanel;
-    public StickData data;
+    public StickSlot data;
 
     [Header("Kebutuhan button")]
     [SerializeField] Transform gadgetPanelTransform;
@@ -39,15 +39,15 @@ public class GarageManager : MonoBehaviour
         
         SetupGadgetButtons();
 
-        if(data != null && data.stickBody != null)
-        {
-            GameObject spawnedBody = Instantiate(data.stickBody, transform);
+        // if(data != null && data.stickBody != null)
+        // {
+        //     GameObject spawnedBody = Instantiate(data.stickBody, transform);
 
-            spawnedBody.transform.localPosition = Vector3.zero;
-            spawnedBody.transform.localRotation = Quaternion.identity;
+        //     spawnedBody.transform.localPosition = Vector3.zero;
+        //     spawnedBody.transform.localRotation = Quaternion.identity;
 
-            GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
-        }
+        //     GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
+        // }
     }
 
     public void BodyButton()
@@ -64,7 +64,17 @@ public class GarageManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("Cetta");
+        SceneManager.LoadScene("Cet - lobby1");
+    }
+
+    public void EmptyingGadgetButtons()
+    {
+        buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsG.Length; i++)
+        {
+            Button currentButton = buttonsG[i];
+            currentButton.image.sprite = null;
+        }
     }
 
     public void SetupGadgetButtons()
@@ -132,5 +142,7 @@ public class GarageManager : MonoBehaviour
             gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
         }
         gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
+        EmptyingGadgetButtons();
+        SetupGadgetButtons();
     }
 }
