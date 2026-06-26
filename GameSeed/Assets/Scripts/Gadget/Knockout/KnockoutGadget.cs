@@ -8,15 +8,22 @@ public class KnockoutGadget : BaseGadget
 {
     public override void Apply(GameObject target)
     {
-        target.canActivateSafeArea++;
+        PlayerCapabilities cap = target.GetComponent<PlayerCapabilities>();
+        
+        if (cap != null)
+        {
+            cap.canActivateSafeArea++;
+        }
     }
 
     public override void Remove(GameObject target)
     {
-        // Mengurangi kuota saat gadget dilepas
-        if (target.canActivateSafeArea > 0) 
-            target.canActivateSafeArea--;
-        else 
-            Debug.LogWarning("Tidak ada kuota Safe Area yang bisa dikurangi.");
+        PlayerCapabilities cap = target.GetComponent<PlayerCapabilities>();
+        
+        if (cap != null)
+        {
+            if (cap.canActivateSafeArea > 0)
+                cap.canActivateSafeArea--;
+        }
     }
 }
