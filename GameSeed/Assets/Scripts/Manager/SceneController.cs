@@ -80,7 +80,7 @@ public class SceneController : MonoBehaviour
         PlayerPrefs.SetString("MatchType", type);
         PlayerPrefs.Save();
 
-        goToSceneName("Unad");
+        goToSceneName("cet - win");
     }
 #endregion
 }
