@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     public GameObject WinUI;
-    public float health = 3;
+    public float health;
+    private int win;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
@@ -33,7 +34,6 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         if(WinUI != null) WinUI.SetActive(false);
-        health = 3;
         rigid = GetComponent<Rigidbody>();
         UpdateUI();
     }
@@ -89,6 +89,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0) 
         {
+            Debug.Log("hey i win??");
             Win();
             return;
         }
@@ -163,8 +164,22 @@ public class EnemyHealth : MonoBehaviour
 
     private void Win()
     {
+        PlayerPrefs.SetString("MatchStatus", "match selesai");
 
-        // win stuff
-        if(WinUI != null) WinUI.SetActive(true);
+        if (!PlayerPrefs.HasKey("WinCount"))
+        {
+            win = 1;
+        }
+        else
+        {
+            win = PlayerPrefs.GetInt("WinCount") + 1;
+        }
+
+        PlayerPrefs.SetInt("WinCount", win);
+
+        PlayerPrefs.Save();
+
+        // if(WinUI != null) WinUI.SetActive(true); entah knp gk bisa kl di cek null dl???
+        WinUI.SetActive(true);
     }
 }

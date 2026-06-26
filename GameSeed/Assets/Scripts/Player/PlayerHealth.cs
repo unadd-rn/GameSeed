@@ -5,7 +5,7 @@ using UnityEngine.UI; // Wajib ditambahkan untuk akses komponen Image
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject DeathUI;
-    public float health = 3;
+    public float health;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
@@ -36,7 +36,6 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         if(DeathUI != null) DeathUI.SetActive(false);
-        health = 3;
         rigid = GetComponent<Rigidbody>();
         UpdateUI();
     }
@@ -172,7 +171,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-
+        PlayerPrefs.SetString("MatchStatus", "match selesai");
+        PlayerPrefs.Save();
         // death stuff
         if(DeathUI != null) DeathUI.SetActive(true);
     }
