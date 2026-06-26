@@ -13,7 +13,7 @@ public class GadgetInstance
     {
         this.id = System.Guid.NewGuid().ToString();
         this.data = baseData;
-        this.isEquipped = false;
+        this.isEquipped = true;
         this.currentDurability = baseData.durability; // Starts at max durability
     }
 }

@@ -22,6 +22,22 @@ public class GadgetManager : MonoBehaviour
     private int currentPreviewSlotIndex = -1;
     private GadgetInstance currentPreviewGadget;
 
+    [Header("Player Reference")]
+    public GameObject playerTarget;
+    [Header("Testing Purpose Only")]
+    [SerializeField] private BaseGadget[] startingGadgets;
+
+    private void Start()
+    {
+        for (int i = 0; i < startingGadgets.Length; i++)
+        {
+            if (startingGadgets[i] != null && i < gadgetOwned.Length)
+            {
+                gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
+            }
+        }
+    }
+
     private void SetGadgetScale(GameObject go, BaseGadget gadgetData)
     {
         go.transform.localScale = new Vector3(
@@ -56,7 +72,7 @@ public class GadgetManager : MonoBehaviour
         if(frontSlot.spawnedVisual != null) Destroy(frontSlot.spawnedVisual);
         if(backSlot.spawnedVisual != null) Destroy(backSlot.spawnedVisual);
 
-        detachedGadget.data.Remove(gameObject);
+        detachedGadget.data.Remove(playerTarget != null ? playerTarget : gameObject);
         detachedGadget.isEquipped = false;
         
         frontSlot.occupant = null;
@@ -123,7 +139,7 @@ public class GadgetManager : MonoBehaviour
         frontSlot.occupant = currentPreviewGadget;
         backSlot.occupant = currentPreviewGadget;
 
-        currentPreviewGadget.data.Apply(gameObject);
+        currentPreviewGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
         currentPreviewGadget.isEquipped = true;
 
         previewVisualFront = null;

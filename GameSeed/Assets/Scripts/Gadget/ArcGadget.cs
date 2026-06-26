@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ArcGadget : MonoBehaviour
 {
-    public RectTransform rectTransform => (RectTransform)transform;
+    public RectTransform rectTransform => GetComponent<RectTransform>();
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameLabel;

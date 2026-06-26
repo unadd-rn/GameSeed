@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RadialMenu : MonoBehaviour
 {
     [Header("Settings")]
-    public RectTransform[] items;
+    public List<RectTransform> items = new List<RectTransform>();
     public float radius = 150f;
     public float activeAngleDeg = -45f;
     public float animDuration = 0.25f;
@@ -17,31 +18,58 @@ public class RadialMenu : MonoBehaviour
 
     void Start()
     {
-        PositionItems(0f);
+    }
+
+    void Awake()
+    {
+        items = new List<RectTransform>(); 
+    }
+
+    public void ClearMenu()
+    {
+        if (items == null) 
+        {
+            items = new List<RectTransform>();
+        }
+
+        if (animCoroutine != null) StopCoroutine(animCoroutine);
+        
+        foreach (var item in items)
+        {
+            if (item != null) Destroy(item.gameObject);
+        }
+        
+        items.Clear();
+        activeIndex = 0;
+        currentRotationOffset = 0f;
+        targetRotationOffset = 0f;
     }
 
     public void RotateRight()
     {
-        activeIndex = (activeIndex + 1) % items.Length;
-        targetRotationOffset += (360f / items.Length);
+        if (items.Count == 0) return;
+        activeIndex = (activeIndex + 1) % items.Count;
+        targetRotationOffset += (360f / items.Count);
         StartSpin();
     }
 
     public void RotateLeft()
     {
-        activeIndex = (activeIndex - 1 + items.Length) % items.Length;
-        targetRotationOffset -= (360f / items.Length);
+        if (items.Count == 0) return;
+        activeIndex = (activeIndex - 1 + items.Count) % items.Count;
+        targetRotationOffset -= (360f / items.Count);
         StartSpin();
     }
 
     public void SelectItem(int index)
     {
+        if (items.Count == 0) return;
         int delta = index - activeIndex;
-        if (delta > items.Length / 2)  delta -= items.Length;
-        if (delta < -items.Length / 2) delta += items.Length;
+        if (delta > items.Count / 2)  delta -= items.Count;
+        if (delta < -items.Count / 2) delta += items.Count;
 
         activeIndex = index;
-        targetRotationOffset += delta * (360f / items.Length);
+        targetRotationOffset += delta * (360f / items.Count);
         StartSpin();
     }
 
@@ -70,11 +98,19 @@ public class RadialMenu : MonoBehaviour
 
         currentRotationOffset = targetRotationOffset;
         PositionItems(currentRotationOffset);
+
+        RadialGadgetController controller = FindObjectOfType<RadialGadgetController>();
+        if (controller != null)
+        {
+            controller.UpdateUIHighlight();
+        }
     }
 
     void PositionItems(float rotationOffset)
     {
-        int n = items.Length;
+        if (items == null || items.Count == 0) return;
+        int n = items.Count;
+        if (n == 0) return;
         float stepAngle = 360f / n;
 
         for (int i = 0; i < n; i++)
