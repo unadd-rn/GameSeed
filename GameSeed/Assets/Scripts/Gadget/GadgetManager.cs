@@ -31,12 +31,27 @@ public class GadgetManager : MonoBehaviour
         );
     }
 
+    private GameObject CreateGadgetVisual(BaseGadget gadgetData, Transform parent)
+    {
+        GameObject go = new GameObject(gadgetData.gadgetName);
+        go.transform.SetParent(parent);
+
+        MeshFilter meshFilter = go.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = go.AddComponent<MeshRenderer>();
+
+        meshFilter.sharedMesh = gadgetData.mesh;
+        meshRenderer.sharedMaterial = gadgetData.material;
+
+        return go;
+    }
+
     public void DetachGadget(int slotIndex)
     {
         SlotDefinition frontSlot = data.frontSlots[slotIndex];
         SlotDefinition backSlot = data.backSlots[slotIndex];
 
         GadgetInstance detachedGadget = frontSlot.occupant;
+        if(detachedGadget == null) return;
 
         if(frontSlot.spawnedVisual != null) Destroy(frontSlot.spawnedVisual);
         if(backSlot.spawnedVisual != null) Destroy(backSlot.spawnedVisual);
@@ -50,6 +65,19 @@ public class GadgetManager : MonoBehaviour
         backSlot.spawnedVisual = null;
     }
 
+    public void DetachGadgetbyID(string id)
+    {
+        for(int i = 0; i < data.frontSlots.Length; i++)
+        {
+            if(data.frontSlots[i].occupant != null && data.frontSlots[i].occupant.id == id)
+            {
+                DetachGadget(i);
+                return;
+            }
+        }
+        Debug.LogWarning($"ID {id} gak ada di stik");
+    }
+
     public void StartPreviewGadget(GadgetInstance gadget, int startingSlotIndex)
     {
         CancelPreview(); // klo sblmnya preview yg lain
@@ -57,7 +85,7 @@ public class GadgetManager : MonoBehaviour
         currentPreviewGadget = gadget;
         Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
 
-        previewVisualFront = Instantiate(gadget.data.prefab, parentTransform);
+        previewVisualFront = CreateGadgetVisual(gadget.data, parentTransform);
         previewVisualFront.transform.localRotation = Quaternion.identity;
         SetGadgetScale(previewVisualFront, gadget.data);
 
@@ -77,20 +105,21 @@ public class GadgetManager : MonoBehaviour
     public void ConfirmPlacement()
     {
         if(currentPreviewGadget == null || currentPreviewSlotIndex == -1) return;
-        if(data.frontSlots[currentPreviewSlotIndex].occupant == null)
+        if(data.frontSlots[currentPreviewSlotIndex].occupant != null)
             DetachGadget(currentPreviewSlotIndex); // bersihin yg sebelumnya
         
         Transform parentTransform = stickBodyTransform == null ? transform : stickBodyTransform;
         SlotDefinition frontSlot = data.frontSlots[currentPreviewSlotIndex];
         SlotDefinition backSlot = data.backSlots[currentPreviewSlotIndex];
 
-        GameObject backVisual = Instantiate(currentPreviewGadget.data.prefab, parentTransform);
+        GameObject backVisual = CreateGadgetVisual(currentPreviewGadget.data, parentTransform);
         backVisual.transform.localPosition = backSlot.localPosition;
         backVisual.transform.localRotation = Quaternion.Euler(0, 180f, 0);
         SetGadgetScale(backVisual, currentPreviewGadget.data);
 
         backSlot.spawnedVisual = backVisual;
 
+        frontSlot.spawnedVisual = previewVisualFront;
         frontSlot.occupant = currentPreviewGadget;
         backSlot.occupant = currentPreviewGadget;
 
@@ -109,19 +138,6 @@ public class GadgetManager : MonoBehaviour
         
         currentPreviewGadget = null;
         currentPreviewSlotIndex = -1;   
-    }
-
-    public void RemoveGadgetFromInventory(int slotIndex, StickData data)
-    {
-        if (gadgetOwned[slotIndex].isEquipped)
-        {   
-            gadgetOwned[slotIndex].data.Remove(data);
-        }
-        for(int i = gadgetOwned.Length - 1; i > slotIndex; i++)
-        {
-            gadgetOwned[i-1] = gadgetOwned[i];
-        }
-        gadgetOwned[gadgetOwned.Length - 1] = null;
     }
 
     // public void AttachGadget(GadgetInstance gadget, int slotIndex)
