@@ -56,7 +56,7 @@ public class GadgetManager : MonoBehaviour
         if(frontSlot.spawnedVisual != null) Destroy(frontSlot.spawnedVisual);
         if(backSlot.spawnedVisual != null) Destroy(backSlot.spawnedVisual);
 
-        detachedGadget.data.Remove(data);
+        detachedGadget.data.Remove(gameObject);
         detachedGadget.isEquipped = false;
         
         frontSlot.occupant = null;
@@ -123,7 +123,7 @@ public class GadgetManager : MonoBehaviour
         frontSlot.occupant = currentPreviewGadget;
         backSlot.occupant = currentPreviewGadget;
 
-        currentPreviewGadget.data.Apply(data);
+        currentPreviewGadget.data.Apply(gameObject);
         currentPreviewGadget.isEquipped = true;
 
         previewVisualFront = null;
