@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class KnockoutGadget : BaseGadget
 {
-    public override void Apply(StickData target)
+    public override void Apply(GameObject target)
     {
         target.canActivateSafeArea++;
     }
 
-    public override void Remove(StickData target)
+    public override void Remove(GameObject target)
     {
         // Mengurangi kuota saat gadget dilepas
         if (target.canActivateSafeArea > 0) 
