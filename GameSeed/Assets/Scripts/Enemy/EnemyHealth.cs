@@ -64,6 +64,13 @@ public class EnemyHealth : MonoBehaviour
         {
             return; //ini nih masih invincible
         }
+
+        if (SafeAreaZone.CheckAndConsumeZone(transform.position, "Enemy"))
+        {
+            Debug.Log("Damage DIGAGALKAN karena Player berada di dalam Knockout Safe Area!");
+            return; // Keluar dari fungsi, darah enemy TIDAK AKAN berkurang!
+        }
+
         lastDamageTime = Time.time; //kl ngedamage di luar cooldown
 
         health -= amount;
