@@ -14,7 +14,7 @@ public class GadgetButtonHandler : MonoBehaviour
         GadgetInstance selectedGadget = radialController.GetSelectedGadget();
         if (selectedGadget != null && selectedGadget.data != null)
         {
-            selectedGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
+            selectedGadget.data.Activate(playerTarget != null ? playerTarget : gameObject);
             Debug.Log(selectedGadget.data.gadgetName);
         }
     }
