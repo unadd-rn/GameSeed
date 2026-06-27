@@ -1585,7 +1585,7 @@ GameObject:
   - component: {fileID: 280411385}
   - component: {fileID: 280411386}
   m_Layer: 0
-  m_Name: Animation
+  m_Name: Animaton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1678,6 +1678,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: -332.2, y: -692.4}
+    isVisible: 0
   - label: P1 Bar
     uiPortrait: {fileID: 158708056}
     events:
@@ -1737,6 +1738,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 156.99998, y: -613.6}
+    isVisible: 0
   - label: P2 Bar
     uiPortrait: {fileID: 146721705}
     events:
@@ -1796,6 +1798,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 28.800018, y: -1808.1001}
+    isVisible: 0
   - label: Skill
     uiPortrait: {fileID: 147469180}
     events:
@@ -1855,6 +1858,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: -241, y: -331.3}
+    isVisible: 0
   - label: HE1
     uiPortrait: {fileID: 16062270}
     events:
@@ -1886,7 +1890,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -1902,7 +1906,7 @@ MonoBehaviour:
         wipeDuration: 0
         bounceStartScale: 0
         bounceOvershoot: 1
-        bounceDuration: 0.1
+        bounceDuration: 0
         shakeStrength: 0
         shakeVibrato: 0
         shakeRandomness: 0
@@ -1913,7 +1917,8 @@ MonoBehaviour:
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 264.69995, y: -1770.5999}
+    localRestPosition: {x: -185.29999, y: -1838.6}
+    isVisible: 0
   - label: HP1
     uiPortrait: {fileID: 1974460201}
     events:
@@ -1945,7 +1950,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -1973,6 +1978,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: -58.4, y: -643.8}
+    isVisible: 0
   - label: HE2
     uiPortrait: {fileID: 51850926}
     events:
@@ -2004,7 +2010,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2031,7 +2037,8 @@ MonoBehaviour:
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 187.60004, y: -1788.5}
+    localRestPosition: {x: -87.8999, y: -1820.1998}
+    isVisible: 0
   - label: HP2
     uiPortrait: {fileID: 472877520}
     events:
@@ -2063,7 +2070,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2091,6 +2098,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 39, y: -625.4}
+    isVisible: 0
   - label: HE3
     uiPortrait: {fileID: 1068316468}
     events:
@@ -2122,7 +2130,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2149,7 +2157,8 @@ MonoBehaviour:
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 97.70001, y: -1793.3}
+    localRestPosition: {x: 1.6000366, y: -1810.3999}
+    isVisible: 0
   - label: HP3
     uiPortrait: {fileID: 1022496852}
     events:
@@ -2181,7 +2190,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2209,6 +2218,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 128.5, y: -615.6}
+    isVisible: 0
   - label: HE4
     uiPortrait: {fileID: 895792825}
     events:
@@ -2240,7 +2250,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2267,7 +2277,8 @@ MonoBehaviour:
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 1.6000366, y: -1810.3999}
+    localRestPosition: {x: 97.70001, y: -1793.3}
+    isVisible: 0
   - label: HP4
     uiPortrait: {fileID: 1829906061}
     events:
@@ -2299,7 +2310,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2327,6 +2338,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 224.6, y: -598.5}
+    isVisible: 0
   - label: HE5
     uiPortrait: {fileID: 52435003}
     events:
@@ -2358,7 +2370,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2385,7 +2397,8 @@ MonoBehaviour:
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: -87.8999, y: -1820.1998}
+    localRestPosition: {x: 187.60004, y: -1788.5}
+    isVisible: 0
   - label: HP5
     uiPortrait: {fileID: 328158431}
     events:
@@ -2417,7 +2430,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2445,6 +2458,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 314.5, y: -593.7}
+    isVisible: 0
   - label: HE6
     uiPortrait: {fileID: 805408996}
     events:
@@ -2476,7 +2490,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2503,7 +2517,8 @@ MonoBehaviour:
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: -185.29999, y: -1838.6}
+    localRestPosition: {x: 264.69995, y: -1770.5999}
+    isVisible: 0
   - label: HP6
     uiPortrait: {fileID: 329673570}
     events:
@@ -2535,7 +2550,7 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
       outAnimation:
-        animationType: 3
+        animationType: 0
         followDelay: 0
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
@@ -2563,6 +2578,7 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 1, y: 1, z: 1}
     localRestPosition: {x: 391.6, y: -575.8}
+    isVisible: 0
   - label: PowerBar
     uiPortrait: {fileID: 331016170}
     events:
@@ -2583,8 +2599,8 @@ MonoBehaviour:
         wipeDirection: 0
         wipeDuration: 0
         bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
+        bounceOvershoot: 1
+        bounceDuration: 1
         shakeStrength: 0
         shakeVibrato: 0
         shakeRandomness: 0
@@ -2600,8 +2616,8 @@ MonoBehaviour:
         maximumTrailLag: {x: 0, y: 0}
         maximumTrailLag2: {x: 0, y: 0}
         finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
+        offScreenOffset: {x: 2000, y: 0}
+        slideDuration: 0.1
         spinDegrees: 0
         zoomInScale: 0
         spinZoomDuration: 0
@@ -2620,15 +2636,16 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 391.6, y: -575.8}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 530.8, y: 369.9}
+    isVisible: 0
   - label: PowerBar1
-    uiPortrait: {fileID: 331016170}
+    uiPortrait: {fileID: 598255979}
     events:
     - eventName: putStick
       inAnimation:
         animationType: 0
-        followDelay: 0.1
+        followDelay: 0.2
         trailColor: {r: 0, g: 0, b: 0, a: 0}
         maximumTrailLag: {x: 0, y: 0}
         maximumTrailLag2: {x: 0, y: 0}
@@ -2659,8 +2676,8 @@ MonoBehaviour:
         maximumTrailLag: {x: 0, y: 0}
         maximumTrailLag2: {x: 0, y: 0}
         finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
+        offScreenOffset: {x: 2000, y: 0}
+        slideDuration: 0.1
         spinDegrees: 0
         zoomInScale: 0
         spinZoomDuration: 0
@@ -2679,8 +2696,9 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 391.6, y: -575.8}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 530.8, y: 369.9}
+    isVisible: 0
   - label: Attack
     uiPortrait: {fileID: 944950798}
     events:
@@ -2718,8 +2736,8 @@ MonoBehaviour:
         maximumTrailLag: {x: 0, y: 0}
         maximumTrailLag2: {x: 0, y: 0}
         finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
+        offScreenOffset: {x: 2000, y: 0}
+        slideDuration: 0.1
         spinDegrees: 0
         zoomInScale: 0
         spinZoomDuration: 0
@@ -2738,8 +2756,9 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 391.6, y: -575.8}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 466.2, y: -277}
+    isVisible: 0
   - label: Hiasan
     uiPortrait: {fileID: 1464901033}
     events:
@@ -2777,8 +2796,8 @@ MonoBehaviour:
         maximumTrailLag: {x: 0, y: 0}
         maximumTrailLag2: {x: 0, y: 0}
         finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
+        offScreenOffset: {x: 2000, y: 0}
+        slideDuration: 0.1
         spinDegrees: 0
         zoomInScale: 0
         spinZoomDuration: 0
@@ -2797,8 +2816,9 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 391.6, y: -575.8}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 435.8, y: 21.6}
+    isVisible: 0
   - label: Indicator
     uiPortrait: {fileID: 1537006483}
     events:
@@ -2836,8 +2856,8 @@ MonoBehaviour:
         maximumTrailLag: {x: 0, y: 0}
         maximumTrailLag2: {x: 0, y: 0}
         finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
+        offScreenOffset: {x: 2000, y: 0}
+        slideDuration: 0.1
         spinDegrees: 0
         zoomInScale: 0
         spinZoomDuration: 0
@@ -2856,8 +2876,9 @@ MonoBehaviour:
         wipeMaskFullSize: {x: 0, y: 0}
         wipeMaskHiddenSize: {x: 0, y: 0}
     uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: 391.6, y: -575.8}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
   toggleButton: {fileID: 1658591762}
   toggleEventName: IN/OUT
 --- !u!1 &328158430
