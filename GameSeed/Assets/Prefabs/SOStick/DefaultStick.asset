@@ -17,17 +17,17 @@ MonoBehaviour:
   stickIcon: {fileID: 0}
   stickBody: {fileID: 919132149155446097, guid: b2bbd871b0fee4e4ca368b779be50bbf,
     type: 3}
-  stickMaterial: {fileID: -2087353824332523593, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
-    type: 3}
   stickMesh: {fileID: 2925664659663994200, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
+    type: 3}
+  stickMaterial: {fileID: -2087353824332523593, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
     type: 3}
   damage: 1
   weight: 1
-  velocityScale: 0.8745869
+  velocityScale: 0.6182656
   launchForce: 3.5
   up: 2.5
   stickLength: 2
-  spinScale: 200
+  spinScale: 150
   stickLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -36,3 +36,5 @@ MonoBehaviour:
   sizeZ: 0
   frontSlots: []
   backSlots: []
+  canTeleport: 0
+  canActivateSafeArea: 0

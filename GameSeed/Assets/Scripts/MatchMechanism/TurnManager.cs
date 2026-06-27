@@ -51,6 +51,7 @@ public class TurnManager : MonoBehaviour
                     enemyAIScript.enabled = true;
                     enemyAIScript.StartTurn();
                 }
+                playerThrowScript.SetUIVisible(false);
                 break;
         }
     }
