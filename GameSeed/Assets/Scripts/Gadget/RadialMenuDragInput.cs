@@ -16,7 +16,6 @@ public class RadialMenuDragInput : MonoBehaviour, IDragHandler, IBeginDragHandle
     public void OnDrag(PointerEventData eventData)
     {
         dragAccumulator += eventData.delta.x;
-        Debug.Log($"Lagi di-drag! Nilai akumulator saat ini: {dragAccumulator}");
 
         if (dragAccumulator >= dragThreshold)
         {

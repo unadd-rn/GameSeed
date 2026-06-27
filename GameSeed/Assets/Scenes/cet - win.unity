@@ -5003,7 +5003,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216302335}
-  - component: {fileID: 1216302332}
   - component: {fileID: 1216302331}
   - component: {fileID: 1216302330}
   - component: {fileID: 1216302336}
@@ -5064,27 +5063,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!65 &1216302332
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216302329}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.48302174, y: 0.5, z: 3.012165}
-  m_Center: {x: -0.25848913, y: 0, z: 0.13271526}
 --- !u!4 &1216302335
 Transform:
   m_ObjectHideFlags: 0
@@ -5190,7 +5168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325f7b8374dce904a938621279e128cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stickData: {fileID: 11400000, guid: d8b81e7981efdbb4bad2b769d6909090, type: 2}
+  playerCap: {fileID: 0}
   safeAreaPrefab: {fileID: 5187195612056874045, guid: a5f867c8f326dea4a808e923449e68e3,
     type: 3}
 --- !u!1 &1230382586
@@ -7869,7 +7847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325f7b8374dce904a938621279e128cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stickData: {fileID: 11400000, guid: c40c0683fe3e66f499a5183518b0d304, type: 2}
+  playerCap: {fileID: 0}
   safeAreaPrefab: {fileID: 5187195612056874045, guid: bad104c1e8de5f34384a6b2748f2be67,
     type: 3}
 --- !u!1660057539 &9223372036854775807

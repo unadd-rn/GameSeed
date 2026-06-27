@@ -14,6 +14,12 @@ public class KnockoutGadget : BaseGadget
         {
             cap.canActivateSafeArea++;
         }
+
+        SafeAreaMechanism safeAreaMech = target.GetComponent<SafeAreaMechanism>();
+        if (safeAreaMech != null)
+        {
+            safeAreaMech.TryDeploySafeArea();
+        }
     }
 
     public override void Remove(GameObject target)

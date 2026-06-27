@@ -17,6 +17,16 @@ public class TeleportGadget : BaseGadget
         {
             Debug.LogWarning("PlayerCapabilities tidak ditemukan di target!");
         }
+
+        TeleportationMechanism teleporter = target.GetComponent<TeleportationMechanism>();
+        if (teleporter != null)
+        {
+            teleporter.Teleport();
+        }
+        else
+        {
+            Debug.LogWarning("TeleportationMechanism tidak ditemukan di target!");
+        }
     }
 
     public override void Remove(GameObject target)

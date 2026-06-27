@@ -23,20 +23,16 @@ public class RadialGadgetController : MonoBehaviour
         radialMenu.ClearMenu();
         spawnedGadgetUI.Clear();
 
-        Debug.Log($"Mulai Populate. Jumlah barang di inventory stik: {gadgetManager.gadgetOwned.Length}");
-
         if (gadgetManager == null || arcGadgetPrefab == null) return;
 
         foreach (GadgetInstance gadget in gadgetManager.gadgetOwned)
         {
             if (gadget == null) 
             {
-                Debug.Log("Ada slot kosong (null), skip!");
                 continue; 
             }
             if (!gadget.data.isActiveGadget) 
             {
-                Debug.Log($"Gadget {gadget.data.gadgetName} di-skip karena isActiveGadget bernilai FALSE.");
                 continue; 
             }
 

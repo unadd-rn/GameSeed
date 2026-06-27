@@ -49,7 +49,7 @@ public class RadialMenu : MonoBehaviour
     {
         if (items.Count == 0) return;
         activeIndex = (activeIndex + 1) % items.Count;
-        targetRotationOffset += (360f / items.Count);
+        targetRotationOffset -= (360f / items.Count);
         StartSpin();
     }
 
@@ -57,7 +57,7 @@ public class RadialMenu : MonoBehaviour
     {
         if (items.Count == 0) return;
         activeIndex = (activeIndex - 1 + items.Count) % items.Count;
-        targetRotationOffset -= (360f / items.Count);
+        targetRotationOffset += (360f / items.Count);
         StartSpin();
     }
 
