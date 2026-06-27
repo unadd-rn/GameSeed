@@ -17,16 +17,6 @@ public class TeleportGadget : BaseGadget
         {
             Debug.LogWarning("PlayerCapabilities tidak ditemukan di target!");
         }
-
-        TeleportationMechanism teleporter = target.GetComponent<TeleportationMechanism>();
-        if (teleporter != null)
-        {
-            teleporter.Teleport();
-        }
-        else
-        {
-            Debug.LogWarning("TeleportationMechanism tidak ditemukan di target!");
-        }
     }
 
     public override void Remove(GameObject target)
@@ -38,6 +28,21 @@ public class TeleportGadget : BaseGadget
                 playerCap.canTeleport--;
             else 
                 Debug.LogWarning("Tidak ada sisa teleport untuk dihapus.");
+        }
+    }
+
+    public override void Activate(GameObject target)
+    {
+        TeleportationMechanism teleporter = target.GetComponent<TeleportationMechanism>();
+        PlayerCapabilities playerCap = target.GetComponent<PlayerCapabilities>();
+        if (teleporter != null && playerCap.canTeleport > 0)
+        {
+            playerCap.canTeleport--;
+            teleporter.Teleport();
+        }
+        else
+        {
+            Debug.LogWarning("TeleportationMechanism tidak ditemukan di target!");
         }
     }
 }

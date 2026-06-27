@@ -14,6 +14,7 @@ public class TeleportationMechanism : MonoBehaviour
     [Header("Limit Arena")]
     public Transform enemy;
     public float minDistanceToEnemy = 0.5f;
+    public float outOfBoundCheckRadius = 0.5f;
 
 
     public void Teleport()
@@ -23,8 +24,10 @@ public class TeleportationMechanism : MonoBehaviour
         {
             float randomX = Random.Range(minX, maxX);
             float randomZ = Random.Range(minZ, maxZ);
-            randomPoint = new Vector3(randomX, transform.position.y, randomZ);
-        } while(TooClose(randomPoint));
+            randomPoint = new Vector3(randomX, 3f, randomZ);
+        } while(TooClose(randomPoint) || IsPointOutOfBounds(randomPoint));
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null) rb.velocity = Vector3.zero;
         transform.position = randomPoint;
     }
 
@@ -32,6 +35,20 @@ public class TeleportationMechanism : MonoBehaviour
     {
         float dist = Vector3.Distance(point, enemy.position);
         return dist < minDistanceToEnemy;
+    }
+
+    public bool IsPointOutOfBounds(Vector3 point)
+    {
+        Ray groundLevel = new Ray(new Vector3(point.x, 100f, point.z), Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(groundLevel, out hit, 200f))
+        {
+            if (hit.collider.CompareTag("OutOfBound"))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
