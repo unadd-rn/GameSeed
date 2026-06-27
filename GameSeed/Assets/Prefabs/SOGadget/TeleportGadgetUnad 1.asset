@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetName: aaaaaaaaaaaaa
   description: This is the description of the gadget
-  model: {fileID: 21300000, guid: fefa5710f8caf4948a3a71325d0f1b7b, type: 3}
+  model: {fileID: 21300000, guid: 25a0d772584e79a63b94f8261e99ef58, type: 3}
   mesh: {fileID: 2925664659663994200, guid: b2bbd871b0fee4e4ca368b779be50bbf, type: 3}
   material: {fileID: 2100000, guid: d4974fc95f412f54e86a289eb953e5af, type: 2}
   durability: 100
