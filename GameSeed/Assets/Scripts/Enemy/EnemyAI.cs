@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("AI Settings")]
     [SerializeField] private float thinkDelay = 1.5f;
-    [SerializeField] private int monteCarloSimulations = 20;
+    [SerializeField] public int monteCarloSimulations = 20;
     private bool hasPlaced = false;
 
     private WaitForSeconds delayWait;

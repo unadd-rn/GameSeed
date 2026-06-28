@@ -1975,7 +1975,7 @@ MonoBehaviour:
   MatchButton: {fileID: 1100778940}
   wincount: {fileID: 16785579}
   TutorialFinished: 1
-  winNumber: 3
+  winNumber: 6
   winNumberCondition: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
