@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI; // Wajib ditambahkan untuk akses komponen Image
+using UnityEngine.UI; 
+using System.Collections; 
+using System.Collections.Generic;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -31,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
    // [Header("Effects")]
     // [SerializeField] private HitFlash _hitFlash; 
+    private HashSet<Image> flashingBar = new HashSet<Image>();
     // ni buat nnti aja la
 
     void Start()
@@ -164,9 +167,27 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                heartSlots[i].gameObject.SetActive(false);
+                if (heartSlots[i].gameObject.activeSelf && !flashingBar.Contains(heartSlots[i]))
+                {
+                    StartCoroutine(GlitchAndHide(heartSlots[i]));
+                }
             }
         }
+    }
+
+    private IEnumerator GlitchAndHide(Image barImage)
+    {
+        flashingBar.Add(barImage); 
+
+        barImage.color = Color.white;
+        yield return new WaitForSeconds(0.06f);
+        barImage.enabled = false; 
+        yield return new WaitForSeconds(0.06f);
+        barImage.enabled = true; 
+        yield return new WaitForSeconds(0.08f);
+        barImage.gameObject.SetActive(false);
+    
+        flashingBar.Remove(barImage); // Lepas tandanya
     }
 
     private void Die()

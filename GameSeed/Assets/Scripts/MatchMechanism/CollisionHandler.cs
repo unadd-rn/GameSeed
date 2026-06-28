@@ -10,6 +10,9 @@ public class CollisionHandler : MonoBehaviour
     [Header("Arena")]
     public GameObject ArenaWall;
 
+    [Header("Effects")]
+    public GameObject sparkParticlePrefab;
+
     private Rigidbody rb;
     private Collider col;
     private PlayerHealth playerHealth;
@@ -28,6 +31,13 @@ public class CollisionHandler : MonoBehaviour
 
         CollisionHandler other = collision.gameObject.GetComponent<CollisionHandler>();
         if (other == null) return; // kalo gaada object lain gajadi
+
+        if (sparkParticlePrefab != null && collision.contacts.Length > 0)
+        {
+            Vector3 contactPoint = collision.contacts[0].point;
+            GameObject spark = Instantiate(sparkParticlePrefab, contactPoint, Quaternion.identity);
+            Destroy(spark, 1.5f); 
+        }
 
         Rigidbody otherRb = other.GetComponent<Rigidbody>();
 

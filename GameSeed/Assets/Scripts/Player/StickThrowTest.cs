@@ -158,7 +158,7 @@ public class StickThrowTest : MonoBehaviour
 
     public void SetUIVisible(bool visible)
     {
-        if(!visible){
+        if(!visible && portraitAnimator!= null){
             portraitAnimator.PlayEventOut("putStick");
             portraitAnimator.PlayEventOut("IN/OUT");
         }
@@ -170,7 +170,7 @@ public class StickThrowTest : MonoBehaviour
         if (otherUI != null) otherUI.SetActive(visible);
         if (otherOtherUI != null) otherOtherUI.SetActive(visible);
 
-        if(visible){
+        if(visible && portraitAnimator!= null){
             portraitAnimator.PlayEventIn("putStick");
             portraitAnimator.PlayEventIn("IN/OUT");
         }
