@@ -16,5 +16,6 @@ public abstract class BodyType : ScriptableObject
 
     [Header("Stats")]
     public float damage;
-    public float weight;
+    public float weight = 20; // will be changed later
+    public float HP;
 }
