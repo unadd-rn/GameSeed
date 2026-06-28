@@ -7,9 +7,9 @@ public class GadgetManager : MonoBehaviour
 {
     // ide: sebelum dia main, kalau gadgetOwned udah 10, ingetin dulu dia gabisa ngeclaim stik musuh, jadi gak ribet nampilin inventory lagi
     [Header("Arrays")]
-    public GadgetInstance[] gadgetOwned = new GadgetInstance[10]; // maksimal 10
-    // public BaseGadget[] gadgetEquipped;
-    // kayaknya gadgetEquipped gausah ada soalnya nnti pusing lagi gimana ngapusnya
+    public const int maxGadget = 10;
+    public GadgetInstance[] gadgetOwned = new GadgetInstance[maxGadget]; // maksimal 10
+    public int gadgetOwnedNeff = 0;
 
     [Header("Data")]
     public StickData data;
@@ -91,7 +91,7 @@ public class GadgetManager : MonoBehaviour
                 return;
             }
         }
-        Debug.LogWarning($"ID {id} gak ada di stik");
+        Debug.LogWarning($"gapunya id {id}");
     }
 
     public void StartPreviewGadget(GadgetInstance gadget, int startingSlotIndex)
@@ -154,6 +154,17 @@ public class GadgetManager : MonoBehaviour
         
         currentPreviewGadget = null;
         currentPreviewSlotIndex = -1;   
+    }
+
+    public void AddGadgetToInventory(GadgetInstance gadget)
+    {
+        if(gadgetOwnedNeff >= maxGadget)
+        {
+            Debug.LogWarning("Gadget kebanyakan");
+            return;
+        }
+        gadgetOwned[gadgetOwnedNeff] = gadget;
+        gadgetOwnedNeff++;
     }
 
     // public void AttachGadget(GadgetInstance gadget, int slotIndex)

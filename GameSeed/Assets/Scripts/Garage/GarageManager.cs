@@ -39,15 +39,15 @@ public class GarageManager : MonoBehaviour
         
         SetupGadgetButtons();
 
-        if(data != null && data.stickBody != null)
-        {
-            GameObject spawnedBody = Instantiate(data.stickBody, transform);
+        // if(data != null && data.stickBody != null)
+        // {
+        //     GameObject spawnedBody = Instantiate(data.stickBody, transform);
 
-            spawnedBody.transform.localPosition = Vector3.zero;
-            spawnedBody.transform.localRotation = Quaternion.identity;
+        //     spawnedBody.transform.localPosition = Vector3.zero;
+        //     spawnedBody.transform.localRotation = Quaternion.identity;
 
-            GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
-        }
+        //     GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
+        // }
     }
 
     public void BodyButton()
@@ -108,9 +108,8 @@ public class GarageManager : MonoBehaviour
         buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
         for(int i = 0; i < buttonsB.Length; i++)
         {
-            if(i >= bodyManager.bodyOwned.Length)
+            if(i >= bodyManager.bodyOwnedNeff)
             {
-                // apala
                 continue;
             }
 
@@ -122,7 +121,7 @@ public class GarageManager : MonoBehaviour
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
-                bodyManager.StartPreviewBody();
+                bodyManager.PreviewBody();
                 confirmButtonBody.SetActive(true);
                 bodyOrGadgetName.text = currentB.data.name.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
@@ -142,6 +141,7 @@ public class GarageManager : MonoBehaviour
             gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
         }
         gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
+        gadgetManager.gadgetOwnedNeff--;
         EmptyingGadgetButtons();
         SetupGadgetButtons();
     }
