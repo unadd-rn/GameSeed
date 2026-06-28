@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // basically buat apply si gadgetnya, which means hrs ditaruh di lobby bagian modify?
 public class GadgetManager : MonoBehaviour
@@ -12,15 +13,29 @@ public class GadgetManager : MonoBehaviour
     // kayaknya gadgetEquipped gausah ada soalnya nnti pusing lagi gimana ngapusnya
 
     [Header("Data")]
-    public StickData data;
+    public StickSlot data;
 
     [Header("Spawned Reference")]
     public Transform stickBodyTransform;
+
+    [Header("Slider Preview")]
+    public Slider slotSlider;
+    public GameObject slotSliderGO;
 
     /* untuk preview */
     private GameObject previewVisualFront;
     private int currentPreviewSlotIndex = -1;
     private GadgetInstance currentPreviewGadget;
+
+    private void Start()
+    {
+        slotSliderGO.SetActive(false);
+        slotSlider.minValue = 0;
+        slotSlider.maxValue = data.frontSlots.Length - 1;
+        slotSlider.wholeNumbers = true;
+        slotSlider.onValueChanged.AddListener(UpdatePreviewPositionFromSlider);
+
+    }
 
     private void SetGadgetScale(GameObject go, BaseGadget gadgetData)
     {
@@ -56,7 +71,7 @@ public class GadgetManager : MonoBehaviour
         if(frontSlot.spawnedVisual != null) Destroy(frontSlot.spawnedVisual);
         if(backSlot.spawnedVisual != null) Destroy(backSlot.spawnedVisual);
 
-        detachedGadget.data.Remove(data);
+        // detachedGadget.data.Remove(data);
         detachedGadget.isEquipped = false;
         
         frontSlot.occupant = null;
@@ -102,6 +117,12 @@ public class GadgetManager : MonoBehaviour
         previewVisualFront.transform.localPosition = data.frontSlots[newSlotIndex].localPosition;
     }
 
+    public void UpdatePreviewPositionFromSlider(float value)
+    {
+        int slotIndex = Mathf.RoundToInt(value);
+        UpdatePreviewPosition(slotIndex);
+    }
+
     public void ConfirmPlacement()
     {
         if(currentPreviewGadget == null || currentPreviewSlotIndex == -1) return;
@@ -123,7 +144,8 @@ public class GadgetManager : MonoBehaviour
         frontSlot.occupant = currentPreviewGadget;
         backSlot.occupant = currentPreviewGadget;
 
-        currentPreviewGadget.data.Apply(data);
+        // currentPreviewGadget.data.Apply(data);
+        slotSliderGO.SetActive(false);
         currentPreviewGadget.isEquipped = true;
 
         previewVisualFront = null;

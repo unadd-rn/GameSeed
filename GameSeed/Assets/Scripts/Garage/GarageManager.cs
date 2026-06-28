@@ -77,9 +77,21 @@ public class GarageManager : MonoBehaviour
         }
     }
 
+    public void EmptyingBodyButton()
+    {
+        buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsB.Length; i++)
+        {
+            Button currentButton = buttonsB[i];
+            currentButton.image.sprite = null;
+        }
+    }
+
     public void SetupGadgetButtons()
     {
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
+        Debug.Log($"Button in Scene Length: {buttonsG.Length}");
+        Debug.Log($"gadgetOwnedLength: {gadgetManager.gadgetOwned.Length} ");
         for(int i = 0; i < buttonsG.Length; i++)
         {
             if(i >= gadgetManager.gadgetOwned.Length)
@@ -122,7 +134,7 @@ public class GarageManager : MonoBehaviour
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
-                // bodyManager.StartPreviewBody()
+                bodyManager.PreviewBody(i);
                 confirmButtonBody.SetActive(true);
                 bodyOrGadgetName.text = currentB.data.name.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
@@ -133,6 +145,7 @@ public class GarageManager : MonoBehaviour
 
     public void RemoveGadgetFromInventory(int slotIndex)
     {
+        if(slotIndex >= gadgetManager.gadgetOwned.Length) return;
         if (gadgetManager.gadgetOwned[slotIndex].isEquipped)
         {
             gadgetManager.DetachGadgetbyID(gadgetManager.gadgetOwned[slotIndex].id);
@@ -144,5 +157,31 @@ public class GarageManager : MonoBehaviour
         gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
         EmptyingGadgetButtons();
         SetupGadgetButtons();
+    }
+
+    public void RemoveBodyFromInventory(int bodyIdx)
+    {
+        if(bodyIdx >= bodyManager.bodyOwned.Length) return;
+        if(bodyManager.currentEquippedBody.id == bodyManager.bodyOwned[bodyIdx].id)
+        {
+            // error message cannot remove because it is used
+            Debug.LogWarning("Can't remove because body is equipped!");
+            return;
+        }
+        for(int i = bodyManager.bodyOwned.Length - 1; i > bodyIdx; i--)
+            bodyManager.bodyOwned[i-1] = bodyManager.bodyOwned[i];
+        bodyManager.bodyOwned[bodyManager.bodyOwned.Length - 1] = null;
+        EmptyingBodyButton();
+        SetupBodyButtons();
+    }
+
+    public void InactivateConfirmBody()
+    {
+        confirmButtonBody.SetActive(false);
+    }
+
+    public void InactivateConfirmGadget()
+    {
+        confirmButtonGadget.SetActive(true);
     }
 }

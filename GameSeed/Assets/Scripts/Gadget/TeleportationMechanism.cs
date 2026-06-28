@@ -33,5 +33,4 @@ public class TeleportationMechanism : MonoBehaviour
         float dist = Vector3.Distance(point, enemy.position);
         return dist < minDistanceToEnemy;
     }
-
 }
