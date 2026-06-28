@@ -49,6 +49,8 @@ public class GarageManager : MonoBehaviour
 
         //     GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
         // }
+
+        
     }
 
     public void BodyButton()
