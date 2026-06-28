@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class BodyInstance
@@ -8,7 +9,8 @@ public class BodyInstance
     public bool isEquipped;
 
     public BodyInstance(BodyType baseData)
-    {
+    {   
+        Debug.Log("masukin body di sini");
         this.id = System.Guid.NewGuid().ToString();
         this.data = baseData;
         this.isEquipped = false;

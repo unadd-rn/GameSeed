@@ -15,7 +15,7 @@ public class BodyManager : MonoBehaviour
 
     void Awake()
     {
-        if (currentEquippedBody == null)
+        if (currentEquippedBody == null || currentEquippedBody.data == null)
         {
             currentEquippedBody = new BodyInstance(def);
         }
@@ -30,6 +30,7 @@ public class BodyManager : MonoBehaviour
 
     void Start()
     {
+        
     }
 
     public void AddBodyToInventory(BodyInstance body)

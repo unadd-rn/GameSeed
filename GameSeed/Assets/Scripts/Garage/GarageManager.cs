@@ -122,13 +122,8 @@ public class GarageManager : MonoBehaviour
     public void SetupGadgetButtons()
     {
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
-        for(int i = 0; i < buttonsG.Length; i++)
+        for(int i = 0; i < gadgetManager.gadgetOwnedNeff; i++)
         {
-            if(i >= gadgetManager.gadgetOwnedNeff)
-            {
-                // kasih aset button kosong
-                continue;
-            }
             GadgetInstance currentG = gadgetManager.gadgetOwned[i];
             Button currentButton = buttonsG[i];
 
