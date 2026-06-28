@@ -13,6 +13,8 @@ public class CollisionHandler : MonoBehaviour
     [Header("Arena")]
     public GameObject ArenaWall;
 
+    [Header("Effects")]
+    public GameObject sparkParticlePrefab;
     [Header("Winning UI Effect")]
     public Image statusImageUI;       // Drag your UI Image component here in the Inspector
     public Sprite playerWinningSprite; // Drag the sprite for when Player wins
@@ -41,6 +43,13 @@ public class CollisionHandler : MonoBehaviour
 
         CollisionHandler other = collision.gameObject.GetComponent<CollisionHandler>();
         if (other == null) return; // kalo gaada object lain gajadi
+
+        if (sparkParticlePrefab != null && collision.contacts.Length > 0)
+        {
+            Vector3 contactPoint = collision.contacts[0].point;
+            GameObject spark = Instantiate(sparkParticlePrefab, contactPoint, Quaternion.identity);
+            Destroy(spark, 1.5f); 
+        }
 
         Rigidbody otherRb = other.GetComponent<Rigidbody>();
 

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e1734601a2be4ca41d3caa135ff22, type: 3}
+  m_Name: TheClassic
+  m_EditorClassIdentifier: 
+  stickName: The Classic
+  description: Your first, unbreakable stick
+  stickIcon: {fileID: 21300000, guid: 6a54c9208339f9a36937e49e5c65c3bb, type: 3}
+  stickMesh: {fileID: 2925664659663994200, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
+    type: 3}
+  stickMaterial: {fileID: -2087353824332523593, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
+    type: 3}
+  damage: 20
+  weight: 20
+  HP: 20
