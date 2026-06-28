@@ -15,6 +15,8 @@ public class GarageManager : MonoBehaviour
     [Header("Kebutuhan button")]
     [SerializeField] Transform gadgetPanelTransform;
     [SerializeField] Transform bodyPanelTransform;
+
+    [Header("Manager lain")]
     [SerializeField] GadgetManager gadgetManager;
     [SerializeField] BodyManager bodyManager;
 
@@ -27,8 +29,16 @@ public class GarageManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bodyOrGadgetName;
     [SerializeField] private TextMeshProUGUI bodyOrGadgetDesc;
 
+    [Header("Spawning References")]
+    public Transform stickSpawnPoint;
+    public GameObject stickBodyPrefab; 
+    public GameObject stickSlotPrefab;
+
     private Button[] buttonsG = new Button[10];
     private Button[] buttonsB = new Button[10];
+
+    private StickBody spawnedBody;
+    private StickSlot spawnedSlot;
 
     void Start()
     {
@@ -39,18 +49,47 @@ public class GarageManager : MonoBehaviour
         confirmButtonBody.SetActive(false);
         
         SetupGadgetButtons();
+        SetupBodyButtons();
 
-        // if(data != null && data.stickBody != null)
-        // {
-        //     GameObject spawnedBody = Instantiate(data.stickBody, transform);
+        SpawnStickSystem();
+    }
 
-        //     spawnedBody.transform.localPosition = Vector3.zero;
-        //     spawnedBody.transform.localRotation = Quaternion.identity;
-
-        //     GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
-        // }
-
+    void SpawnStickSystem()
+    {
+        if (stickSpawnPoint == null || stickBodyPrefab == null || stickSlotPrefab == null)
+        {
+            Debug.LogError("Setup Spawning belum lengkap di Inspector!");
+            return;
+        }
         
+
+        GameObject bodyGO = Instantiate(stickBodyPrefab, stickSpawnPoint.position, stickSpawnPoint.rotation);
+        spawnedBody = bodyGO.GetComponent<StickBody>();
+
+        if(bodyManager.currentEquippedBody.data == null)
+            Debug.LogError("gak nyampe for whatever reason");
+        else Debug.Log("aman juga di sini");
+
+        if(bodyManager.currentEquippedBody != null)
+            spawnedBody.ApplyPreview(bodyManager.currentEquippedBody.data);
+
+        GameObject slotGO = Instantiate(stickSlotPrefab, bodyGO.transform);
+        slotGO.transform.localPosition = Vector3.zero;
+        slotGO.transform.localRotation = Quaternion.identity;
+        spawnedSlot = slotGO.GetComponent<StickSlot>();
+
+        if (bodyManager != null)
+        {
+            bodyManager.stickBody = spawnedBody;
+            if (bodyManager.currentEquippedBody != null)
+            {
+                spawnedBody.ApplyPreview(bodyManager.currentEquippedBody.data);
+            }
+        }
+        if (gadgetManager != null)
+        {
+            gadgetManager.stickBodyTransform = bodyGO.transform;
+        }
     }
 
     public void BodyButton()
@@ -85,7 +124,7 @@ public class GarageManager : MonoBehaviour
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
         for(int i = 0; i < buttonsG.Length; i++)
         {
-            if(i >= gadgetManager.gadgetOwned.Length)
+            if(i >= gadgetManager.gadgetOwnedNeff)
             {
                 // kasih aset button kosong
                 continue;

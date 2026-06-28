@@ -5,6 +5,8 @@ using UnityEngine;
 // basically buat apply si gadgetnya, which means hrs ditaruh di lobby bagian modify?
 public class GadgetManager : MonoBehaviour
 {
+    public static GadgetManager Instance;
+
     // ide: sebelum dia main, kalau gadgetOwned udah 10, ingetin dulu dia gabisa ngeclaim stik musuh, jadi gak ribet nampilin inventory lagi
     [Header("Arrays")]
     public const int maxGadget = 10;
@@ -12,7 +14,7 @@ public class GadgetManager : MonoBehaviour
     public int gadgetOwnedNeff = 0;
 
     [Header("Data")]
-    public StickData data;
+    public StickSlot data;
 
     [Header("Spawned Reference")]
     public Transform stickBodyTransform;

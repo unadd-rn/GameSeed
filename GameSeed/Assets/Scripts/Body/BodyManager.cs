@@ -11,14 +11,25 @@ public class BodyManager : MonoBehaviour
     public BodyInstance currentEquippedBody;
     public BodyInstance tempPreviewBody;
     public StickBody stickBody;
+    public BodyType def;
+
+    void Awake()
+    {
+        if (currentEquippedBody == null)
+        {
+            currentEquippedBody = new BodyInstance(def);
+        }
+        if(currentEquippedBody.data == null)
+        {
+            Debug.LogError("null di data");
+        } else
+        {
+            Debug.Log("aman kok");
+        }
+    }
 
     void Start()
     {
-        if(currentEquippedBody != null)
-        {
-            stickBody.ApplyPreview(currentEquippedBody.data);
-            tempPreviewBody = currentEquippedBody;
-        }
     }
 
     public void AddBodyToInventory(BodyInstance body)
