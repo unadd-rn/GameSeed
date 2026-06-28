@@ -7,6 +7,7 @@ using TMPro;
 
 public class GarageManager : MonoBehaviour
 {
+    public static GarageManager Instance;
     public GameObject gadgetPanel;
     public GameObject bodyPanel;
     public StickSlot data;
@@ -121,7 +122,7 @@ public class GarageManager : MonoBehaviour
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
-                bodyManager.PreviewBody();
+                bodyManager.PreviewBody(i);
                 confirmButtonBody.SetActive(true);
                 bodyOrGadgetName.text = currentB.data.name.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
