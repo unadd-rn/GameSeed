@@ -1,148 +1,196 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.SceneManagement;
-// using UnityEngine.UI;
-// using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
-// public class GarageManager : MonoBehaviour
-// {
-//     public GameObject gadgetPanel;
-//     public GameObject bodyPanel;
-//     public StickSlot data;
+public class GarageManager : MonoBehaviour
+{
+    public static GarageManager Instance;
+    public GameObject gadgetPanel;
+    public GameObject bodyPanel;
+    public StickSlot data;
 
-//     [Header("Kebutuhan button")]
-//     [SerializeField] Transform gadgetPanelTransform;
-//     [SerializeField] Transform bodyPanelTransform;
-//     [SerializeField] GadgetManager gadgetManager;
-//     [SerializeField] BodyManager bodyManager;
+    [Header("Kebutuhan button")]
+    [SerializeField] Transform gadgetPanelTransform;
+    [SerializeField] Transform bodyPanelTransform;
 
-//     [Header("Confirm Button")]
-//     [SerializeField] GameObject confirmButtonGadget;
-//     [SerializeField] GameObject confirmButtonBody;
+    [Header("Manager lain")]
+    [SerializeField] GadgetManager gadgetManager;
+    [SerializeField] BodyManager bodyManager;
 
-//     [Header("Text")]
-//     [SerializeField] private GameObject textField;
-//     [SerializeField] private TextMeshProUGUI bodyOrGadgetName;
-//     [SerializeField] private TextMeshProUGUI bodyOrGadgetDesc;
+    [Header("Confirm Button")]
+    [SerializeField] GameObject confirmButtonGadget;
+    [SerializeField] GameObject confirmButtonBody;
 
-//     private Button[] buttonsG = new Button[10];
-//     private Button[] buttonsB = new Button[10];
+    [Header("Text")]
+    [SerializeField] private GameObject textField;
+    [SerializeField] private TextMeshProUGUI bodyOrGadgetName;
+    [SerializeField] private TextMeshProUGUI bodyOrGadgetDesc;
 
-//     void Start()
-//     {
-//         textField.SetActive(false);
-//         gadgetPanel.SetActive(false);
-//         bodyPanel.SetActive(true);
-//         confirmButtonGadget.SetActive(false);
-//         confirmButtonBody.SetActive(false);
+    [Header("Spawning References")]
+    public Transform stickSpawnPoint;
+    public GameObject stickBodyPrefab; 
+    public GameObject stickSlotPrefab;
+
+    private Button[] buttonsG = new Button[10];
+    private Button[] buttonsB = new Button[10];
+
+    private StickBody spawnedBody;
+    private StickSlot spawnedSlot;
+
+    void Start()
+    {
+        textField.SetActive(false);
+        gadgetPanel.SetActive(false);
+        bodyPanel.SetActive(true);
+        confirmButtonGadget.SetActive(false);
+        confirmButtonBody.SetActive(false);
         
-//         SetupGadgetButtons();
+        SetupGadgetButtons();
+        SetupBodyButtons();
 
-//         // if(data != null && data.stickBody != null)
-//         // {
-//         //     GameObject spawnedBody = Instantiate(data.stickBody, transform);
+        SpawnStickSystem();
+    }
 
-//         //     spawnedBody.transform.localPosition = Vector3.zero;
-//         //     spawnedBody.transform.localRotation = Quaternion.identity;
+    void SpawnStickSystem()
+    {
+        if (stickSpawnPoint == null || stickBodyPrefab == null || stickSlotPrefab == null)
+        {
+            Debug.LogError("Setup Spawning belum lengkap di Inspector!");
+            return;
+        }
+        
 
-//         //     GetComponent<GadgetManager>().stickBodyTransform = spawnedBody.transform;
-//         // }
-//     }
+        GameObject bodyGO = Instantiate(stickBodyPrefab, stickSpawnPoint.position, stickSpawnPoint.rotation);
+        spawnedBody = bodyGO.GetComponent<StickBody>();
 
-//     public void BodyButton()
-//     {
-//         gadgetPanel.SetActive(false);
-//         bodyPanel.SetActive(true);
-//     }
+        if(bodyManager.currentEquippedBody.data == null)
+            Debug.LogError("gak nyampe for whatever reason");
+        else Debug.Log("aman juga di sini");
 
-//     public void GadgetButton()
-//     {
-//         gadgetPanel.SetActive(true);
-//         bodyPanel.SetActive(false);
-//     }
+        if(bodyManager.currentEquippedBody != null)
+            spawnedBody.ApplyPreview(bodyManager.currentEquippedBody.data);
 
-//     public void BackToMenu()
-//     {
-//         SceneManager.LoadScene("Cet - lobby1");
-//     }
+        GameObject slotGO = Instantiate(stickSlotPrefab, bodyGO.transform);
+        slotGO.transform.localPosition = Vector3.zero;
+        slotGO.transform.localRotation = Quaternion.identity;
+        spawnedSlot = slotGO.GetComponent<StickSlot>();
 
-//     public void EmptyingGadgetButtons()
-//     {
-//         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
-//         for(int i = 0; i < buttonsG.Length; i++)
-//         {
-//             Button currentButton = buttonsG[i];
-//             currentButton.image.sprite = null;
-//         }
-//     }
+        if (bodyManager != null)
+        {
+            bodyManager.stickBody = spawnedBody;
+            if (bodyManager.currentEquippedBody != null)
+            {
+                spawnedBody.ApplyPreview(bodyManager.currentEquippedBody.data);
+            }
+        }
+        if (gadgetManager != null)
+        {
+            gadgetManager.stickBodyTransform = bodyGO.transform;
+        }
+    }
 
-//     public void SetupGadgetButtons()
-//     {
-//         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
-//         for(int i = 0; i < buttonsG.Length; i++)
-//         {
-//             if(i >= gadgetManager.gadgetOwned.Length)
-//             {
-//                 // kasih aset button kosong
-//                 continue;
-//             }
-//             GadgetInstance currentG = gadgetManager.gadgetOwned[i];
-//             Button currentButton = buttonsG[i];
+    public void BodyButton()
+    {
+        gadgetPanel.SetActive(false);
+        bodyPanel.SetActive(true);
+    }
 
-//             currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
-//             currentButton.onClick.RemoveAllListeners();
-//             currentButton.onClick.AddListener(() =>
-//             {
-//                gadgetManager.StartPreviewGadget(currentG, 0);
-//                confirmButtonGadget.SetActive(true);
-//                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
-//                bodyOrGadgetDesc.text = currentG.data.description.ToString();
-//                textField.SetActive(true);
-//             });
-//         }
-//     }
+    public void GadgetButton()
+    {
+        gadgetPanel.SetActive(true);
+        bodyPanel.SetActive(false);
+    }
 
-//     public void SetupBodyButtons()
-//     {
-//         buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
-//         for(int i = 0; i < buttonsB.Length; i++)
-//         {
-//             if(i >= bodyManager.bodyOwned.Length)
-//             {
-//                 // apala
-//                 continue;
-//             }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Cet - lobby1");
+    }
 
-//             BodyInstance currentB = bodyManager.bodyOwned[i];
-//             Button currentButton = buttonsB[i];
+    public void EmptyingGadgetButtons()
+    {
+        buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsG.Length; i++)
+        {
+            Button currentButton = buttonsG[i];
+            currentButton.image.sprite = null;
+        }
+    }
 
-//             currentButton.image.sprite = currentB.data.stickIcon;
+    public void SetupGadgetButtons()
+    {
+        buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsG.Length; i++)
+        {
+            if(i >= gadgetManager.gadgetOwnedNeff)
+            {
+                // kasih aset button kosong
+                continue;
+            }
+            GadgetInstance currentG = gadgetManager.gadgetOwned[i];
+            Button currentButton = buttonsG[i];
 
-//             currentButton.onClick.RemoveAllListeners();
-//             currentButton.onClick.AddListener(() =>
-//             {
-//                 // bodyManager.StartPreviewBody()
-//                 confirmButtonBody.SetActive(true);
-//                 bodyOrGadgetName.text = currentB.data.name.ToString();
-//                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
-//                 textField.SetActive(true);
-//             });
-//         }
-//     }
+            currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
+            currentButton.onClick.RemoveAllListeners();
+            currentButton.onClick.AddListener(() =>
+            {
+               gadgetManager.StartPreviewGadget(currentG, 0);
+               confirmButtonGadget.SetActive(true);
+               bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
+               bodyOrGadgetDesc.text = currentG.data.description.ToString();
+               textField.SetActive(true);
+            });
+        }
+    }
 
-//     public void RemoveGadgetFromInventory(int slotIndex)
-//     {
-//         if (gadgetManager.gadgetOwned[slotIndex].isEquipped)
-//         {
-//             gadgetManager.DetachGadgetbyID(gadgetManager.gadgetOwned[slotIndex].id);
-//         }
-//         for(int i = gadgetManager.gadgetOwned.Length - 1; i > slotIndex; i--)
-//         {
-//             gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
-//         }
-//         gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
-//         EmptyingGadgetButtons();
-//         SetupGadgetButtons();
-//     }
-// }
+    public void SetupBodyButtons()
+    {
+        buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsB.Length; i++)
+        {
+            if(i >= bodyManager.bodyOwnedNeff)
+            {
+                continue;
+            }
+
+            BodyInstance currentB = bodyManager.bodyOwned[i];
+            Button currentButton = buttonsB[i];
+
+            currentButton.image.sprite = currentB.data.stickIcon;
+
+            currentButton.onClick.RemoveAllListeners();
+            currentButton.onClick.AddListener(() =>
+            {
+                bodyManager.PreviewBody(i);
+                confirmButtonBody.SetActive(true);
+                bodyOrGadgetName.text = currentB.data.name.ToString();
+                bodyOrGadgetDesc.text = currentB.data.description.ToString();
+                textField.SetActive(true);
+            });
+        }
+    }
+
+    public void RemoveGadgetFromInventory(int slotIndex)
+    {
+        if (gadgetManager.gadgetOwned[slotIndex].isEquipped)
+        {
+            gadgetManager.DetachGadgetbyID(gadgetManager.gadgetOwned[slotIndex].id);
+        }
+        for(int i = gadgetManager.gadgetOwned.Length - 1; i > slotIndex; i--)
+        {
+            gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
+        }
+        gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
+        gadgetManager.gadgetOwnedNeff--;
+        EmptyingGadgetButtons();
+        SetupGadgetButtons();
+    }
+
+    public void InactivateConfirm()
+    {
+        confirmButtonBody.SetActive(false);
+        confirmButtonGadget.SetActive(false);
+    }
+}
