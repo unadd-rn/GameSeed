@@ -1,16 +1,23 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI; // Wajib ditambahkan untuk akses komponen Image
+using UnityEngine.UI; 
+using System.Collections; 
+using System.Collections.Generic;
 
 public class PlayerHealth : MonoBehaviour
 {
     public GameObject DeathUI;
     public float health;
+
+    public float maxHp = 15f;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
-    public Color redColor = Color.red;
-    public Color blueColor = Color.blue; // Bisa diubah warnanya di inspector
+    public Color layer1 = Color.white;
+    public Color layer2 = Color.blue; 
+    public Color layer3 = Color.red;
+    public Color layer4 = Color.blue; 
+    public Color layer5 = Color.red;
 
     public static event Action OnPlayerHit;
     public static event Action OnPlayerOutOfBound;
@@ -21,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Respawn Settings")]
     public float pindahLength = 2f; //buat kl ada enemy
-    public float checkRadius = 1.5f; // Radius bola sensor untuk mengecek musuh
+    public float checkRadius = 1.5f; // r sensor untuk mengecek musuh
     [SerializeField] private StickSpawn stickSpawn;
 
     
@@ -31,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
 
    // [Header("Effects")]
     // [SerializeField] private HitFlash _hitFlash; 
+    private HashSet<Image> flashingBar = new HashSet<Image>();
     // ni buat nnti aja la
 
     void Start()
@@ -149,24 +157,61 @@ public class PlayerHealth : MonoBehaviour
         {
             if(heartSlots[i]==null) continue;
 
-            float blueHealthAmount = health - 3f - i*0.5f;
-            float redHealthAmount = health - i*0.5f;
+            float Blayer5 = health - 12f - i*0.5f;
+            float Blayer4 = health - 9f - i*0.5f;
+            float Blayer3 = health - 6f - i*0.5f;
+            float Blayer2 = health - 3f - i*0.5f;
+            float Blayer1 = health - i*0.5f;
 
-            if (blueHealthAmount >= 0.5f)
+            if (Blayer5 >= 0.5f)
             {
                 heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = blueColor;
+                heartSlots[i].color = layer5;
             }
-            else if (redHealthAmount >= 0.5f)
+            else if (Blayer4 >= 0.5f)
             {
                 heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = redColor;
-            }
-            else
+                heartSlots[i].color = layer4;
+            } 
+            else if (Blayer3 >= 0.5f)
             {
-                heartSlots[i].gameObject.SetActive(false);
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = layer3;
+            } 
+            else if (Blayer2 >= 0.5f)
+            {
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = layer2;
             }
+            else if (Blayer1 >= 0.5f)
+            {
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = layer1;
+            } 
+            else 
+            {
+                if (heartSlots[i].gameObject.activeSelf && !flashingBar.Contains(heartSlots[i]))
+                {
+                    StartCoroutine(GlitchAndHide(heartSlots[i]));
+                }
+            }
+            
         }
+    }
+
+    private IEnumerator GlitchAndHide(Image barImage)
+    {
+        flashingBar.Add(barImage); 
+
+        barImage.color = Color.white;
+        yield return new WaitForSeconds(0.06f);
+        barImage.enabled = false; 
+        yield return new WaitForSeconds(0.06f);
+        barImage.enabled = true; 
+        yield return new WaitForSeconds(0.08f);
+        barImage.gameObject.SetActive(false);
+    
+        flashingBar.Remove(barImage); // Lepas tandanya
     }
 
     private void Die()

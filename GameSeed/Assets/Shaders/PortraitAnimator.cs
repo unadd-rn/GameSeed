@@ -1,38 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
 //  PortraitAnimator.cs  —  Mobile WebGL–optimised portrait animation system
-//
-//  HOW TO USE (quick start)
-//  ─────────────────────────
-//  1. Add this component to any GameObject in the scene (e.g. "UIManager").
-//  2. In the Inspector add portrait entries. Each portrait only needs:
-//       • uiPortrait   → drag the portrait's RectTransform (ANY parent is fine)
-//       • worldAnchor  → drag a small EMPTY RectTransform placed at the exact
-//                        spot where the portrait should sit on screen.
-//                        It can live anywhere in the hierarchy too.
-//       • Events list  → add named events (e.g. "GameStart", "Attacked")
-//                        and choose In / Out animation per event.
-//  3. Call from any other script:
-//       GetComponent<PortraitAnimator>().PlayEventIn("GameStart");
-//       GetComponent<PortraitAnimator>().PlayEventOut("GameStart");
-//       GetComponent<PortraitAnimator>().PlayToggleEvent("HUD");
-//       GetComponent<PortraitAnimator>().PlayPortraitEventIn(0, "Attacked");
-//       GetComponent<PortraitAnimator>().ResetAll();
-//
-//  MOBILE WEBGL OPTIMISATIONS
-//  ───────────────────────────
-//  • Zero per-frame allocations: no new Vector2/4, no new WaitForSeconds,
-//    no LINQ, no lambda captures beyond one cached reset-position lambda.
-//  • Dictionary<string,bool> event-state uses TryGetValue, never Contains.
-//  • Shader property IDs are static ints resolved once (no string hashing).
-//  • AnimationCurves are static and built once; Evaluate() is a fast lookup.
-//  • Trail animation runs as a coroutine (no DOTween JS-bridge crossing).
-//  • WaitForSeconds objects are pre-allocated per portrait to avoid GC.
-//  • KillTweens only kills exactly what each portrait owns; no global scan.
-//  • DOTween SetLink is NOT used (incompatible with some WebGL il2cpp builds).
-//  • No GetComponent() calls at runtime — all references resolved in Awake.
-// ═══════════════════════════════════════════════════════════════════════════
-// ═══════════════════════════════════════════════════════════════════════════
-//  PortraitAnimator.cs  —  Mobile WebGL–optimised portrait animation system
 // ═══════════════════════════════════════════════════════════════════════════
 
 using System.Collections;
@@ -120,7 +87,7 @@ public class PortraitData
     [HideInInspector] public Vector3   originalScale = Vector3.one;
     [HideInInspector] public Vector2   localRestPosition;   // Captured local position on boot
     [HideInInspector] public Coroutine trailCoroutine;
-    [HideInInspector] public bool      isVisible;           // Explicit state tracking for overlap safety
+    [HideInInspector] public bool      isVisible;           // Explicit individual state tracking
 }
 
 #endregion
@@ -140,8 +107,6 @@ public class PortraitAnimator : MonoBehaviour
     #endregion
 
     #region Private state
-
-    private readonly Dictionary<string, bool> _shownStates = new Dictionary<string, bool>(8);
 
     private static readonly int TrailOffsetID  = Shader.PropertyToID("_TrailOffset");
     private static readonly int TrailOffset2ID = Shader.PropertyToID("_TrailOffset2");
@@ -204,12 +169,12 @@ public class PortraitAnimator : MonoBehaviour
 
     public void PlayEventIn(string eventName)
     {
-        _shownStates[eventName] = true;
         float delay = 0f;
         for (int i = 0; i < portraits.Count; i++)
         {
             var portrait = portraits[i];
-            if (portrait.uiPortrait == null) continue;
+            if (portrait.uiPortrait == null || portrait.isVisible) continue; // Skip if already visible
+            
             var entry = FindEntry(portrait, eventName);
             if (entry == null) continue;
             
@@ -220,12 +185,12 @@ public class PortraitAnimator : MonoBehaviour
 
     public void PlayEventOut(string eventName)
     {
-        _shownStates[eventName] = false;
         float delay = 0f;
         for (int i = portraits.Count - 1; i >= 0; i--)
         {
             var portrait = portraits[i];
-            if (portrait.uiPortrait == null) continue;
+            if (portrait.uiPortrait == null || !portrait.isVisible) continue; // Skip if already hidden
+            
             var entry = FindEntry(portrait, eventName);
             if (entry == null) continue;
             
@@ -236,16 +201,31 @@ public class PortraitAnimator : MonoBehaviour
 
     public void PlayToggleEvent(string eventName)
     {
-        bool shown = _shownStates.TryGetValue(eventName, out bool s) && s;
-        if (shown) PlayEventOut(eventName);
-        else       PlayEventIn(eventName);
+        // Toggle behavior checks if the majority of valid portraits are currently active on screen
+        int visibleCount = 0;
+        int activePortraits = 0;
+
+        for (int i = 0; i < portraits.Count; i++)
+        {
+            if (portraits[i].uiPortrait != null)
+            {
+                activePortraits++;
+                if (portraits[i].isVisible) visibleCount++;
+            }
+        }
+
+        if (visibleCount > activePortraits / 2) 
+            PlayEventOut(eventName);
+        else                                     
+            PlayEventIn(eventName);
     }
 
     public void PlayPortraitEventIn(int index, string eventName, float delay = 0f)
     {
         if ((uint)index >= (uint)portraits.Count) return;
         var portrait = portraits[index];
-        if (portrait.uiPortrait == null) return;
+        if (portrait.uiPortrait == null || portrait.isVisible) return; // Prevent double In-animations
+
         var entry = FindEntry(portrait, eventName);
         if (entry == null) return;
         PlayIn(portrait, entry.inAnimation, delay);
@@ -255,7 +235,8 @@ public class PortraitAnimator : MonoBehaviour
     {
         if ((uint)index >= (uint)portraits.Count) return;
         var portrait = portraits[index];
-        if (portrait.uiPortrait == null) return;
+        if (portrait.uiPortrait == null || !portrait.isVisible) return; // Prevent double Out-animations
+
         var entry = FindEntry(portrait, eventName);
         if (entry == null) return;
         PlayOut(portrait, entry.outAnimation, delay);
@@ -263,7 +244,6 @@ public class PortraitAnimator : MonoBehaviour
 
     public void ResetAll()
     {
-        _shownStates.Clear();
         for (int i = 0; i < portraits.Count; i++)
         {
             var p = portraits[i];
@@ -343,7 +323,7 @@ public class PortraitAnimator : MonoBehaviour
 
     private void PlayIn(PortraitData p, PortraitEventAnimation anim, float delay)
     {
-        p.isVisible = true;
+        p.isVisible = true; // State updated right away to lock incoming checks
         KillAll(p);
         float dur = Duration(anim);
 
@@ -365,7 +345,7 @@ public class PortraitAnimator : MonoBehaviour
 
     private void PlayOut(PortraitData p, PortraitEventAnimation anim, float delay)
     {
-        p.isVisible = false;
+        p.isVisible = false; // State updated right away to lock outgoing checks
         KillAll(p);
         float dur = Duration(anim);
 
