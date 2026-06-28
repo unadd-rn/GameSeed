@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LobbyMatchManager : MonoBehaviour
 {
     public Button BossButton;
     public Button MatchButton;
+    public TMP_Text wincount;
     public bool TutorialFinished; //ini nnti juga ganti kl dah ada scene tutorial
     public int winNumber;
     public int winNumberCondition; //ini nanti ganti aja sesuai apa sih kondisi sebenarnya
@@ -26,6 +28,21 @@ public class LobbyMatchManager : MonoBehaviour
                 BossButton.interactable = false;
             }
         }
+        WinCountDisplay();
+    }
+
+    private void WinCountDisplay()
+    {
+        int win;
+        if (!PlayerPrefs.HasKey("WinCount"))
+        {
+            win = 0;
+        }
+        else
+        {
+            win = PlayerPrefs.GetInt("WinCount");
+        } 
+        wincount.text = win.ToString();
     }
 
     public void BossAnimation()

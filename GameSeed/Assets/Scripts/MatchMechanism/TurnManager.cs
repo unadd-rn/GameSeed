@@ -1,0 +1,63 @@
+using System.Collections;
+using UnityEngine;
+
+public enum TurnState { PlayerPlacement, PlayerThrowing, EnemyTurn, Waiting }
+
+public class TurnManager : MonoBehaviour
+{
+    public static TurnManager Instance;
+
+    [Header("References")]
+    [SerializeField] private StickSpawn playerSpawnScript;
+    [SerializeField] private StickThrowTest playerThrowScript;
+    [SerializeField] private EnemyAI enemyAIScript;
+    private TurnState currentState;
+    private PortraitAnimator portraitAnimator;
+
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+        portraitAnimator = GameObject.Find("Animaton").GetComponent<PortraitAnimator>();
+    }
+
+    void Start()
+    {
+        SetState(TurnState.PlayerPlacement);
+        portraitAnimator.PlayEventIn("IN/OUT");
+    }
+
+    public void SetState(TurnState newState)
+    {
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case TurnState.PlayerPlacement:
+                if (playerSpawnScript != null) playerSpawnScript.enabled = true;
+                if (playerThrowScript != null) playerThrowScript.enabled = true;
+                if (enemyAIScript != null) enemyAIScript.enabled = false;
+                playerThrowScript.SetUIVisible(false);
+                break;
+
+            case TurnState.PlayerThrowing:
+                if (playerThrowScript != null) playerThrowScript.enabled = true;
+                playerThrowScript.SetUIVisible(true);
+                break;
+
+            case TurnState.EnemyTurn:
+                if (playerSpawnScript != null) playerSpawnScript.enabled = false;
+                if (playerThrowScript != null) playerThrowScript.enabled = false;
+                
+                if (enemyAIScript != null)
+                {
+                    enemyAIScript.enabled = true;
+                    enemyAIScript.StartTurn();
+                }
+                playerThrowScript.SetUIVisible(false);
+                break;
+        }
+    }
+
+    public TurnState GetCurrentState() => currentState;
+}
