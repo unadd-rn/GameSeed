@@ -12,16 +12,19 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private StickThrowTest playerThrowScript;
     [SerializeField] private EnemyAI enemyAIScript;
     private TurnState currentState;
+    private PortraitAnimator portraitAnimator;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+        portraitAnimator = GameObject.Find("Animaton").GetComponent<PortraitAnimator>();
     }
 
     void Start()
     {
         SetState(TurnState.PlayerPlacement);
+        portraitAnimator.PlayEventIn("IN/OUT");
     }
 
     public void SetState(TurnState newState)

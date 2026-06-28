@@ -37,6 +37,7 @@ public class StickThrowTest : MonoBehaviour
     private Vector3 debugSpinAxisY;
     private bool isDebugDataCalculated = false;
     private Coroutine activeResetCoroutine;
+    private PortraitAnimator portraitAnimator;
 
     void Awake()
     {
@@ -46,6 +47,7 @@ public class StickThrowTest : MonoBehaviour
         controls = new PlayerControls();
         startLocalPosition = transform.localPosition;
         startLocalRotation = transform.localRotation;
+        portraitAnimator = GameObject.Find("Animaton").GetComponent<PortraitAnimator>();
         SetUIVisible(true);
     }
 
@@ -156,12 +158,22 @@ public class StickThrowTest : MonoBehaviour
 
     public void SetUIVisible(bool visible)
     {
+        if(!visible){
+            portraitAnimator.PlayEventOut("putStick");
+            portraitAnimator.PlayEventOut("IN/OUT");
+        }
+
         if (sliderContainer != null) sliderContainer.SetActive(visible);
         if (buttonThrow != null) buttonThrow.SetActive(visible);
         if (forceController != null) forceController.SetActive(visible);
         if (forceBar != null) forceBar.fillAmount = 0f;
         if (otherUI != null) otherUI.SetActive(visible);
         if (otherOtherUI != null) otherOtherUI.SetActive(visible);
+
+        if(visible){
+            portraitAnimator.PlayEventIn("putStick");
+            portraitAnimator.PlayEventIn("IN/OUT");
+        }
     }
 
     private void UpdateSliderPosition()
