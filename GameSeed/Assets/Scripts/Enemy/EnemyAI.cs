@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     private List<Vector3> debugPredictedPositions = new List<Vector3>();
     private Vector3 debugBestFinalPosition;
     public Vector3 refEnemyPosition;
+    [SerializeField] private EnemyGadgetManager gadgetManager;
 
     //bawah ini struct MoveScenario
     //Jujur ini pertama kalinya gw bikin struct di C#
@@ -40,6 +41,8 @@ public class EnemyAI : MonoBehaviour
     {
         delayWait = new WaitForSeconds(thinkDelay);
         shortWait = new WaitForSeconds(1.0f);
+        if (gadgetManager == null) 
+            gadgetManager = GetComponent<EnemyGadgetManager>();
     }
 
     public void StartTurn()
@@ -72,16 +75,26 @@ public class EnemyAI : MonoBehaviour
         {
             throwEnemyScript.enabled = true;
             throwEnemyScript.OnStickPlaced();
-        }
+            
+            yield return new WaitForSeconds(1.0f);
 
-        yield return new WaitForSeconds(1.0f);
+            if (gadgetManager != null && gadgetManager.TryUseGadget())
+            {
+                // Kalau masuk ke sini, artinya musuh udah berhasil pake gadget.
+                yield return new WaitForSeconds(thinkDelay);
+                
+                // Langsung oper turn ke player
+                TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+                
+                // Stop eksekusi script ini biar dia ga lanjut ngelempar
+                yield break; 
+            }
 
-        if (throwEnemyScript != null && TurnManager.Instance.GetCurrentState() == TurnState.EnemyTurn)
-        {
             MoveScenario bestScene = RunMonteCarlo();
             throwEnemyScript.SetAIHitPoint(bestScene.hitPoint * -1f);
             throwEnemyScript.SetAIThrowDirection(bestScene.throwDirectionZ);
             throwEnemyScript.StickDataRef.velocityScale = bestScene.velocityScale;
+            
             yield return new WaitForSeconds(thinkDelay);
             throwEnemyScript.Throw();
         }

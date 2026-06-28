@@ -11,44 +11,94 @@ public class TeleportationMechanism : MonoBehaviour
     public float minZ = -0.55f;
     public float maxZ = 4.1f;
 
+    public float teleportYOffset = 0.5f;
+
     [Header("Limit Arena")]
     public Transform enemy;
     public float minDistanceToEnemy = 0.5f;
-    public float outOfBoundCheckRadius = 0.5f;
 
+    // public void Teleport()
+    // {  
+    //     Vector3 randomPoint;
+    //     do
+    //     {
+    //         float randomX = Random.Range(minX, maxX);
+    //         float randomZ = Random.Range(minZ, maxZ);
+    //         randomPoint = new Vector3(randomX, 0.1f, randomZ);
+    //     } while(TooClose(randomPoint) || IsPointOutOfBounds(randomPoint));
+    //     Rigidbody rb = GetComponent<Rigidbody>();
+    //     if (rb != null) rb.velocity = Vector3.zero;
+    //     transform.position = randomPoint;
+    // }
+
+    // public bool TooClose(Vector3 point)
+    // {
+    //     float dist = Vector3.Distance(point, enemy.position);
+    //     return dist < minDistanceToEnemy;
+    // }
+
+    // public bool IsPointOutOfBounds(Vector3 point)
+    // {
+    //     Ray groundLevel = new Ray(new Vector3(point.x, 100f, point.z), Vector3.down);
+    //     RaycastHit hit;
+    //     if (Physics.Raycast(groundLevel, out hit, 200f))
+    //     {
+    //         if (hit.collider.CompareTag("OutOfBound"))
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     public void Teleport()
-    {  
-        Vector3 randomPoint;
-        do
+    {
+        Vector3 finalPoint = Vector3.zero;
+        bool foundValidSpot = false;
+        
+        int maxAttempts = 30; 
+        int attempts = 0;
+
+        while (!foundValidSpot && attempts < maxAttempts)
         {
+            attempts++;
             float randomX = Random.Range(minX, maxX);
             float randomZ = Random.Range(minZ, maxZ);
-            randomPoint = new Vector3(randomX, 3f, randomZ);
-        } while(TooClose(randomPoint) || IsPointOutOfBounds(randomPoint));
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null) rb.velocity = Vector3.zero;
-        transform.position = randomPoint;
-    }
-
-    public bool TooClose(Vector3 point)
-    {
-        float dist = Vector3.Distance(point, enemy.position);
-        return dist < minDistanceToEnemy;
-    }
-
-    public bool IsPointOutOfBounds(Vector3 point)
-    {
-        Ray groundLevel = new Ray(new Vector3(point.x, 100f, point.z), Vector3.down);
-        RaycastHit hit;
-        if (Physics.Raycast(groundLevel, out hit, 200f))
-        {
-            if (hit.collider.CompareTag("OutOfBound"))
+            
+            Vector3 rayStart = new Vector3(randomX, 100f, randomZ);
+            
+            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 200f))
             {
-                return true;
+                if (hit.collider.CompareTag("OutOfBound")) continue;
+
+                Vector2 pointXZ = new Vector2(hit.point.x, hit.point.z);
+                Vector2 enemyXZ = new Vector2(enemy.position.x, enemy.position.z);
+                
+                if (Vector2.Distance(pointXZ, enemyXZ) < minDistanceToEnemy) continue;
+
+                finalPoint = hit.point + (Vector3.up * teleportYOffset);
+                foundValidSpot = true;
             }
         }
-        return false;
+
+        if (foundValidSpot)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null) 
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero; 
+                rb.position = finalPoint; 
+            }
+            else
+            {
+                transform.position = finalPoint;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Gagal nemu titik yang aman di arena");
+        }
     }
 
 }

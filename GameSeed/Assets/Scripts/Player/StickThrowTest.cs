@@ -17,7 +17,8 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private GameObject buttonThrow;
     [SerializeField] private GameObject forceController;
     [SerializeField] private Image forceBar;
-    
+    [SerializeField] private GameObject otherUI;
+    [SerializeField] private GameObject otherOtherUI;
 
     private Rigidbody rigid;
     private Collider stickCollider;
@@ -166,6 +167,8 @@ public class StickThrowTest : MonoBehaviour
         if (buttonThrow != null) buttonThrow.SetActive(visible);
         if (forceController != null) forceController.SetActive(visible);
         if (forceBar != null) forceBar.fillAmount = 0f;
+        if (otherUI != null) otherUI.SetActive(visible);
+        if (otherOtherUI != null) otherOtherUI.SetActive(visible);
 
         if(visible){
             portraitAnimator.PlayEventIn("putStick");

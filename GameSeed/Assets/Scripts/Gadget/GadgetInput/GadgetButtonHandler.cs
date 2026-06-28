@@ -16,6 +16,11 @@ public class GadgetButtonHandler : MonoBehaviour
         {
             selectedGadget.data.Activate(playerTarget != null ? playerTarget : gameObject);
             Debug.Log(selectedGadget.data.gadgetName);
+
+            if (TurnManager.Instance != null)
+            {
+                TurnManager.Instance.SetState(TurnState.EnemyTurn);
+            }
         }
     }
 }
