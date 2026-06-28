@@ -38,7 +38,7 @@ public class PassiveStatGadget : BaseGadget
 
         if (myPlayerHealth != null)
         {
-            myPlayerHealth.health -= bonusHP;
+            myPlayerHealth.health += bonusHP;
 
             if (myPlayerHealth.health > myPlayerHealth.maxHp)
             {
@@ -53,7 +53,7 @@ public class PassiveStatGadget : BaseGadget
             //prob doesnt need this cuz applide in garage?
         } else if (myEnemyHealth != null)
         {
-            myEnemyHealth.health -= bonusHP;
+            myEnemyHealth.health += bonusHP;
 
             if (myEnemyHealth.health > myEnemyHealth.maxHp)
             {
