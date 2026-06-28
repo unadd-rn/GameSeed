@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -7,8 +8,17 @@ public class CollisionHandler : MonoBehaviour
     private float collisionCooldown = 2f; // cooldown dalam detik biar gak collision 2 kali
     private static int activeKnockbacks = 0; // karena script dipasang pada 2 object dan spaghetti code
 
+    [SerializeField] private PortraitAnimator portraitAnimator;
+
     [Header("Arena")]
     public GameObject ArenaWall;
+
+    [Header("Effects")]
+    public GameObject sparkParticlePrefab;
+    [Header("Winning UI Effect")]
+    public Image statusImageUI;       // Drag your UI Image component here in the Inspector
+    public Sprite playerWinningSprite; // Drag the sprite for when Player wins
+    public Sprite enemyWinningSprite;
 
     private Rigidbody rb;
     private Collider col;
@@ -20,6 +30,11 @@ public class CollisionHandler : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         playerHealth = GetComponent<PlayerHealth>();
+
+        if (statusImageUI != null)
+        {
+            statusImageUI.gameObject.SetActive(false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -28,6 +43,13 @@ public class CollisionHandler : MonoBehaviour
 
         CollisionHandler other = collision.gameObject.GetComponent<CollisionHandler>();
         if (other == null) return; // kalo gaada object lain gajadi
+
+        if (sparkParticlePrefab != null && collision.contacts.Length > 0)
+        {
+            Vector3 contactPoint = collision.contacts[0].point;
+            GameObject spark = Instantiate(sparkParticlePrefab, contactPoint, Quaternion.identity);
+            Destroy(spark, 1.5f); 
+        }
 
         Rigidbody otherRb = other.GetComponent<Rigidbody>();
 
@@ -38,15 +60,21 @@ public class CollisionHandler : MonoBehaviour
         other.hasKnockback = true;
         activeKnockbacks++; 
 
-        Vector3 knockbackDirection = (transform.position - collision.transform.position).normalized; // knockback opposite directions
-        knockbackDirection = (knockbackDirection + Vector3.up * 1.5f).normalized; // ini biar keatas juga tapi kayak kurang gitu damn
+        bool isOtherHigher = collision.transform.position.y > transform.position.y;
 
-        if (collision.transform.position.y > transform.position.y){
+        if (isOtherHigher)
+        {
             PlayerHealth myPlayerHealth = GetComponent<PlayerHealth>();
             EnemyHealth myEnemyHealth = GetComponent<EnemyHealth>();
 
             if (myPlayerHealth != null) myPlayerHealth.TakeDamage(1f, 'h');
             if (myEnemyHealth != null) myEnemyHealth.TakeDamage(1f, 'h');
+
+            if (GetComponent<PlayerHealth>() != null) {
+                ShowWinningImage(enemyWinningSprite);  
+            } else {
+                ShowWinningImage(playerWinningSprite); 
+            }
         } 
         else
         {
@@ -55,6 +83,12 @@ public class CollisionHandler : MonoBehaviour
 
             if (otherPlayerHealth != null) otherPlayerHealth.TakeDamage(1f, 'h');
             if (otherEnemyHealth != null) otherEnemyHealth.TakeDamage(1f, 'h');
+
+            if (GetComponent<PlayerHealth>() != null) {
+                ShowWinningImage(playerWinningSprite);  
+            } else {
+                ShowWinningImage(enemyWinningSprite); 
+            }
         }
 
         Vector3 dirToMyRb = (transform.position - collision.transform.position).normalized;
@@ -65,6 +99,18 @@ public class CollisionHandler : MonoBehaviour
 
         rb.velocity = Vector3.zero;
         if (otherRb != null) otherRb.velocity = Vector3.zero;
+        Debug.Log("1. Collision Detected! UI shown. Starting 2-second wait...");
+        StartCoroutine(PlayAnimationThenKnockback(col, collision.collider, other, otherRb, dirToMyRb, dirToOtherRb));
+    }
+
+    private IEnumerator PlayAnimationThenKnockback(Collider a, Collider b, CollisionHandler otherHandler, Rigidbody otherRb, Vector3 dirToMyRb, Vector3 dirToOtherRb)
+    {
+        Physics.IgnoreCollision(a, b, true); // matiin collision biar gak nabrak 2 kali
+
+        // Wait for the 2-second cut-in/winning animation to finish before applying the forces
+        yield return new WaitForSeconds(2.5f);
+        Debug.Log("2. 2 Seconds are UP! Applying Damage and Forces NOW.");
+        yield return null; // skip satu frame biar physics ke-apply dulu
 
         rb.AddForce(dirToMyRb * knockbackForce, ForceMode.Impulse); // tembak
         if (otherRb != null) otherRb.AddForce(dirToOtherRb * knockbackForce, ForceMode.Impulse); // tembak ke arah berlawanan
@@ -73,25 +119,44 @@ public class CollisionHandler : MonoBehaviour
         if (myPlayerThrow != null) myPlayerThrow.HandleKnockback();
         else GetComponent<ThrowEnemy>()?.HandleKnockback();
 
-        StickThrowTest otherPlayerThrow = other.GetComponent<StickThrowTest>();
+        StickThrowTest otherPlayerThrow = otherHandler.GetComponent<StickThrowTest>();
         if (otherPlayerThrow != null) otherPlayerThrow.HandleKnockback();
-        else other.GetComponent<ThrowEnemy>()?.HandleKnockback();
+        else otherHandler.GetComponent<ThrowEnemy>()?.HandleKnockback();
 
         if (ArenaWall != null)
             ArenaWall.SetActive(true); // nyalain wall
 
-        StartCoroutine(KnockbackCooldown(col, collision.collider, other)); // start timer or something
+        StartCoroutine(KnockbackCooldown(a, b, otherHandler)); // start timer or something
+    }
+
+    private void ShowWinningImage(Sprite winningSprite)
+    {
+        if (statusImageUI != null && winningSprite != null)
+        {
+            statusImageUI.gameObject.SetActive(true); // Make sure the UI object is visible
+            statusImageUI.sprite = winningSprite;     // Swap the image texture
+            portraitAnimator.PlayEventIn("cutIn");
+            // pause2 detik
+            Invoke(nameof(HideWinningImage), 2f);
+        }
+    }
+
+    private void HideWinningImage()
+    {
+        portraitAnimator.PlayEventOut("cutIn");
     }
 
     IEnumerator KnockbackCooldown(Collider a, Collider b, CollisionHandler otherHandler)
     {
-        Physics.IgnoreCollision(a, b, true); // matiin collision biar gak nabrak 2 kali
         yield return new WaitForSeconds(collisionCooldown);
         Physics.IgnoreCollision(a, b, false); // nyala lagi setelah 2 detik (cooldown 2f)
 
         hasKnockback = false;
         if (otherHandler != null) otherHandler.hasKnockback = false;
         activeKnockbacks--;
+
+        if (statusImageUI != null)
+            statusImageUI.gameObject.SetActive(false);
 
         if (activeKnockbacks <= 0 && ArenaWall != null)
         {

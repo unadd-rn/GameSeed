@@ -19,6 +19,9 @@ public class StickThrowTest : MonoBehaviour
     [SerializeField] private Image forceBar;
     [SerializeField] private GameObject otherUI;
     [SerializeField] private GameObject otherOtherUI;
+    [SerializeField] private GameObject buttonSkill;
+    [SerializeField] private GameObject buttonHide;
+    
 
     private Rigidbody rigid;
     private Collider stickCollider;
@@ -49,6 +52,7 @@ public class StickThrowTest : MonoBehaviour
         startLocalRotation = transform.localRotation;
         portraitAnimator = GameObject.Find("Animaton").GetComponent<PortraitAnimator>();
         SetUIVisible(true);
+        if (buttonHide != null) buttonHide.SetActive(true);
     }
 
     public void OnStickPlaced()
@@ -158,22 +162,41 @@ public class StickThrowTest : MonoBehaviour
 
     public void SetUIVisible(bool visible)
     {
-        if(!visible){
-            portraitAnimator.PlayEventOut("putStick");
-            portraitAnimator.PlayEventOut("IN/OUT");
-        }
+        if (visible)
+        {
+            // 1. Enable objects first so they can animate
+            SetUIElementsActive(true);
+            if (sliderContainer != null) sliderContainer.SetActive(true);
 
-        if (sliderContainer != null) sliderContainer.SetActive(visible);
+            // 2. Play In animation
+            portraitAnimator.PlayEventIn("putStick");
+        }
+        else
+        {
+            // 1. Play Out animation while objects are still active
+            portraitAnimator.PlayEventOut("putStick");
+            
+            if (sliderContainer != null) sliderContainer.SetActive(false);
+
+            // 2. Wait for the animation to finish before turning off GameObjects
+            StartCoroutine(DisableUIAfterDelay(0.2f)); // Match your longest out-duration (e.g., 0.5s)
+        }
+    }
+
+    private void SetUIElementsActive(bool visible)
+    {
         if (buttonThrow != null) buttonThrow.SetActive(visible);
         if (forceController != null) forceController.SetActive(visible);
         if (forceBar != null) forceBar.fillAmount = 0f;
         if (otherUI != null) otherUI.SetActive(visible);
         if (otherOtherUI != null) otherOtherUI.SetActive(visible);
+        if (buttonSkill != null) buttonSkill.SetActive(visible);
+    }
 
-        if(visible){
-            portraitAnimator.PlayEventIn("putStick");
-            portraitAnimator.PlayEventIn("IN/OUT");
-        }
+    private IEnumerator DisableUIAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SetUIElementsActive(false);
     }
 
     private void UpdateSliderPosition()
