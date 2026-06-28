@@ -156,6 +156,39 @@ public class GadgetManager : MonoBehaviour
         currentPreviewSlotIndex = -1;   
     }
 
+    public void HandleMatchEndDurability()
+    {
+        for (int i = gadgetOwned.Length - 1; i >= 0; i--)
+        {
+            GadgetInstance gadget = gadgetOwned[i];
+
+            if (gadget != null && gadget.isEquipped)
+            {
+                gadget.currentDurability--;
+                Debug.Log($"durability {gameObject.name}: Gadget {gadget.data.gadgetName} berkurang! Sisa: {gadget.currentDurability}");
+
+                if (gadget.currentDurability <= 0)
+                {
+                    Debug.Log($"durability {gameObject.name}: Gadget {gadget.data.gadgetName} HANCUR karena durability habis!");
+                    
+                    DetachGadgetbyID(gadget.id);
+                    RemoveGadgetAtIndex(i);
+                }
+            }
+        }
+    }
+
+    private void RemoveGadgetAtIndex(int index)
+    {
+        //geser gadget di kanan index ke kiri
+        for (int i = index; i < gadgetOwned.Length - 1; i++)
+        {
+            gadgetOwned[i] = gadgetOwned[i + 1];
+        }
+        //baru di apus
+        gadgetOwned[gadgetOwned.Length - 1] = null;
+    } //bismillah bismillah bismillah berhasil yaAllah
+
     // public void AttachGadget(GadgetInstance gadget, int slotIndex)
     // {
     //     if(slotIndex < 0 || slotIndex >= data.frontSlots.Length) return;

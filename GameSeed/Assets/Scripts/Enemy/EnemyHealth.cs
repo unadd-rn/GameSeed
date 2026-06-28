@@ -8,11 +8,15 @@ public class EnemyHealth : MonoBehaviour
     public GameObject WinUI;
     public float health;
     private int win;
+    public float maxHp = 15f;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
-    public Color redColor = Color.red;
-    public Color blueColor = Color.blue; // Bisa diubah warnanya di inspector
+    public Color layer1 = Color.white;
+    public Color layer2 = Color.blue; 
+    public Color layer3 = Color.red;
+    public Color layer4 = Color.blue; 
+    public Color layer5 = Color.red;
 
     [Header("Invincibility Settings")]
     public float invincibilityDuration = 0.5f; // Berapa lama stik kebal setelah kena hit (dalam detik)
@@ -20,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
 
     [Header("Respawn Settings")]
     public float pindahLength = 2f; //buat kl ada enemy
-    public float checkRadius = 1.5f; // Radius bola sensor untuk mengecek musuh
+    public float checkRadius = 1.5f; // r sensor untuk mengecek musuh
     [SerializeField] private EnemyAI enemyAI;
     
     private Vector3 startPosition;
@@ -106,7 +110,7 @@ public class EnemyHealth : MonoBehaviour
         {
             isSpaceClear = true;
             
-            // Bikin sensor berbentuk bola untuk mengecek area sekitar
+            // bikin sensor berbentuk bola untuk mengecek area sekitar
             Collider[] hitColliders = Physics.OverlapSphere(targetRespawnPos, checkRadius);
             
             foreach (Collider hit in hitColliders)
@@ -143,26 +147,45 @@ public class EnemyHealth : MonoBehaviour
         {
             if(heartSlots[i]==null) continue;
 
-            float blueHealthAmount = health - 3f - i*0.5f;
-            float redHealthAmount = health - i*0.5f;
+            float Blayer5 = health - 12f - i*0.5f;
+            float Blayer4 = health - 9f - i*0.5f;
+            float Blayer3 = health - 6f - i*0.5f;
+            float Blayer2 = health - 3f - i*0.5f;
+            float Blayer1 = health - i*0.5f;
 
-            if (blueHealthAmount >= 0.5f)
+            if (Blayer5 >= 0.5f)
             {
                 heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = blueColor;
+                heartSlots[i].color = layer5;
             }
-            else if (redHealthAmount >= 0.5f)
+            else if (Blayer4 >= 0.5f)
             {
                 heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = redColor;
+                heartSlots[i].color = layer4;
+            } 
+            else if (Blayer3 >= 0.5f)
+            {
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = layer3;
+            } 
+            else if (Blayer2 >= 0.5f)
+            {
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = layer2;
             }
-            else
+            else if (Blayer1 >= 0.5f)
+            {
+                heartSlots[i].gameObject.SetActive(true);
+                heartSlots[i].color = layer1;
+            } 
+            else 
             {
                 if (heartSlots[i].gameObject.activeSelf && !flashingBar.Contains(heartSlots[i]))
                 {
                     StartCoroutine(GlitchAndHide(heartSlots[i]));
                 }
             }
+            
         }
     }
 
