@@ -15,6 +15,17 @@ public class StickBody : MonoBehaviour
     public Sprite stickIcon; // Gambar untuk di UI Inventory
     public Mesh stickMesh;
     public Material stickMaterial;
+    [SerializeField] BodyType[] bodies;
+
+    void Start()
+    {
+        if (bodies.Length > 0) {
+            int randIndex = Random.Range(0, bodies.Length);
+            Debug.Log(bodies.Length);
+            BodyType tempBodyType = bodies[randIndex];
+            ApplyPreview(tempBodyType);
+        }
+    }
 
     public void ApplyPreview(BodyType body)
     {

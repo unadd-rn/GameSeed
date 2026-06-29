@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stickName: The Classic
   description: 
-  stickIcon: {fileID: 0}
-  stickMesh: {fileID: 0}
-  stickMaterial: {fileID: 0}
+  stickIcon: {fileID: 21300000, guid: 69c2f56c97d3958439dc675766355ae5, type: 3}
+  stickMesh: {fileID: -462981019419857548, guid: 711b07c42b653234b9aed83ae42afe64,
+    type: 3}
+  stickMaterial: {fileID: 2100000, guid: a07ff82961889244f98a0322051a0f9a, type: 2}
   damage: 0
   weight: 0
+  HP: 0
