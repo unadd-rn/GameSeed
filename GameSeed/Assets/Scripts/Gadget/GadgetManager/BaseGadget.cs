@@ -21,6 +21,7 @@ public abstract class BaseGadget : ScriptableObject
 
     [Header("Position")]
     public float sizeX;
+    public float sizeY;
     public float sizeZ;
 
     /* Others */
