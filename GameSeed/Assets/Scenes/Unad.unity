@@ -10498,14 +10498,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7f4f181316c1b4b9685244c7a7dabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mandatoryGadgets: []
-  randomizableGadgetsPool:
-  - {fileID: 11400000, guid: 9277b6e832fba444f8cdcba310013d22, type: 2}
-  - {fileID: 11400000, guid: 250fc2c381a78ec41ba1165afd3c747d, type: 2}
+  mandatoryGadgets:
+  - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
+  randomizableGadgetsPool: []
   useRandomGadgets: 1
   minRandomGadgets: 1
   maxRandomGadgets: 2
-  chanceToUseGadget: 1
+  chanceToUseGadget: 0.8
 --- !u!114 &2055251491
 MonoBehaviour:
   m_ObjectHideFlags: 0
