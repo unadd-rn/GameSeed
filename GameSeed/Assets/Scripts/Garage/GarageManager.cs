@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Assertions.Must;
+using Unity.Mathematics;
 
 public class GarageManager : MonoBehaviour
 {
@@ -39,6 +41,10 @@ public class GarageManager : MonoBehaviour
 
     private StickBody spawnedBody;
     private StickSlot spawnedSlot;
+
+    [Header("Slider Gadget")]
+    public GameObject sliderGadgetGO;
+    public Slider sliderGadget;
 
     void Start()
     {
@@ -116,23 +122,46 @@ public class GarageManager : MonoBehaviour
         {
             Button currentButton = buttonsG[i];
             currentButton.image.sprite = null;
+            currentButton.onClick.RemoveAllListeners();
+        }
+    }
+
+    public void EmptyingBodyButtons()
+    {
+        buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsB.Length; i++)
+        {
+            Button currentButton = buttonsB[i];
+            currentButton.image.sprite = null;
+            currentButton.onClick.RemoveAllListeners();
         }
     }
 
     public void SetupGadgetButtons()
     {
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
-        for(int i = 0; i < buttonsG.Length; i++)
+        for(int i = 0; i < gadgetManager.gadgetOwned.Length; i++)
         {
-            if(i >= gadgetManager.gadgetOwnedNeff)
-            {
-                // kasih aset button kosong
-                continue;
-            }
             GadgetInstance currentG = gadgetManager.gadgetOwned[i];
             Button currentButton = buttonsG[i];
 
-            currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
+            // currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
+            Image childImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            var tempColor = childImage.color;
+            if(i >= gadgetManager.gadgetOwnedNeff)
+            {
+                currentButton.interactable = false;
+                tempColor.a = 0f;
+                childImage.color = tempColor;
+                continue;
+            }
+            currentButton.interactable = true;
+            tempColor.a = 1f;
+            childImage.color = tempColor;
+
+            if(currentG.data.model != null)
+                childImage.sprite = currentG.data.model;
+
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
@@ -147,28 +176,54 @@ public class GarageManager : MonoBehaviour
 
     public void SetupBodyButtons()
     {
+        // Debug.Log("mulai setup body buttons");
         buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
         for(int i = 0; i < buttonsB.Length; i++)
         {
-            if(i >= bodyManager.bodyOwnedNeff)
-            {
-                continue;
-            }
 
             BodyInstance currentB = bodyManager.bodyOwned[i];
             Button currentButton = buttonsB[i];
+            if(currentButton == null)
+            {
+                Debug.LogError("currentButton null");
+                return;
+            }
 
-            currentButton.image.sprite = currentB.data.stickIcon;
+            // currentButton.image.sprite = currentB.data.stickIcon;
+            Image currentImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            // Debug.Log("udah masukin currentImage");
+            if(currentImage == null)
+            {
+                Debug.LogError("current image == null");
+                return;
+            }
+            var tempColor = currentImage.color;
+            // Debug.Log("udah masukin tempColor");
+            if(i >= bodyManager.bodyOwnedNeff)
+            {
+                // Debug.Log("i >= bodyManager.bodyOwnedNeff");
+                tempColor.a = 0f;
+                currentImage.color = tempColor;
+                currentButton.interactable = false;
+                continue;
+            }
+            // Debug.Log("i < bodyManager.bodyOwnedNeff");
+            currentButton.interactable = true;
+            tempColor.a = 1f;
+            currentImage.color = tempColor;
 
+            currentImage.sprite = currentB.data.stickIcon;
             currentButton.onClick.RemoveAllListeners();
+            // Debug.Log("Remove all listener");
             currentButton.onClick.AddListener(() =>
             {
                 bodyManager.PreviewBody(i);
                 confirmButtonBody.SetActive(true);
-                bodyOrGadgetName.text = currentB.data.name.ToString();
+                bodyOrGadgetName.text = currentB.data.stickName.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
                 textField.SetActive(true);
             });
+            // Debug.Log("Dah beres");
         }
     }
 
@@ -178,19 +233,133 @@ public class GarageManager : MonoBehaviour
         {
             gadgetManager.DetachGadgetbyID(gadgetManager.gadgetOwned[slotIndex].id);
         }
-        for(int i = gadgetManager.gadgetOwned.Length - 1; i > slotIndex; i--)
+        for(int i = gadgetManager.gadgetOwnedNeff - 1; i > slotIndex; i--)
         {
             gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
         }
-        gadgetManager.gadgetOwned[gadgetManager.gadgetOwned.Length - 1] = null;
+        gadgetManager.gadgetOwned[gadgetManager.gadgetOwnedNeff - 1] = null;
         gadgetManager.gadgetOwnedNeff--;
         EmptyingGadgetButtons();
-        SetupGadgetButtons();
+        SetupRemoveGadgetButtons();
+    }
+
+    public void RemoveBodyFromInventory(int slotIndex)
+    {
+        if(bodyManager.bodyOwned[slotIndex].isEquipped)
+            Debug.LogWarning("Can't remove equipped body!");
+
+        for(int i = bodyManager.bodyOwnedNeff - 1; i > slotIndex; i--)
+            bodyManager.bodyOwned[i-1] = bodyManager.bodyOwned[i];
+
+        bodyManager.bodyOwned[bodyManager.bodyOwnedNeff - 1] = null;
+        bodyManager.bodyOwnedNeff--;
+        EmptyingBodyButtons();
+        SetupRemoveBodyButtons();
     }
 
     public void InactivateConfirm()
     {
         confirmButtonBody.SetActive(false);
         confirmButtonGadget.SetActive(false);
+    }
+
+    public void RemoveState()
+    {
+        SetupRemoveBodyButtons();
+        SetupRemoveGadgetButtons();
+    }
+
+    public void NormalState()
+    {
+        SetupBodyButtons();
+        SetupGadgetButtons();
+    }
+
+    public void SetupRemoveBodyButtons()
+    {
+        buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsB.Length; i++)
+        {
+
+            BodyInstance currentB = bodyManager.bodyOwned[i];
+            Button currentButton = buttonsB[i];
+            if(currentButton == null)
+            {
+                Debug.LogError("currentButton null");
+                return;
+            }
+
+            Image currentImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            if(currentImage == null)
+            {
+                Debug.LogError("current image == null");
+                return;
+            }
+            var tempColor = currentImage.color;
+            if(i >= bodyManager.bodyOwnedNeff)
+            {
+                tempColor.a = 0f;
+                currentImage.color = tempColor;
+                currentButton.interactable = false;
+                continue;
+            }
+            currentButton.interactable = true;
+            tempColor.a = 1f;
+            currentImage.color = tempColor;
+
+            currentImage.sprite = currentB.data.stickIcon;
+            currentButton.onClick.RemoveAllListeners();
+            currentButton.onClick.AddListener(() =>
+            {
+                
+                bodyOrGadgetName.text = currentB.data.stickName.ToString();
+                bodyOrGadgetDesc.text = currentB.data.description.ToString();
+                textField.SetActive(true);
+            });
+        }
+    }
+
+    public void SetupRemoveGadgetButtons()
+    {
+        buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
+        for(int i = 0; i < buttonsG.Length; i++)
+        {
+
+            GadgetInstance currentG = gadgetManager.gadgetOwned[i];
+            Button currentButton = buttonsG[i];
+            if(currentButton == null)
+            {
+                Debug.LogError("currentButton null");
+                return;
+            }
+
+            Image currentImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            if(currentImage == null)
+            {
+                Debug.LogError("current image == null");
+                return;
+            }
+            var tempColor = currentImage.color;
+            if(i >= gadgetManager.gadgetOwnedNeff)
+            {
+                tempColor.a = 0f;
+                currentImage.color = tempColor;
+                currentButton.interactable = false;
+                continue;
+            }
+            currentButton.interactable = true;
+            tempColor.a = 1f;
+            currentImage.color = tempColor;
+
+            currentImage.sprite = currentG.data.model;
+            currentButton.onClick.RemoveAllListeners();
+            currentButton.onClick.AddListener(() =>
+            {
+                
+                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
+                bodyOrGadgetDesc.text = currentG.data.description.ToString();
+                textField.SetActive(true);
+            });
+        }
     }
 }

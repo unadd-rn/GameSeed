@@ -16,4 +16,5 @@ public class GadgetInstance
         this.isEquipped = true;
         this.currentDurability = baseData.durability; // Starts at max durability
     }
+
 }
