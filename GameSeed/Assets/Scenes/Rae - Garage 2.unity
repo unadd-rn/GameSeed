@@ -228,7 +228,14 @@ MonoBehaviour:
   data: {fileID: 5000814616031831199, guid: 741d41d0547904048ad70f5cf2919a43, type: 3}
   stickBodyTransform: {fileID: 0}
   playerTarget: {fileID: 0}
-  startingGadgets: []
+  startingGadgets:
+  - {fileID: 11400000, guid: cd75d773271079442aaf15a57cecaf60, type: 2}
+  - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
+  - {fileID: 11400000, guid: 2e331c43daf7fd441a99c2f670281ffe, type: 2}
+  - {fileID: 11400000, guid: 9277b6e832fba444f8cdcba310013d22, type: 2}
+  - {fileID: 11400000, guid: 7d11fc3fcd50e1c4bb75e784ac8a7519, type: 2}
+  - {fileID: 11400000, guid: 05f29b9ef5cce14498711aae83799deb, type: 2}
+  - {fileID: 11400000, guid: 250fc2c381a78ec41ba1165afd3c747d, type: 2}
 --- !u!114 &30119524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +265,8 @@ MonoBehaviour:
     type: 3}
   stickSlotPrefab: {fileID: 5966275830993510863, guid: 741d41d0547904048ad70f5cf2919a43,
     type: 3}
+  sliderGadgetGO: {fileID: 0}
+  sliderGadget: {fileID: 0}
 --- !u!1001 &37280866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -774,7 +783,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 30119524}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: GadgetButton
         m_Mode: 1
@@ -3833,7 +3842,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 30119524}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: BodyButton
         m_Mode: 1

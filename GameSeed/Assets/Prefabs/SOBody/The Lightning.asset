@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b1cf4cb803ba04a82eb158dc5f45f5, type: 3}
   m_Name: The Lightning
   m_EditorClassIdentifier: 
-  stickName: 
+  stickName: The Lightning
   description: 
   stickIcon: {fileID: 0}
   stickMesh: {fileID: 0}
   stickMaterial: {fileID: 0}
-  damage: 0
+  damage: 14
   weight: 20
-  HP: 0
+  HP: 20

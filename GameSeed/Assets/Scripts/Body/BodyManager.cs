@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BodyManager : MonoBehaviour
 {
+    public static BodyManager Instance;
     public const int maxBody = 10;
     public BodyInstance[] bodyOwned = new BodyInstance[maxBody];
     public int bodyOwnedNeff = 0;
@@ -26,6 +27,16 @@ public class BodyManager : MonoBehaviour
         {
             Debug.Log("aman kok");
         }
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

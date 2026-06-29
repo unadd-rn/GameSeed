@@ -29,6 +29,19 @@ public class GadgetManager : MonoBehaviour
     [Header("Testing Purpose Only")]
     [SerializeField] private BaseGadget[] startingGadgets;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         for (int i = 0; i < startingGadgets.Length; i++)
@@ -36,7 +49,14 @@ public class GadgetManager : MonoBehaviour
             if (startingGadgets[i] != null && i < gadgetOwned.Length)
             {
                 gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
+                gadgetOwnedNeff++;
             }
+        }
+
+        for(int i = 0; i < startingGadgets.Length; i++)
+        {
+            if(startingGadgets[i] != null)
+                Debug.Log($"Nama gadget: {startingGadgets[i].gadgetName}");
         }
     }
 
@@ -54,11 +74,8 @@ public class GadgetManager : MonoBehaviour
         GameObject go = new GameObject(gadgetData.gadgetName);
         go.transform.SetParent(parent);
 
-        MeshFilter meshFilter = go.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = go.AddComponent<MeshRenderer>();
-
-        meshFilter.sharedMesh = gadgetData.mesh;
-        meshRenderer.sharedMaterial = gadgetData.material;
+        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = gadgetData.worldSprite;
 
         return go;
     }
@@ -200,6 +217,7 @@ public class GadgetManager : MonoBehaviour
         }
         //baru di apus
         gadgetOwned[gadgetOwned.Length - 1] = null;
+        gadgetOwnedNeff--;
     } //bismillah bismillah bismillah berhasil yaAllah
 
     // public void AttachGadget(GadgetInstance gadget, int slotIndex)

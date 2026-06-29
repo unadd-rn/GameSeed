@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a60d166c6c63f4091ff01ea416dcd4, type: 3}
   m_Name: Tung Tung Tung Sahur
   m_EditorClassIdentifier: 
-  stickName: 
+  stickName: Tung Tung Tung Sahur
   description: 
   stickIcon: {fileID: 0}
   stickMesh: {fileID: 0}
   stickMaterial: {fileID: 0}
-  damage: 0
+  damage: 20
   weight: 20
-  HP: 0
+  HP: 25
