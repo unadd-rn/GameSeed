@@ -359,7 +359,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 4000, y: 4000}
+  m_SizeDelta: {x: 10000, y: 10000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &152449276
 CanvasGroup:
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.017630387, g: 0.013794942, b: 0.09433961, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2116,8 +2116,8 @@ MonoBehaviour:
     canvasGroup: {fileID: 152449276}
     animIn: 1
     animOut: 1
-    durationIn: 0.1
-    holdDuration: 0.4
+    durationIn: 0.2
+    holdDuration: 1
     durationOut: 0.4
   easeIn: 9
   easeOut: 6
