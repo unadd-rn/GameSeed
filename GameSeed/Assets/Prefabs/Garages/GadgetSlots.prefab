@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1561630972411709135}
   - component: {fileID: 5000814616031831199}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GadgetSlots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,23 +49,23 @@ MonoBehaviour:
   sizeZ: 0
   frontSlots:
   - slotId: 0
+    localPosition: {x: -1, y: 0, z: 0}
+  - slotId: 1
+    localPosition: {x: -0.5, y: 0, z: 0}
+  - slotId: 2
     localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 3
+    localPosition: {x: 0.5, y: 0, z: 0}
+  - slotId: 4
+    localPosition: {x: 1, y: 0, z: 0}
   backSlots:
   - slotId: 0
+    localPosition: {x: -1, y: 0, z: 0}
+  - slotId: 1
+    localPosition: {x: -0.5, y: 0, z: 0}
+  - slotId: 2
     localPosition: {x: 0, y: 0, z: 0}
+  - slotId: 3
+    localPosition: {x: 0.5, y: 0, z: 0}
   - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
-  - slotId: 0
-    localPosition: {x: 0, y: 0, z: 0}
+    localPosition: {x: 1, y: 0, z: 0}

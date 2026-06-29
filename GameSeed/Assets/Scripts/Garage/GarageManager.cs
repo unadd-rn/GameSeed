@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Assertions.Must;
 
 public class GarageManager : MonoBehaviour
 {
@@ -122,12 +123,24 @@ public class GarageManager : MonoBehaviour
     public void SetupGadgetButtons()
     {
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
-        for(int i = 0; i < gadgetManager.gadgetOwnedNeff; i++)
+        for(int i = 0; i < gadgetManager.gadgetOwned.Length; i++)
         {
             GadgetInstance currentG = gadgetManager.gadgetOwned[i];
             Button currentButton = buttonsG[i];
 
-            currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
+            // currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
+            Image childImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            var tempColor = childImage.color;
+            if(i >= gadgetManager.gadgetOwnedNeff)
+            {
+                tempColor.a = 0f;
+                childImage.color = tempColor;
+                continue;
+            }
+            tempColor.a = 1f;
+            childImage.color = tempColor;
+
+            childImage.sprite = currentG.data.model;
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
@@ -142,20 +155,45 @@ public class GarageManager : MonoBehaviour
 
     public void SetupBodyButtons()
     {
+        // Debug.Log("mulai setup body buttons");
         buttonsB = bodyPanelTransform.GetComponentsInChildren<Button>(true);
         for(int i = 0; i < buttonsB.Length; i++)
         {
-            if(i >= bodyManager.bodyOwnedNeff)
-            {
-                continue;
-            }
 
             BodyInstance currentB = bodyManager.bodyOwned[i];
             Button currentButton = buttonsB[i];
+            if(currentButton == null)
+            {
+                Debug.LogError("currentButton null");
+                return;
+            }
 
-            currentButton.image.sprite = currentB.data.stickIcon;
+            // currentButton.image.sprite = currentB.data.stickIcon;
+            Image currentImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            // Debug.Log("udah masukin currentImage");
+            if(currentImage == null)
+            {
+                Debug.LogError("current image == null");
+                return;
+            }
+            var tempColor = currentImage.color;
+            // Debug.Log("udah masukin tempColor");
+            if(i >= bodyManager.bodyOwnedNeff)
+            {
+                // Debug.Log("i >= bodyManager.bodyOwnedNeff");
+                tempColor.a = 0f;
+                currentImage.color = tempColor;
+                currentButton.interactable = false;
+                continue;
+            }
+            // Debug.Log("i < bodyManager.bodyOwnedNeff");
+            currentButton.interactable = true;
+            tempColor.a = 1f;
+            currentImage.color = tempColor;
 
+            currentImage.sprite = currentB.data.stickIcon;
             currentButton.onClick.RemoveAllListeners();
+            // Debug.Log("Remove all listener");
             currentButton.onClick.AddListener(() =>
             {
                 bodyManager.PreviewBody(i);
@@ -164,6 +202,7 @@ public class GarageManager : MonoBehaviour
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
                 textField.SetActive(true);
             });
+            // Debug.Log("Dah beres");
         }
     }
 
