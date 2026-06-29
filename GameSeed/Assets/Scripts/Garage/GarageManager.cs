@@ -12,7 +12,7 @@ public class GarageManager : MonoBehaviour
     public static GarageManager Instance;
     public GameObject gadgetPanel;
     public GameObject bodyPanel;
-    public StickSlot data;
+    public StickData data;
 
     [Header("Kebutuhan button")]
     [SerializeField] Transform gadgetPanelTransform;
@@ -112,6 +112,7 @@ public class GarageManager : MonoBehaviour
 
     public void BackToMenu()
     {
+        SendData();
         SceneManager.LoadScene("Cet - lobby1");
     }
 
@@ -361,5 +362,24 @@ public class GarageManager : MonoBehaviour
                 textField.SetActive(true);
             });
         }
+    }
+
+    public void SendData()
+    {
+        if(spawnedBody == null || spawnedSlot == null || data == null) return;
+
+        /* kirim body */
+        data.stickName = bodyManager.currentEquippedBody.data.stickName;
+        data.description = bodyManager.currentEquippedBody.data.description;
+        data.stickIcon = bodyManager.currentEquippedBody.data.stickIcon;
+        data.stickMesh = bodyManager.currentEquippedBody.data.stickMesh;
+        data.stickMaterial = bodyManager.currentEquippedBody.data.stickMaterial;
+        data.weight = bodyManager.currentEquippedBody.data.weight;
+        data.damage = bodyManager.currentEquippedBody.data.damage;
+        // data.HP = bodyManager.currentEquippedBody.data.HP; // hp di mana yah
+
+        /* kirim slot */
+        data.frontSlots = spawnedSlot.frontSlots;
+        data.backSlots = spawnedSlot.backSlots;
     }
 }
