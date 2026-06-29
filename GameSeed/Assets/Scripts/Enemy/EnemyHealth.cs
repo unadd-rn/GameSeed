@@ -206,6 +206,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Win()
     {
+        TurnManager.Instance.SetState(TurnState.End);
         PlayerPrefs.SetString("MatchStatus", "match selesai");
 
         if (!PlayerPrefs.HasKey("WinCount"))

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public enum TurnState { PlayerPlacement, PlayerThrowing, EnemyTurn, Waiting }
+public enum TurnState { PlayerPlacement, PlayerThrowing, EnemyTurn, End }
 
 public class TurnManager : MonoBehaviour
 {
@@ -54,6 +54,13 @@ public class TurnManager : MonoBehaviour
                     enemyAIScript.enabled = true;
                     enemyAIScript.StartTurn();
                 }
+                playerThrowScript.SetUIVisible(false);
+                break;
+            case TurnState.End:
+                if (playerSpawnScript != null) playerSpawnScript.enabled = false;
+                if (playerThrowScript != null) playerThrowScript.enabled = false;
+                if (enemyAIScript != null) enemyAIScript.enabled = false;
+
                 playerThrowScript.SetUIVisible(false);
                 break;
         }

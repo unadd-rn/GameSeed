@@ -267,7 +267,6 @@ public class StickThrowTest : MonoBehaviour
     public void Throw()
     {
         if (hasBeenThrown) return;
-        TurnManager.Instance.SetState(TurnState.Waiting);
 
         // ini slider JELEK itu. 
         // mati pas dilempar
