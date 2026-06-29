@@ -53,11 +53,11 @@ public class GadgetManager : MonoBehaviour
             }
         }
 
-        for(int i = 0; i < startingGadgets.Length; i++)
-        {
-            if(startingGadgets[i] != null)
-                Debug.Log($"Nama gadget: {startingGadgets[i].gadgetName}");
-        }
+        // for(int i = 0; i < startingGadgets.Length; i++)
+        // {
+            // if(startingGadgets[i] != null)
+                // Debug.Log($"Nama gadget: {startingGadgets[i].gadgedOwned[]}")
+        // }
     }
 
     private void SetGadgetScale(GameObject go, BaseGadget gadgetData)
@@ -74,9 +74,15 @@ public class GadgetManager : MonoBehaviour
         GameObject go = new GameObject(gadgetData.gadgetName);
         go.transform.SetParent(parent);
 
-        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-        sr.sprite = gadgetData.worldSprite;
+        // SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+        // sr.sprite = gadgetData.worldSprite;
 
+        MeshFilter mf = go.AddComponent<MeshFilter>();
+        mf.mesh = gadgetData.mesh;
+
+        MeshRenderer mr = go.AddComponent<MeshRenderer>();
+        mr.material = gadgetData.material;
+        
         return go;
     }
 
@@ -211,12 +217,12 @@ public class GadgetManager : MonoBehaviour
     private void RemoveGadgetAtIndex(int index)
     {
         //geser gadget di kanan index ke kiri
-        for (int i = index; i < gadgetOwned.Length - 1; i++)
+        for (int i = index; i < gadgetOwnedNeff - 1; i++)
         {
             gadgetOwned[i] = gadgetOwned[i + 1];
         }
         //baru di apus
-        gadgetOwned[gadgetOwned.Length - 1] = null;
+        gadgetOwned[gadgetOwnedNeff - 1] = null;
         gadgetOwnedNeff--;
     } //bismillah bismillah bismillah berhasil yaAllah
 
