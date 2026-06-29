@@ -15,10 +15,9 @@ MonoBehaviour:
   stickName: The Classic
   description: Your first, unbreakable stick
   stickIcon: {fileID: 21300000, guid: 6a54c9208339f9a36937e49e5c65c3bb, type: 3}
-  stickMesh: {fileID: 2925664659663994200, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
+  stickMesh: {fileID: -462981019419857548, guid: 711b07c42b653234b9aed83ae42afe64,
     type: 3}
-  stickMaterial: {fileID: -2087353824332523593, guid: 2a7410f862fd8fe9db6dfadf8695bd1f,
-    type: 3}
+  stickMaterial: {fileID: 2100000, guid: a07ff82961889244f98a0322051a0f9a, type: 2}
   damage: 20
   weight: 20
   HP: 20
