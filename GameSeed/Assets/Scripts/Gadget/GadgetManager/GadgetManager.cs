@@ -44,19 +44,29 @@ public class GadgetManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
         for (int i = 0; i < startingGadgets.Length; i++)
         {
             if (startingGadgets[i] != null && i < gadgetOwned.Length)
             {
                 gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
-                gadgetOwned[i].isEquipped = false;
+                gadgetOwned[i].isEquipped = true;
                 gadgetOwnedNeff++;
             }
         }
+    }
+
+    private void Start()
+    {
+        // for (int i = 0; i < startingGadgets.Length; i++)
+        // {
+        //     if (startingGadgets[i] != null && i < gadgetOwned.Length)
+        //     {
+        //         gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
+        //         gadgetOwned[i].isEquipped = false;
+        //         gadgetOwnedNeff++;
+        //     }
+        // }
 
         // for(int i = 0; i < startingGadgets.Length; i++)
         // {
@@ -224,6 +234,12 @@ public class GadgetManager : MonoBehaviour
 
         currentPreviewGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
         currentPreviewGadget.isEquipped = true;
+
+        RadialGadgetController radialController = FindObjectOfType<RadialGadgetController>();
+        if (radialController != null)
+        {
+            radialController.PopulateRadialMenu();
+        }
 
         previewVisualFront = null;
         currentPreviewGadget = null;
