@@ -49,23 +49,23 @@ MonoBehaviour:
   sizeZ: 0
   frontSlots:
   - slotId: 0
-    localPosition: {x: -0.032, y: 0, z: 0}
+    localPosition: {x: -0.012, y: 0, z: -0.00019}
   - slotId: 1
-    localPosition: {x: -0.016, y: 0, z: 0}
+    localPosition: {x: -0.006, y: 0, z: -0.00019}
   - slotId: 2
-    localPosition: {x: 0, y: 0, z: 0}
+    localPosition: {x: 0, y: 0, z: -0.00019}
   - slotId: 3
-    localPosition: {x: 0.016, y: 0, z: 0}
+    localPosition: {x: 0.006, y: 0, z: -0.00019}
   - slotId: 4
-    localPosition: {x: 0.032, y: 0, z: 0}
+    localPosition: {x: 0.012, y: 0, z: -0.00019}
   backSlots:
   - slotId: 0
-    localPosition: {x: -1, y: 0, z: 0}
+    localPosition: {x: -0.012, y: 0, z: 0.00019}
   - slotId: 1
-    localPosition: {x: -0.5, y: 0, z: 0}
+    localPosition: {x: -0.006, y: 0, z: 0.00019}
   - slotId: 2
-    localPosition: {x: 0, y: 0, z: 0}
+    localPosition: {x: 0, y: 0, z: 0.00019}
   - slotId: 3
-    localPosition: {x: 0.5, y: 0, z: 0}
+    localPosition: {x: 0.006, y: 0, z: 0.00019}
   - slotId: 4
-    localPosition: {x: 1, y: 0, z: 0}
+    localPosition: {x: 0.012, y: 0, z: 0.00019}
