@@ -10,7 +10,7 @@ public class StickBodyENemy : MonoBehaviour
     [SerializeField] BodyType[] bodies;
     public BodyType CurrentBodyData { get; private set; }
 
-    void Start()
+    void Awake()
     {
         if (bodies.Length > 0) {
             int randIndex = Random.Range(0, bodies.Length);

@@ -238,7 +238,10 @@ public class EnemyHealth : MonoBehaviour
     private void TryDropEnemyBody()
     {
         if (enemyBodyScript == null || enemyBodyScript.CurrentBodyData == null)
+        {
+            Debug.Log("BodyScrip null");
             return;
+        }
 
         float roll = Random.Range(0f, 1f);
         if (roll <= bodyDropChance)
@@ -249,6 +252,10 @@ public class EnemyHealth : MonoBehaviour
             {
                 BodyManager.Instance.AddBodyTypeToInventory(droppedBody);
                 Debug.Log($"Hoki! {droppedBody.stickName}");
+            }
+            else
+            {
+                Debug.Log("stickName null");
             }
         }
         else
