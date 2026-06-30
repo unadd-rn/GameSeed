@@ -44,6 +44,14 @@ public class BodyManager : MonoBehaviour
         
     }
 
+    public void AddBodyTypeToInventory(BodyType bodyTypeData)
+    {
+        if (bodyTypeData == null) return;
+        BodyInstance newInstance = new BodyInstance(bodyTypeData);
+        AddBodyToInventory(newInstance);
+        Debug.Log($"Drop Instance {bodyTypeData.stickName} ke dalam inventory player!");
+    }
+
     public void AddBodyToInventory(BodyInstance body)
     {
         if(bodyOwnedNeff >= maxBody) return;

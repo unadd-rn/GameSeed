@@ -36,6 +36,10 @@ public class EnemyHealth : MonoBehaviour
     private HashSet<Image> flashingBar = new HashSet<Image>();
     // ni buat nnti aja la
 
+    [Header("Drop Settings")]
+    [SerializeField] private StickBodyENemy enemyBodyScript;
+    [Range(0f, 1f)] public float dropChance = 0.5f;
+
     void Start()
     {
         if(WinUI != null) WinUI.SetActive(false);
@@ -222,7 +226,38 @@ public class EnemyHealth : MonoBehaviour
 
         PlayerPrefs.Save();
 
+        TryDropEnemyBody();
+
         // if(WinUI != null) WinUI.SetActive(true); entah knp gk bisa kl di cek null dl???
         WinUI.SetActive(true);
+    }
+
+    private void TryDropEnemyBody()
+    {
+        if (enemyBodyScript == null || enemyBodyScript.CurrentBodyData == null)
+        {
+            Debug.LogWarning("[DROP SYSTEM] Script enemyBody atau data bodynya kosong!");
+            return;
+        }
+
+        // Roll angka acak antara 0.0 sampai 1.0
+        float roll = Random.Range(0f, 1f);
+        Debug.Log($"[DROP SYSTEM] Rolling for drop: Needed <= {dropChance}, Rolled: {roll}");
+
+        if (roll <= dropChance)
+        {
+            BodyType droppedBody = enemyBodyScript.CurrentBodyData;
+            
+            // Panggil BodyManager (karena dia DontDestroyOnLoad & bertindak sebagai global manager)
+            if (BodyManager.Instance != null)
+            {
+                BodyManager.Instance.AddBodyTypeToInventory(droppedBody);
+                Debug.Log($"Hoki! {droppedBody.stickName}");
+            }
+        }
+        else
+        {
+            Debug.Log("Not hoki musuh tidak menjatuhkan item");
+        }
     }
 }

@@ -8,14 +8,14 @@ public class StickBodyENemy : MonoBehaviour
     public MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
     [SerializeField] BodyType[] bodies;
+    public BodyType CurrentBodyData { get; private set; }
 
     void Start()
     {
         if (bodies.Length > 0) {
             int randIndex = Random.Range(0, bodies.Length);
-            Debug.Log($"Enemy length {bodies.Length}");
-            BodyType tempBodyType = bodies[randIndex];
-            ApplyPreview(tempBodyType);
+            CurrentBodyData = bodies[randIndex];
+            ApplyPreview(CurrentBodyData);
         }
     }
 

@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private EnemyAI enemyAIScript;
     private TurnState currentState;
     private PortraitAnimator portraitAnimator;
+    private BossMatch bossMatch;
 
     void Awake()
     {
@@ -23,8 +24,26 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        SetState(TurnState.PlayerPlacement);
-        portraitAnimator.PlayEventIn("IN/OUT");
+        bossMatch = GetComponent<BossMatch>();
+
+        if (bossMatch != null)
+        {
+            if (playerThrowScript != null) playerThrowScript.SetUIVisible(false);
+            bossMatch.CheckMatchTypeLogic(); 
+        }
+        else 
+        {
+            if (portraitAnimator != null) portraitAnimator.PlayEventIn("IN/OUT");
+            SetState(TurnState.PlayerPlacement);
+        }
+    }
+
+    public void PlayEntranceTransition()
+    {
+        if (portraitAnimator != null)
+        {
+            portraitAnimator.PlayEventIn("IN/OUT");
+        }
     }
 
     public void SetState(TurnState newState)
