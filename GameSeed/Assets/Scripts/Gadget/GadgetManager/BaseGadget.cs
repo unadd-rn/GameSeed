@@ -11,9 +11,9 @@ public abstract class BaseGadget : ScriptableObject
     public string description = "This is the description of the gadget";
     public Sprite model; // icon buat gambar
     // public GameObject prefab; // bentuk 3dny
-    // public Mesh mesh;
-    // public Material material;
-    public Sprite worldSprite;
+    public Mesh mesh;
+    public Material material;
+    // public Sprite worldSprite;
 
     [Header("Stats")]
     public int durability;
@@ -21,6 +21,7 @@ public abstract class BaseGadget : ScriptableObject
 
     [Header("Position")]
     public float sizeX;
+    public float sizeY;
     public float sizeZ;
 
     /* Others */

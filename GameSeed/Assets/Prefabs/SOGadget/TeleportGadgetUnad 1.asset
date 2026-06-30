@@ -19,6 +19,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: d4974fc95f412f54e86a289eb953e5af, type: 2}
   durability: 100
   weight: 0
-  sizeX: 0
-  sizeZ: 0
+  sizeX: 0.3
+  sizeY: 0.3
+  sizeZ: 0.3
   isActiveGadget: 1

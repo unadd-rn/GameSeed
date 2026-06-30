@@ -15,9 +15,11 @@ MonoBehaviour:
   gadgetName: Default
   description: This is the description of the gadget
   model: {fileID: 21300000, guid: fefa5710f8caf4948a3a71325d0f1b7b, type: 3}
-  worldSprite: {fileID: 21300000, guid: c40e7ba8f6800dd48b937abf4ee5aa7b, type: 3}
+  mesh: {fileID: 6607839196387346367, guid: 1310025274406f64984d3e6b65232a54, type: 3}
+  material: {fileID: 2100000, guid: f0a4622d74ab1ed4b945588ad47833f1, type: 2}
   durability: 100
   weight: 0
-  sizeX: 0
-  sizeZ: 0
+  sizeX: 0.3
+  sizeY: 0.3
+  sizeZ: 0.3
   isActiveGadget: 1
