@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public enum TurnState { PlayerPlacement, PlayerThrowing, EnemyTurn, Waiting }
+public enum TurnState { PlayerPlacement, PlayerThrowing, EnemyTurn, End }
 
 public class TurnManager : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private EnemyAI enemyAIScript;
     private TurnState currentState;
     private PortraitAnimator portraitAnimator;
+    private BossMatch bossMatch;
 
     void Awake()
     {
@@ -23,8 +24,26 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        SetState(TurnState.PlayerPlacement);
-        portraitAnimator.PlayEventIn("IN/OUT");
+        bossMatch = GetComponent<BossMatch>();
+
+        if (bossMatch != null)
+        {
+            if (playerThrowScript != null) playerThrowScript.SetUIVisible(false);
+            bossMatch.CheckMatchTypeLogic(); 
+        }
+        else 
+        {
+            if (portraitAnimator != null) portraitAnimator.PlayEventIn("IN/OUT");
+            SetState(TurnState.PlayerPlacement);
+        }
+    }
+
+    public void PlayEntranceTransition()
+    {
+        if (portraitAnimator != null)
+        {
+            portraitAnimator.PlayEventIn("IN/OUT");
+        }
     }
 
     public void SetState(TurnState newState)
@@ -54,6 +73,13 @@ public class TurnManager : MonoBehaviour
                     enemyAIScript.enabled = true;
                     enemyAIScript.StartTurn();
                 }
+                playerThrowScript.SetUIVisible(false);
+                break;
+            case TurnState.End:
+                if (playerSpawnScript != null) playerSpawnScript.enabled = false;
+                if (playerThrowScript != null) playerThrowScript.enabled = false;
+                if (enemyAIScript != null) enemyAIScript.enabled = false;
+
                 playerThrowScript.SetUIVisible(false);
                 break;
         }

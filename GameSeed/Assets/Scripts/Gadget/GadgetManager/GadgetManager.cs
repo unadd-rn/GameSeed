@@ -188,6 +188,19 @@ public class GadgetManager : MonoBehaviour
         currentPreviewSlotIndex = -1;   
     }
 
+    public void AddBaseGadgetToInventory(BaseGadget gadgetData)
+    {
+        if (gadgetData == null) return;
+
+        if (gadgetOwnedNeff >= maxGadget)
+            return;
+        GadgetInstance newInstance = new GadgetInstance(gadgetData);
+        newInstance.isEquipped = false;
+        AddGadgetToInventory(newInstance);
+        
+        Debug.Log($"Drop nambah gadget {gadgetData.gadgetName} ke inventory player!");
+    }
+
     public void AddGadgetToInventory(GadgetInstance gadget)
     {
         if(gadgetOwnedNeff >= maxGadget)

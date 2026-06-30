@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Cet - matchLobby.unity
     guid: ec5b90a3bd2f3694094dad88647bbb57
   - enabled: 0
-    path: Assets/Scenes/Rencoba2(boraks).unity
+    path: Assets/Scenes/RenMenu.unity
     guid: e816e334274f1f1dfa759c429a734d79
   m_configObjects: {}

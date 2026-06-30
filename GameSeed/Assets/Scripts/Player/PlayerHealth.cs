@@ -216,6 +216,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        TurnManager.Instance.SetState(TurnState.End);
         PlayerPrefs.SetString("MatchStatus", "match selesai");
         PlayerPrefs.Save();
         // death stuff
