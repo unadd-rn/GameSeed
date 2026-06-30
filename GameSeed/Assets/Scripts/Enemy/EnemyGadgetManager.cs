@@ -13,6 +13,10 @@ public class EnemyGadgetManager : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float chanceToUseGadget = 0.3f;
 
     private List<GadgetInstance> enemyActiveGadgets = new List<GadgetInstance>();
+    public List<GadgetInstance> GetActiveGadgets()
+    {
+        return enemyActiveGadgets;
+    }
 
     private void Awake()
     {

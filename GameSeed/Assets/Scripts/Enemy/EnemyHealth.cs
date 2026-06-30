@@ -37,8 +37,10 @@ public class EnemyHealth : MonoBehaviour
     // ni buat nnti aja la
 
     [Header("Drop Settings")]
-    [SerializeField] private StickBodyENemy enemyBodyScript;
-    [Range(0f, 1f)] public float dropChance = 0.5f;
+    [SerializeField] private StickBodyENemy enemyBodyScript; 
+    [SerializeField] private EnemyGadgetManager enemyGadgetScript;
+    [Range(0f, 1f)] public float bodyDropChance = 0.5f; 
+    [Range(0f, 1f)] public float gadgetDropChance = 0.4f;
 
     void Start()
     {
@@ -227,6 +229,7 @@ public class EnemyHealth : MonoBehaviour
         PlayerPrefs.Save();
 
         TryDropEnemyBody();
+        TryDropEnemyGadget();
 
         // if(WinUI != null) WinUI.SetActive(true); entah knp gk bisa kl di cek null dl???
         WinUI.SetActive(true);
@@ -235,20 +238,13 @@ public class EnemyHealth : MonoBehaviour
     private void TryDropEnemyBody()
     {
         if (enemyBodyScript == null || enemyBodyScript.CurrentBodyData == null)
-        {
-            Debug.LogWarning("[DROP SYSTEM] Script enemyBody atau data bodynya kosong!");
             return;
-        }
 
-        // Roll angka acak antara 0.0 sampai 1.0
         float roll = Random.Range(0f, 1f);
-        Debug.Log($"[DROP SYSTEM] Rolling for drop: Needed <= {dropChance}, Rolled: {roll}");
-
-        if (roll <= dropChance)
+        if (roll <= bodyDropChance)
         {
             BodyType droppedBody = enemyBodyScript.CurrentBodyData;
             
-            // Panggil BodyManager (karena dia DontDestroyOnLoad & bertindak sebagai global manager)
             if (BodyManager.Instance != null)
             {
                 BodyManager.Instance.AddBodyTypeToInventory(droppedBody);
@@ -258,6 +254,32 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             Debug.Log("Not hoki musuh tidak menjatuhkan item");
+        }
+    }
+
+    private void TryDropEnemyGadget()
+    {
+        if (enemyGadgetScript == null)
+            return;
+        List<GadgetInstance> activeGadgets = enemyGadgetScript.GetActiveGadgets();
+        if (activeGadgets == null || activeGadgets.Count == 0)
+            return;
+
+        float roll = Random.Range(0f, 1f);
+        if (roll <= gadgetDropChance)
+        {
+            int randomIndex = Random.Range(0, activeGadgets.Count);
+            BaseGadget droppedGadgetData = activeGadgets[randomIndex].data;
+
+            if (droppedGadgetData != null)
+            {
+                if (GadgetManager.Instance != null)
+                    GadgetManager.Instance.AddBaseGadgetToInventory(droppedGadgetData);
+            }
+        }
+        else
+        {
+            Debug.Log("Tidak hoki, no gadget.");
         }
     }
 }
