@@ -168,7 +168,6 @@ public class GarageManager : MonoBehaviour
             currentButton.onClick.AddListener(() =>
             {
                gadgetManager.StartPreviewGadget(currentG, 0);
-               sliderGadget.value = 0;
                confirmButtonGadget.SetActive(true);
                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
                bodyOrGadgetDesc.text = currentG.data.description.ToString();
