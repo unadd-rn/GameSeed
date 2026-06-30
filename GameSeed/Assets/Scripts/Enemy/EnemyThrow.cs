@@ -134,7 +134,8 @@ public class ThrowEnemy : MonoBehaviour
         // 3. velocityScale itu 0-1 (0%-100%)
         //    buat ngubah force ngesuaiin velocity
         //    jadi dari launchForce maks kepake berapa buat maju
-        float calcForce = stickData.launchForce * stickData.velocityScale;
+        float centerCompensation = Mathf.Lerp(1.2f, 1.0f, Mathf.Abs(hitPoint));
+        float calcForce = stickData.launchForce * stickData.velocityScale * centerCompensation;
 
         // ini buat apa? yap UI JELEK ITU LAGI
         GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
@@ -174,7 +175,7 @@ public class ThrowEnemy : MonoBehaviour
         Vector3 spinAxisY = Vector3.up;
 
         Vector3 logRoll = spinAxisX * (stickData.spinScale * stickData.up * (0.06f + (0.4f * hitPoint)));
-        Vector3 flatSpin = spinAxisY * (hitPoint * (stickData.spinScale)); 
+        Vector3 flatSpin = spinAxisY * (hitPoint * stickData.spinScale * stickData.velocityScale); 
         
         rigid.angularVelocity += logRoll + flatSpin;
 

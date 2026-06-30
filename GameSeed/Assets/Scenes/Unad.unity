@@ -6591,8 +6591,8 @@ Transform:
   m_GameObject: {fileID: 970667652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -69.106, y: 72.07, z: -0.38}
-  m_LocalScale: {x: 0, y: 4, z: 7.22}
+  m_LocalPosition: {x: -69.4, y: 72.07, z: -0.38}
+  m_LocalScale: {x: 0, y: 4, z: 8.33}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1007127308}
@@ -6683,7 +6683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1007127308
 Transform:
   m_ObjectHideFlags: 0
@@ -8257,8 +8257,8 @@ Transform:
   m_GameObject: {fileID: 1320661817}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -66, y: 72.07, z: -0.43}
-  m_LocalScale: {x: 0, y: 4, z: 7.22}
+  m_LocalPosition: {x: -65.52, y: 72.07, z: -0.43}
+  m_LocalScale: {x: 0, y: 4, z: 8.17}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1007127308}
@@ -8531,8 +8531,8 @@ Transform:
   m_GameObject: {fileID: 1348208008}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -67.476, y: 72.07, z: -3.97}
-  m_LocalScale: {x: 3.3, y: 4, z: 0}
+  m_LocalPosition: {x: -67.476, y: 72.07, z: -4.35}
+  m_LocalScale: {x: 4.07, y: 4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1007127308}
@@ -8636,8 +8636,8 @@ Transform:
   m_GameObject: {fileID: 1350800219}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -67.476, y: 72.07, z: 3.18}
-  m_LocalScale: {x: 3.3, y: 4, z: 0}
+  m_LocalPosition: {x: -67.476, y: 72.07, z: 3.47}
+  m_LocalScale: {x: 4.23, y: 4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1007127308}
@@ -11060,7 +11060,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bodies.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 247e889b3f032604596ce5aea3acfbae,
+      objectReference: {fileID: 11400000, guid: 9cd0d90ac87b97d4aa1175023ee7a6a5,
         type: 2}
     - target: {fileID: 5161452277950978789, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
         type: 3}
@@ -11558,7 +11558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WinUI: {fileID: 13608653}
-  health: 3
+  health: 1
   maxHp: 15
   HPos1: {fileID: 935838070}
   HPos2: {fileID: 886786944}
@@ -11576,10 +11576,10 @@ MonoBehaviour:
   pindahLength: 2
   checkRadius: 1.5
   enemyAI: {fileID: 2055251481}
-  enemyBodyScript: {fileID: 0}
-  enemyGadgetScript: {fileID: 0}
-  bodyDropChance: 0.5
-  gadgetDropChance: 0.4
+  enemyBodyScript: {fileID: 1543817072}
+  enemyGadgetScript: {fileID: 2055251490}
+  bodyDropChance: 0.8
+  gadgetDropChance: 0.8
 --- !u!114 &2055251490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11595,10 +11595,10 @@ MonoBehaviour:
   mandatoryGadgets:
   - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
   randomizableGadgetsPool: []
-  useRandomGadgets: 1
+  useRandomGadgets: 0
   minRandomGadgets: 1
   maxRandomGadgets: 2
-  chanceToUseGadget: 0.8
+  chanceToUseGadget: 0
 --- !u!114 &2055251491
 MonoBehaviour:
   m_ObjectHideFlags: 0
