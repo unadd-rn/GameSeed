@@ -50,6 +50,20 @@ public class SceneController : MonoBehaviour
         PlayerPrefs.DeleteAll();
     }
 
+    public void Lobby()
+    {
+        Debug.Log("balik ke lobby1");
+        // Example: Using a transition named "Square"
+        goToSceneName("Cet - matchLobby", "Square");
+    }
+
+    public void Rematch()
+    {
+        Debug.Log("balik ke Unad");
+        // Example: Using a transition named "Square"
+        goToSceneName("Unad", "Square");
+    }
+
     public void Lobby1()
     {
         Debug.Log("balik ke lobby1");

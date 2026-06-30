@@ -129,7 +129,8 @@ public class EnemyAI : MonoBehaviour
             testScenario.score = EvaluateScore(testScenario);
 
             // dari sini
-            float calcForce = throwEnemyScript.StickDataRef.launchForce * testScenario.velocityScale;
+            float centerCompensation = Mathf.Lerp(1.2f, 1.0f, Mathf.Abs(testScenario.hitPoint));
+            float calcForce = throwEnemyScript.StickDataRef.launchForce * testScenario.velocityScale * centerCompensation;
             Vector3 forwardVelocity = stableForward * (calcForce * testScenario.throwDirectionZ);
             float sideDeflectionPower = 5f;
             Vector3 sidewaysVelocity = stableRight * (testScenario.hitPoint * sideDeflectionPower * testScenario.throwDirectionZ);
@@ -167,7 +168,8 @@ public class EnemyAI : MonoBehaviour
         float exactAirTime = (2f * throwEnemyScript.StickDataRef.up) / gravity;
 
         Vector3 stableRight = Vector3.Cross(Vector3.up, stableForward).normalized;
-        float calcForce = throwEnemyScript.StickDataRef.launchForce * scenario.velocityScale;
+        float centerCompensation = Mathf.Lerp(1.2f, 1.0f, Mathf.Abs(scenario.hitPoint));
+        float calcForce = throwEnemyScript.StickDataRef.launchForce * scenario.velocityScale * centerCompensation;
         Vector3 forwardVelocity = stableForward * (calcForce * scenario.throwDirectionZ);
 
         float sideDeflectionPower = 5f;
