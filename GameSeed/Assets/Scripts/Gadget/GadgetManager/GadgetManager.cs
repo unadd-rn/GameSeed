@@ -8,6 +8,8 @@ public class GadgetManager : MonoBehaviour
     public static GadgetManager Instance;
 
     // ide: sebelum dia main, kalau gadgetOwned udah 10, ingetin dulu dia gabisa ngeclaim stik musuh, jadi gak ribet nampilin inventory lagi
+    public GarageManager garageManager;
+
     [Header("Arrays")]
     public const int maxGadget = 10;
     public GadgetInstance[] gadgetOwned = new GadgetInstance[maxGadget]; // maksimal 10
@@ -23,11 +25,13 @@ public class GadgetManager : MonoBehaviour
     private GameObject previewVisualFront;
     private int currentPreviewSlotIndex = -1;
     private GadgetInstance currentPreviewGadget;
+    private int previewOriginalSlotIdx = -1;
 
     [Header("Player Reference")]
     public GameObject playerTarget;
     [Header("Testing Purpose Only")]
     [SerializeField] private BaseGadget[] startingGadgets;
+
 
     private void Awake()
     {
@@ -49,22 +53,24 @@ public class GadgetManager : MonoBehaviour
             if (startingGadgets[i] != null && i < gadgetOwned.Length)
             {
                 gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
+                gadgetOwned[i].isEquipped = false;
                 gadgetOwnedNeff++;
             }
         }
 
-        for(int i = 0; i < startingGadgets.Length; i++)
-        {
-            if(startingGadgets[i] != null)
-                Debug.Log($"Nama gadget: {startingGadgets[i].gadgetName}");
-        }
+        // for(int i = 0; i < startingGadgets.Length; i++)
+        // {
+            // if(startingGadgets[i] != null)
+                // Debug.Log($"Nama gadget: {startingGadgets[i].gadgedOwned[]}")
+        // }
     }
 
     private void SetGadgetScale(GameObject go, BaseGadget gadgetData)
     {
         go.transform.localScale = new Vector3(
             gadgetData.sizeX,
-            go.transform.localScale.y,
+            // go.transform.localScale.y,
+            gadgetData.sizeY,
             gadgetData.sizeZ
         );
     }
@@ -74,9 +80,15 @@ public class GadgetManager : MonoBehaviour
         GameObject go = new GameObject(gadgetData.gadgetName);
         go.transform.SetParent(parent);
 
-        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-        sr.sprite = gadgetData.worldSprite;
+        // SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
+        // sr.sprite = gadgetData.worldSprite;
 
+        MeshFilter mf = go.AddComponent<MeshFilter>();
+        mf.mesh = gadgetData.mesh;
+
+        MeshRenderer mr = go.AddComponent<MeshRenderer>();
+        mr.material = gadgetData.material;
+        
         return go;
     }
 
@@ -118,13 +130,38 @@ public class GadgetManager : MonoBehaviour
         CancelPreview(); // klo sblmnya preview yg lain
 
         currentPreviewGadget = gadget;
-        Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
 
+        previewOriginalSlotIdx = gadget.isEquipped ? FindGadgetIdxInSlot(gadget) : -1;
+
+        if(previewOriginalSlotIdx != -1)
+        {
+            SlotDefinition oldfront = garageManager.spawnedSlot.frontSlots[previewOriginalSlotIdx];
+            SlotDefinition oldback = garageManager.spawnedSlot.backSlots[previewOriginalSlotIdx];
+            if(oldfront.spawnedVisual != null) oldfront.spawnedVisual.SetActive(false);
+            if(oldback.spawnedVisual != null) oldback.spawnedVisual.SetActive(false);
+        }
+        Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
+        
         previewVisualFront = CreateGadgetVisual(gadget.data, parentTransform);
+        // previewVisualFront.transform.localPosition = data.frontSlots[startingSlotIndex].localPosition;
         previewVisualFront.transform.localRotation = Quaternion.identity;
         SetGadgetScale(previewVisualFront, gadget.data);
 
         UpdatePreviewPosition(startingSlotIndex);
+    }
+
+    public int FindGadgetIdxInSlot(GadgetInstance gadget)
+    {
+        int gadgetIdx = -1;
+        for(int i = 0; i < 4; i++)
+        {
+            if(gadget == data.frontSlots[i].occupant)
+            {
+                gadgetIdx = i;
+                break;
+            }
+        }
+        return gadgetIdx;
     }
 
     public void UpdatePreviewPosition(int newSlotIndex)
@@ -134,12 +171,38 @@ public class GadgetManager : MonoBehaviour
 
         currentPreviewSlotIndex = newSlotIndex;
 
-        previewVisualFront.transform.localPosition = data.frontSlots[newSlotIndex].localPosition;
+        Vector3 worldPos = stickBodyTransform.TransformPoint(data.frontSlots[newSlotIndex].localPosition);
+        previewVisualFront.transform.position = worldPos;
+
+        // previewVisualFront.transform.localPosition = data.frontSlots[newSlotIndex].localPosition;
+        Debug.Log($"parent: {previewVisualFront.transform.parent.name}");
+        Debug.Log($"parent world pos: {previewVisualFront.transform.parent.position}");
+        Debug.Log($"local pos set: {data.frontSlots[newSlotIndex].localPosition}");
+        Debug.Log($"actual world pos: {previewVisualFront.transform.position}");
     }
 
     public void ConfirmPlacement()
     {
         if(currentPreviewGadget == null || currentPreviewSlotIndex == -1) return;
+
+        if(previewOriginalSlotIdx != -1 && previewOriginalSlotIdx != currentPreviewSlotIndex)
+            DetachGadget(previewOriginalSlotIdx);
+        else if(previewOriginalSlotIdx != -1 && previewOriginalSlotIdx == currentPreviewSlotIndex)
+        {
+            SlotDefinition oldfront = garageManager.spawnedSlot.frontSlots[previewOriginalSlotIdx];
+            SlotDefinition oldback = garageManager.spawnedSlot.backSlots[previewOriginalSlotIdx];
+            if (oldfront.spawnedVisual != null) oldfront.spawnedVisual.SetActive(true);
+            if (oldback.spawnedVisual != null) oldback.spawnedVisual.SetActive(true);
+
+            Destroy(previewVisualFront);
+
+            previewVisualFront = null;
+            currentPreviewGadget = null;
+            currentPreviewSlotIndex = -1;
+            previewOriginalSlotIdx = -1;
+            return;
+        }
+
         if(data.frontSlots[currentPreviewSlotIndex].occupant != null)
             DetachGadget(currentPreviewSlotIndex); // bersihin yg sebelumnya
         
@@ -151,7 +214,8 @@ public class GadgetManager : MonoBehaviour
         backVisual.transform.localPosition = backSlot.localPosition;
         backVisual.transform.localRotation = Quaternion.Euler(0, 180f, 0);
         SetGadgetScale(backVisual, currentPreviewGadget.data);
-
+        Vector3 backWorldPos = parentTransform.TransformPoint(backSlot.localPosition);
+        backVisual.transform.position = backWorldPos;
         backSlot.spawnedVisual = backVisual;
 
         frontSlot.spawnedVisual = previewVisualFront;
@@ -164,6 +228,7 @@ public class GadgetManager : MonoBehaviour
         previewVisualFront = null;
         currentPreviewGadget = null;
         currentPreviewSlotIndex = -1;
+        previewOriginalSlotIdx = -1;
     }
 
     public void CancelPreview()
@@ -171,6 +236,14 @@ public class GadgetManager : MonoBehaviour
         if(previewVisualFront != null)
             Destroy(previewVisualFront);
         
+        if(previewOriginalSlotIdx != -1)
+        {
+            SlotDefinition oldfront = garageManager.spawnedSlot.frontSlots[previewOriginalSlotIdx];
+            SlotDefinition oldback = garageManager.spawnedSlot.backSlots[previewOriginalSlotIdx];
+            if (oldfront.spawnedVisual != null) oldfront.spawnedVisual.SetActive(true);
+            if (oldback.spawnedVisual != null) oldback.spawnedVisual.SetActive(true);
+        }
+
         currentPreviewGadget = null;
         currentPreviewSlotIndex = -1;   
     }
@@ -224,12 +297,12 @@ public class GadgetManager : MonoBehaviour
     private void RemoveGadgetAtIndex(int index)
     {
         //geser gadget di kanan index ke kiri
-        for (int i = index; i < gadgetOwned.Length - 1; i++)
+        for (int i = index; i < gadgetOwnedNeff - 1; i++)
         {
             gadgetOwned[i] = gadgetOwned[i + 1];
         }
         //baru di apus
-        gadgetOwned[gadgetOwned.Length - 1] = null;
+        gadgetOwned[gadgetOwnedNeff - 1] = null;
         gadgetOwnedNeff--;
     } //bismillah bismillah bismillah berhasil yaAllah
 

@@ -15,11 +15,13 @@ MonoBehaviour:
   gadgetName: Adrenaline Shot
   description: This is the description of the gadget
   model: {fileID: 0}
-  worldSprite: {fileID: 21300000, guid: 1ed9dda0992f3604f81cda7004080938, type: 3}
+  mesh: {fileID: -8663802791670341782, guid: 77152b0803cf6df4da13c9aa92284d8b, type: 3}
+  material: {fileID: 2100000, guid: 0ae9570946468454ea56e335ea4d7dde, type: 2}
   durability: 2
   weight: 0
-  sizeX: 0
-  sizeZ: 0
+  sizeX: 0.3
+  sizeY: 0.3
+  sizeZ: 0.3
   isActiveGadget: 0
   bonusHP: -5
   bonusDamage: 2

@@ -40,12 +40,11 @@ public class GarageManager : MonoBehaviour
     private Button[] buttonsB = new Button[10];
 
     private StickBody spawnedBody;
-    private StickSlot spawnedSlot;
+    [HideInInspector] public StickSlot spawnedSlot;
 
     [Header("Slider Gadget")]
-    public GameObject sliderGadgetGO;
     public Slider sliderGadget;
-
+    private int gadgetEqIdx;
     void Start()
     {
         textField.SetActive(false);
@@ -58,6 +57,8 @@ public class GarageManager : MonoBehaviour
         SetupBodyButtons();
 
         SpawnStickSystem();
+
+        sliderGadget.onValueChanged.AddListener(OnSliderValueChanged);
     }
 
     void SpawnStickSystem()
@@ -167,6 +168,7 @@ public class GarageManager : MonoBehaviour
             currentButton.onClick.AddListener(() =>
             {
                gadgetManager.StartPreviewGadget(currentG, 0);
+               sliderGadget.value = 0;
                confirmButtonGadget.SetActive(true);
                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
                bodyOrGadgetDesc.text = currentG.data.description.ToString();
@@ -382,4 +384,12 @@ public class GarageManager : MonoBehaviour
         data.frontSlots = spawnedSlot.frontSlots;
         data.backSlots = spawnedSlot.backSlots;
     }
+
+    public void OnSliderValueChanged(float value)
+    {
+        int curIdx = Mathf.RoundToInt(value);
+        gadgetManager.UpdatePreviewPosition(curIdx);
+    }
+
+    
 }
