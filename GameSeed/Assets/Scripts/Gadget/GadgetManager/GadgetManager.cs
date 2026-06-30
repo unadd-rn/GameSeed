@@ -64,7 +64,8 @@ public class GadgetManager : MonoBehaviour
     {
         go.transform.localScale = new Vector3(
             gadgetData.sizeX,
-            go.transform.localScale.y,
+            // go.transform.localScale.y,
+            gadgetData.sizeY,
             gadgetData.sizeZ
         );
     }
@@ -127,6 +128,7 @@ public class GadgetManager : MonoBehaviour
         Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
 
         previewVisualFront = CreateGadgetVisual(gadget.data, parentTransform);
+        // previewVisualFront.transform.localPosition = data.frontSlots[startingSlotIndex].localPosition;
         previewVisualFront.transform.localRotation = Quaternion.identity;
         SetGadgetScale(previewVisualFront, gadget.data);
 
@@ -141,6 +143,10 @@ public class GadgetManager : MonoBehaviour
         currentPreviewSlotIndex = newSlotIndex;
 
         previewVisualFront.transform.localPosition = data.frontSlots[newSlotIndex].localPosition;
+        Debug.Log($"parent: {previewVisualFront.transform.parent.name}");
+        Debug.Log($"parent world pos: {previewVisualFront.transform.parent.position}");
+        Debug.Log($"local pos set: {data.frontSlots[newSlotIndex].localPosition}");
+        Debug.Log($"actual world pos: {previewVisualFront.transform.position}");
     }
 
     public void ConfirmPlacement()
@@ -167,9 +173,10 @@ public class GadgetManager : MonoBehaviour
         currentPreviewGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
         currentPreviewGadget.isEquipped = true;
 
-        previewVisualFront = null;
-        currentPreviewGadget = null;
-        currentPreviewSlotIndex = -1;
+        // previewVisualFront = null;
+        // currentPreviewGadget = null;
+        // currentPreviewSlotIndex = -1;
+        CancelPreview();
     }
 
     public void CancelPreview()

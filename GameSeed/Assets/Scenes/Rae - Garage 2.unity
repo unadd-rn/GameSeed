@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetOwnedNeff: 0
   data: {fileID: 5000814616031831199, guid: 741d41d0547904048ad70f5cf2919a43, type: 3}
-  stickBodyTransform: {fileID: 0}
+  stickBodyTransform: {fileID: 30119521}
   playerTarget: {fileID: 0}
   startingGadgets:
   - {fileID: 11400000, guid: cd75d773271079442aaf15a57cecaf60, type: 2}
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetPanel: {fileID: 2076760406}
   bodyPanel: {fileID: 1114187456}
-  data: {fileID: 5000814616031831199, guid: 741d41d0547904048ad70f5cf2919a43, type: 3}
+  data: {fileID: 0}
   gadgetPanelTransform: {fileID: 235834660}
   bodyPanelTransform: {fileID: 1996602427}
   gadgetManager: {fileID: 30119523}

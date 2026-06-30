@@ -104,3 +104,4 @@ MonoBehaviour:
   stickIcon: {fileID: 0}
   stickMesh: {fileID: 0}
   stickMaterial: {fileID: 0}
+  bodies: []
