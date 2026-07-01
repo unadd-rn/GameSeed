@@ -78,15 +78,26 @@ public class EnemyAI : MonoBehaviour
             
             yield return new WaitForSeconds(1.0f);
 
-            if (gadgetManager != null && gadgetManager.TryUseGadget())
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            directionToPlayer.y = 0; 
+            if (directionToPlayer != Vector3.zero)
             {
-                // Kalau masuk ke sini, artinya musuh udah berhasil pake gadget.
+                transform.rotation = Quaternion.LookRotation(directionToPlayer);
+            }
+
+            bool hasLineOfSight = true;
+            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, directionToPlayer.normalized, out RaycastHit hit, 15f))
+            {
+                if (!hit.transform.CompareTag("Player"))
+                {
+                    hasLineOfSight = false; 
+                }
+            }
+
+            if (gadgetManager != null && gadgetManager.TryUseGadget(hasLineOfSight))
+            {
                 yield return new WaitForSeconds(thinkDelay);
-                
-                // Langsung oper turn ke player
                 TurnManager.Instance.SetState(TurnState.PlayerThrowing);
-                
-                // Stop eksekusi script ini biar dia ga lanjut ngelempar
                 yield break; 
             }
 
@@ -204,7 +215,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (col.CompareTag("OutOfBound"))
             {
-                Debug.Log("Out of bound detected!");
+                // Debug.Log("Out of bound detected!");
                 score -= 500;
             }
         }
@@ -221,19 +232,19 @@ public class EnemyAI : MonoBehaviour
         return score;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (debugPredictedPositions == null || debugPredictedPositions.Count == 0) return;
+    // private void OnDrawGizmos()
+    // {
+    //     if (debugPredictedPositions == null || debugPredictedPositions.Count == 0) return;
 
-        Gizmos.color = Color.yellow;
+    //     Gizmos.color = Color.yellow;
 
-        foreach(Vector3 pos in debugPredictedPositions)
-        {
-            Gizmos.DrawSphere(pos + Vector3.up * 0.5f, 0.3f);
-        }
+    //     foreach(Vector3 pos in debugPredictedPositions)
+    //     {
+    //         Gizmos.DrawSphere(pos + Vector3.up * 0.5f, 0.3f);
+    //     }
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, debugBestFinalPosition);
-        Gizmos.DrawSphere(debugBestFinalPosition, 0.4f);
-    }
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawLine(transform.position, debugBestFinalPosition);
+    //     Gizmos.DrawSphere(debugBestFinalPosition, 0.4f);
+    // }
 }

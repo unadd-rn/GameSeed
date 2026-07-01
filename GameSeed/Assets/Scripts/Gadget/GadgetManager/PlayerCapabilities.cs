@@ -8,6 +8,7 @@ public class PlayerCapabilities : MonoBehaviour
     public int canActivateSafeArea = 0;
     public int canActivateRiceOfBag = 0;
     public int canShootBambooPistol = 0;
+    public bool isPistolFlipped = false;
     public bool haveBandage = false;
     public bool haveMotorcycleHelmet = false;
     public bool haveAdrenalinShot = false;

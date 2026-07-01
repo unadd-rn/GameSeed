@@ -84,4 +84,31 @@ public class BodyManager : MonoBehaviour
         tempPreviewBody = currentEquippedBody;
     }
 
+    public void SaveBodyData()
+    {
+        string json = JsonUtility.ToJson(this);
+        PlayerPrefs.SetString("BodyInventory", json);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadBodyData()
+    {
+        if (PlayerPrefs.HasKey("BodyInventory"))
+        {
+            string json = PlayerPrefs.GetString("BodyInventory");
+            JsonUtility.FromJsonOverwrite(json, this);
+            RelinkData();
+        }
+    }
+
+    public void RelinkData()
+    {
+        for (int i = 0; i < bodyOwnedNeff; i++)
+        {
+            if (bodyOwned[i] != null && !string.IsNullOrEmpty(bodyOwned[i].bodyTypeName))
+            {
+                bodyOwned[i].data = Resources.Load<BodyType>("Bodies/" + bodyOwned[i].bodyTypeName);
+            }
+        }
+    }
 }

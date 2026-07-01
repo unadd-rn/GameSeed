@@ -28,4 +28,33 @@ public class ShootingMechanism : MonoBehaviour
             rb.velocity = direction * shootForce;
         }
     }
+
+    // Tambahkan ini di ShootingMechanism.cs
+    private void OnDrawGizmosSelected()
+    {
+        StickSlot slot = GetComponentInChildren<StickSlot>();
+        if (slot == null) return;
+
+        foreach (var front in slot.frontSlots)
+        {
+            if (front.spawnedVisual != null)
+            {
+                // Posisi Visual
+                Vector3 pos = front.spawnedVisual.transform.position;
+                
+                // 1. Gambar titik spawn
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawSphere(pos, 0.1f);
+                
+                // 2. Gambar arah FORWARD visual (Warna Kuning)
+                // Ini arah yang dipake buat nembak peluru
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawRay(pos, front.spawnedVisual.transform.forward * 0.8f);
+                
+                // 3. Gambar arah UP visual (Warna Hijau)
+                Gizmos.color = Color.green;
+                Gizmos.DrawRay(pos, front.spawnedVisual.transform.up * 0.3f);
+            }
+        }
+    }
 }
