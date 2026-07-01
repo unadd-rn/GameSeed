@@ -14,6 +14,7 @@ public class StickSpawn : MonoBehaviour
     private bool hasPlaced = false;
     private bool isTouching = false;
     public Vector3 spawnPositionPlayer;
+    public System.Action StickPlaced;
 
     void Awake()
     {
@@ -62,9 +63,11 @@ public class StickSpawn : MonoBehaviour
             {
                 transform.position = areaHit.point;
                 spawnPositionPlayer = areaHit.point;
-                TurnManager.Instance.SetState(TurnState.EnemyTurn);
                 hasPlaced = true;
                 this.enabled = false;
+
+                StickPlaced?.Invoke();
+                TurnManager.Instance.SetState(TurnState.EnemyTurn);
             }
         }
 

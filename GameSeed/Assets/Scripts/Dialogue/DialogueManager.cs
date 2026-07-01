@@ -4,8 +4,6 @@ using UnityEngine;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
-using UnityEngine.SearchService;
 using System;
 
 public class DialogueManager : MonoBehaviour
@@ -20,16 +18,24 @@ public class DialogueManager : MonoBehaviour
     [Header("ActorPanel")]
     [SerializeField] private GameObject actorPanel;
     [SerializeField] private TextMeshProUGUI actorText;
+    
+    [Header("Tutorial")]
+    [SerializeField] private TutorialManager tutorialManager;
 
     [Header("TypewriterSpeed")]
     [SerializeField] private float typingSpeed = 0.03f;
 
+    private const string HIGHLIGHT_TAG = "highlight";
+    private const string HIGHLIGHT_NONE = "none";
+    private const string ACTOR_TAG = "actor";
     private const string NARRATOR_TAG = "narrator";
     private Story story;
     private bool dialoguePlaying = false;
     private Coroutine typingCoroutine;
     private bool isTyping = false;
     public bool IsDialoguePlaying => dialoguePlaying;
+    public event System.Action OnDialogueEnd;
+    public event System.Action<string> OnHighlightTag;
 
     private void Awake()
     {
@@ -133,18 +139,30 @@ public class DialogueManager : MonoBehaviour
             string tagKey = splitTag[0].Trim().ToLower();
             string tagValue = splitTag[1].Trim();
 
-            if (tagKey == "actor")
+            switch (tagKey)
             {
-                if (tagValue.ToLower() == NARRATOR_TAG)
-                {
-                    actorPanel.SetActive(false);
-                    actorText.text = "";
-                }
-                else
-                {
-                    actorPanel.SetActive(true);
-                    actorText.text = tagValue;
-                }
+                case ACTOR_TAG:
+                    if (tagValue.ToLower() == NARRATOR_TAG)
+                        {
+                            actorPanel.SetActive(false);
+                        }
+                        else
+                        {
+                            actorPanel.SetActive(true);
+                            actorText.text = tagValue;
+                        }
+                        break;
+                case HIGHLIGHT_TAG:
+                    if (tagValue.ToLower() == HIGHLIGHT_NONE)
+                    {
+                        tutorialManager.HideTutorial();
+                    }
+                    else
+                    {
+                        tutorialManager.ShowTutorial(tagValue);
+                        OnHighlightTag?.Invoke(tagValue);
+                    }
+                    break;
             }
         }
     }
@@ -188,5 +206,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
         dialogueText.maxVisibleCharacters = 0;
         story.ResetState();
+
+        OnDialogueEnd?.Invoke();
     }
 }
