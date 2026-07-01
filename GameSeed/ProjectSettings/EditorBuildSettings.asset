@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Rae - Garage.unity
     guid: 2d549aa0942eb8f4eb10bb48ac23cf8a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Rae - Garage 1.unity
     guid: 087853e7974365c4fa0b32b8d1b97f10
   - enabled: 0
@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RenMenu.unity
     guid: e816e334274f1f1dfa759c429a734d79
+  - enabled: 1
+    path: Assets/Scenes/Rae - Garage 2.unity
+    guid: 971c983421c99944bbdaabc6ca38e95e
   m_configObjects: {}
