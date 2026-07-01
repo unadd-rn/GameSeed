@@ -420,4 +420,15 @@ public class StickThrowTest : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(debugWorldHitPoint, debugSpinAxisY);
     }
+
+    public float GetThrowDirectionZ() 
+    {
+        return throwDirectionZ;
+    }
+
+    public Vector3 GetStableForward() 
+    {
+        GetStableStickAxes(out Vector3 stableForward, out Vector3 _);
+        return stableForward;
+    }
 }

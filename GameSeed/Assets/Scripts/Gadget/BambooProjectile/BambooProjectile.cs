@@ -10,6 +10,13 @@ public class BambooProjectile : MonoBehaviour
 
     private string shooterTag;
 
+    void Start()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.velocity = transform.forward * 20f; 
+    }
+
     public void Initialize(string tag)
     {
         shooterTag = tag;
@@ -18,7 +25,10 @@ public class BambooProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject);
         if (collision.gameObject.CompareTag(shooterTag)) return;
+
+        if (collision.gameObject.CompareTag("Ground")) return;
 
         if (collision.gameObject.CompareTag("Player"))
         {

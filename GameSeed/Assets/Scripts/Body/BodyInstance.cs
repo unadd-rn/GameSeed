@@ -5,7 +5,8 @@ using UnityEngine;
 public class BodyInstance
 {
     public string id;
-    public BodyType data; // reference to the SO blueprint
+    public string bodyTypeName;
+    [System.NonSerialized] public BodyType data; // reference to the SO blueprint
     public bool isEquipped;
     public int currentDurability;
 

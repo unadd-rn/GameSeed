@@ -5219,54 +5219,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyOwned:
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   - id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   bodyOwnedNeff: 0
   currentEquippedBody:
     id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   tempPreviewBody:
     id: 
-    data: {fileID: 0}
+    bodyTypeName: 
     isEquipped: 0
     currentDurability: 0
   stickBody: {fileID: 5161452277950978789, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
@@ -5296,6 +5296,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d11fc3fcd50e1c4bb75e784ac8a7519, type: 2}
   - {fileID: 11400000, guid: 05f29b9ef5cce14498711aae83799deb, type: 2}
   - {fileID: 11400000, guid: 250fc2c381a78ec41ba1165afd3c747d, type: 2}
+  - {fileID: 11400000, guid: c8dece6f371d926478bf20ff1feaa696, type: 2}
 --- !u!1 &1589316484
 GameObject:
   m_ObjectHideFlags: 0
