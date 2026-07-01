@@ -41,6 +41,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private EnemyGadgetManager enemyGadgetScript;
     [Range(0f, 1f)] public float bodyDropChance = 0.5f; 
     [Range(0f, 1f)] public float gadgetDropChance = 0.4f;
+    [SerializeField] private GameObject bodyGetUI;
 
     void Start()
     {
@@ -252,6 +253,8 @@ public class EnemyHealth : MonoBehaviour
             {
                 BodyManager.Instance.AddBodyTypeToInventory(droppedBody);
                 Debug.Log($"Hoki! {droppedBody.stickName}");
+                bodyGetUI.SetActive(true);
+
             }
             else
             {
@@ -263,6 +266,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log("Not hoki musuh tidak menjatuhkan item");
         }
     }
+
 
     private void TryDropEnemyGadget()
     {
@@ -283,6 +287,8 @@ public class EnemyHealth : MonoBehaviour
                 if (GadgetManager.Instance != null)
                     GadgetManager.Instance.AddBaseGadgetToInventory(droppedGadgetData);
             }
+
+            bodyGetUI.SetActive(true);
         }
         else
         {

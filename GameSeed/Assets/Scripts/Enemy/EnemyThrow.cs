@@ -41,14 +41,14 @@ public class ThrowEnemy : MonoBehaviour
     public void OnStickPlaced()
     {
         SetUIVisible(true);
-        UpdateSliderPosition();
+        // UpdateSliderPosition();
     }
 
     void Update()
     {
         if (!hasBeenThrown)
         {
-            UpdateSliderPosition();
+            // UpdateSliderPosition();
         }
     }
 
@@ -64,18 +64,18 @@ public class ThrowEnemy : MonoBehaviour
         stableRight = Vector3.Cross(Vector3.up, stableForward).normalized;
     }
 
-    private void UpdateSliderPosition()
-    {
-        if (sliderContainer == null) return;
-        GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
+    // private void UpdateSliderPosition()
+    // {
+    //     if (sliderContainer == null) return;
+    //     GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight);
 
-        float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
-        Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
-        sliderContainer.transform.position = transform.position + sliderOffset;
+    //     float directionMult = (throwDirectionZ >= 0) ? -0.5f : 0.5f;
+    //     Vector3 sliderOffset = stableForward * (stickData.sliderOffsetY * directionMult);
+    //     sliderContainer.transform.position = transform.position + sliderOffset;
 
-        Vector3 desiredUp = (directionMult < 0) ? stableForward : -stableForward;
-        sliderContainer.transform.rotation = Quaternion.LookRotation(Vector3.down, desiredUp);
-    }
+    //     Vector3 desiredUp = (directionMult < 0) ? stableForward : -stableForward;
+    //     sliderContainer.transform.rotation = Quaternion.LookRotation(Vector3.down, desiredUp);
+    // }
 
     public void SetAIHitPoint(float targetValue)
     {
