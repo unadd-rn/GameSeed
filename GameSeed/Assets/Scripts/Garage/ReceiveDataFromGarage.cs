@@ -6,12 +6,16 @@ public class ReceiveDataFromGarage : MonoBehaviour
 {
     public StickBody stickBody;
     public StickSlot gadgetSlot;
+    public Transform player;
+
+    public PlayerHealth playerHealth;
     // Start is called before the first frame update
     void Start()
     {
-        stickBody.stickMesh = BodyManager.Instance.currentEquippedBody.data.stickMesh;
-        stickBody.stickMaterial = BodyManager.Instance.currentEquippedBody.data.stickMaterial;
-        // stickBody.
+        BodyInstance body = BodyManager.Instance.currentEquippedBody;
+        stickBody.stickMesh = body.data.stickMesh;
+        stickBody.stickMaterial = body.data.stickMaterial;
+        player.GetComponent<Rigidbody>().drag = body.data.weight;
 
         for(int i = 0; i < GadgetManager.Instance.gadgetOwnedNeff; i++)
         {
@@ -21,6 +25,9 @@ public class ReceiveDataFromGarage : MonoBehaviour
                 AttachGadgetInMatch(curGadget, curGadget.slotIdx);
             }
         }
+
+        playerHealth.health = body.data.HP;
+        
     }
 
     void AttachGadgetInMatch(GadgetInstance gadget, int slotIdx)
