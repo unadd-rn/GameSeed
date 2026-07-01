@@ -20,7 +20,8 @@ public class CollisionHandler : MonoBehaviour
     public Sprite playerWinningSprite; // Drag the sprite for when Player wins
     public Sprite enemyWinningSprite;
 
-    private BodyInstance body;
+    [SerializeField] private StickBodyENemy enemyBodyScript; 
+    BodyInstance body;
     private Rigidbody rb;
     private Collider col;
     private bool hasKnockback = false;
@@ -29,7 +30,6 @@ public class CollisionHandler : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        body = BodyManager.Instance.currentEquippedBody;
         
         if (statusImageUI != null)
         {
@@ -39,6 +39,7 @@ public class CollisionHandler : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+
         if (hasKnockback) return; // kalo udah knockback gajadi
 
         CollisionHandler other = collision.gameObject.GetComponent<CollisionHandler>();
@@ -64,10 +65,15 @@ public class CollisionHandler : MonoBehaviour
 
         if (isOtherHigher)
         {
+            body = BodyManager.Instance.currentEquippedBody;
+            BodyType BodyEnemy = enemyBodyScript.CurrentBodyData;
             PlayerHealth myPlayerHealth = GetComponent<PlayerHealth>();
             EnemyHealth myEnemyHealth = GetComponent<EnemyHealth>();
 
-            if (myPlayerHealth != null) myPlayerHealth.TakeDamage(body.data.damage, 'h');
+            Debug.Log($"Damage Player : {body.data.damage}");
+            Debug.Log($"Damage Enemy : {BodyEnemy.damage}");
+
+            if (myPlayerHealth != null) myPlayerHealth.TakeDamage(BodyEnemy.damage, 'h');
             if (myEnemyHealth != null) myEnemyHealth.TakeDamage(body.data.damage, 'h');
 
             if (GetComponent<PlayerHealth>() != null) {
@@ -78,10 +84,15 @@ public class CollisionHandler : MonoBehaviour
         } 
         else
         {
+            body = BodyManager.Instance.currentEquippedBody;
+            BodyType BodyEnemy = enemyBodyScript.CurrentBodyData;
             PlayerHealth otherPlayerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             EnemyHealth otherEnemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
 
-            if (otherPlayerHealth != null) otherPlayerHealth.TakeDamage(body.data.damage, 'h');
+            Debug.Log($"Damage Player : {body.data.damage}");
+            Debug.Log($"Damage Enemy : {BodyEnemy.damage}");
+
+            if (otherPlayerHealth != null) otherPlayerHealth.TakeDamage(BodyEnemy.damage, 'h');
             if (otherEnemyHealth != null) otherEnemyHealth.TakeDamage(body.data.damage, 'h');
 
             if (GetComponent<PlayerHealth>() != null) {

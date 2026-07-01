@@ -7,8 +7,17 @@ public class MenuScroller : MonoBehaviour
     public RectTransform menuContainer; // Masukkan MenuContainer ke sini
     public float targetYPosition;     // Titik akhir scroll 
     public float scrollDuration = 1.2f;
-
     private bool hasScrolled = false;
+
+    void Start()
+    {
+        if (PlayerPrefs.GetInt("HasScrolled", 0) == 1)
+        {
+            hasScrolled = true; 
+            menuContainer.anchoredPosition = new Vector2(menuContainer.anchoredPosition.x, targetYPosition);
+            
+        }
+    }
 
     void Update()
     {
@@ -44,5 +53,8 @@ public class MenuScroller : MonoBehaviour
 
         // Pastikan posisi mendarat dengan pas
         menuContainer.anchoredPosition = targetPosition;
+
+        PlayerPrefs.SetInt("HasScrolled", 1);
+        PlayerPrefs.Save();
     }
 }

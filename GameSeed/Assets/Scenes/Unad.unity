@@ -5198,7 +5198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b713973f41fc850409c61b91ba066037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gadgetManager: {fileID: 1216302340}
   radialMenu: {fileID: 694574009}
   arcGadgetPrefab: {fileID: 7855580832253004745, guid: 30f687b2e79ad1a4182f84f6fe1af185,
     type: 3}
@@ -7579,6 +7578,7 @@ MonoBehaviour:
   statusImageUI: {fileID: 0}
   playerWinningSprite: {fileID: 0}
   enemyWinningSprite: {fileID: 0}
+  enemyBodyScript: {fileID: 1543817072}
 --- !u!65 &1216302339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7614,7 +7614,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   garageManager: {fileID: 0}
   gadgetOwnedNeff: 0
-  data: {fileID: 0}
   stickBodyTransform: {fileID: 1216302335}
   playerTarget: {fileID: 1216302329}
   startingGadgets:
@@ -7654,6 +7653,7 @@ MonoBehaviour:
   canTeleport: 0
   canActivateSafeArea: 0
   canActivateRiceOfBag: 0
+  canShootBambooPistol: 0
   haveBandage: 0
   haveMotorcycleHelmet: 0
   haveAdrenalinShot: 0
@@ -11241,6 +11241,7 @@ MonoBehaviour:
   playerWinningSprite: {fileID: 21300000, guid: 2327c81fe0446594f84c1522ac53d286,
     type: 3}
   enemyWinningSprite: {fileID: 21300000, guid: 8a643441d5a75c4478604f7185726803, type: 3}
+  enemyBodyScript: {fileID: 1543817072}
 --- !u!114 &2055251489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11310,6 +11311,7 @@ MonoBehaviour:
   canTeleport: 0
   canActivateSafeArea: 0
   canActivateRiceOfBag: 0
+  canShootBambooPistol: 0
   haveBandage: 0
   haveMotorcycleHelmet: 0
   haveAdrenalinShot: 0
