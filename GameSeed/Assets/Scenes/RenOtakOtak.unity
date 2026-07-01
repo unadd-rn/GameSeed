@@ -7847,6 +7847,8 @@ MonoBehaviour:
   teleportYOffset: 0.5
   enemy: {fileID: 2055251483}
   minDistanceToEnemy: 0.5
+  invisibilityDuration: 0.7
+  visualModel: {fileID: 1482155139}
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9366,6 +9368,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464901032}
   m_CullTransparentMesh: 1
+--- !u!1 &1482155139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8166690977998917612, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2007931937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1494298880
 GameObject:
   m_ObjectHideFlags: 0
@@ -11587,7 +11595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WinUI: {fileID: 13608653}
-  health: 1
+  health: 10
   maxHp: 15
   HPos1: {fileID: 935838070}
   HPos2: {fileID: 886786944}
@@ -11622,12 +11630,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mandatoryGadgets:
-  - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
+  - {fileID: 11400000, guid: cd75d773271079442aaf15a57cecaf60, type: 2}
   randomizableGadgetsPool:
-  - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
+  - {fileID: 11400000, guid: cd75d773271079442aaf15a57cecaf60, type: 2}
   useRandomGadgets: 1
   minRandomGadgets: 1
-  maxRandomGadgets: 2
+  maxRandomGadgets: 20
   chanceToUseGadget: 1
 --- !u!114 &2055251491
 MonoBehaviour:
@@ -11683,6 +11691,8 @@ MonoBehaviour:
   teleportYOffset: 0.5
   enemy: {fileID: 1216302335}
   minDistanceToEnemy: 0.5
+  invisibilityDuration: 0.5
+  visualModel: {fileID: 1543817070}
 --- !u!1 &2131680171
 GameObject:
   m_ObjectHideFlags: 0
@@ -11872,21 +11882,63 @@ MonoBehaviour:
   poolParent: {fileID: 2138109069}
   fxProfiles:
   - fxName: Heal
-    iconSprite: {fileID: 21300000, guid: 25a0d772584e79a63b94f8261e99ef58, type: 3}
-    elementColor: {r: 0.20091248, g: 1, b: 0, a: 1}
-    worldOffset: {x: 0, y: 5, z: 0.4}
+    iconSprite: {fileID: 21300000, guid: fcb958aa85168a182ba4d3b8f6d0d0af, type: 3}
+    elementColor: {r: 1, g: 1, b: 1, a: 1}
+    worldOffset: {x: 0, y: 5, z: 0.2}
+    startScale: 0
+    targetScale: 0.15
+    introDuration: 0.2
+    introEase: 2
+    holdDuration: 0
+    midLifeAnimation: 2
+    midLifeAmount: 50
+    midLifeDuration: 0.8
+    midLifeLoops: 0
+    midLifeEase: 1
+    floatUpDistance: 50
+    fadeOut: 1
+    outroDuration: 0.2
+    outroEase: 0
+    doVignette: 1
+    vignetteIntensity: 0.4
+    vignetteFadeInDuration: 0.15
+    vignetteFadeOutDuration: 0.35
+  - fxName: Teleport
+    iconSprite: {fileID: 21300000, guid: 1bdb34b67ef360d9b8ef3257c1a1e0be, type: 3}
+    elementColor: {r: 0.17585446, g: 0.14413494, b: 0.38679248, a: 1}
+    worldOffset: {x: 0, y: 5, z: 0}
     startScale: 0
     targetScale: 1
+    introDuration: 0.1
+    introEase: 8
+    holdDuration: 0.2
+    midLifeAnimation: 0
+    midLifeAmount: 0
+    midLifeDuration: 0
+    midLifeLoops: 0
+    midLifeEase: 1
+    floatUpDistance: 50
+    fadeOut: 1
+    outroDuration: 0.3
+    outroEase: 3
+    doVignette: 1
+    vignetteIntensity: 0.4
+    vignetteFadeInDuration: 0.15
+    vignetteFadeOutDuration: 0.35
+  - fxName: Adrenaline Shot
+    iconSprite: {fileID: 21300000, guid: 3283434ba630c8f8fbe4c389112dd0db, type: 3}
+    elementColor: {r: 1, g: 1, b: 1, a: 1}
+    worldOffset: {x: 0, y: 5, z: 0.2}
+    startScale: 0
+    targetScale: 0.15
     introDuration: 0.4
     introEase: 2
     holdDuration: 2
-    doPulse: 1
-    pulseScale: 1.2
-    pulseDuration: 0.4
-    pulseLoops: 2
-    doShake: 0
-    shakeStrength: 0
-    shakeDuration: 0
+    midLifeAnimation: 2
+    midLifeAmount: 50
+    midLifeDuration: 0.8
+    midLifeLoops: 0
+    midLifeEase: 1
     floatUpDistance: 50
     fadeOut: 1
     outroDuration: 0.2
