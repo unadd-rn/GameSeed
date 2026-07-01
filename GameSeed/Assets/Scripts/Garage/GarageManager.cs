@@ -62,6 +62,31 @@ public class GarageManager : MonoBehaviour
         if (textField != null) SpawnStickSystem();
 
         sliderGadget.onValueChanged.AddListener(OnSliderValueChanged);
+
+        // 1. Gadget Confirm Button
+        Button btnGadgetConfirm = confirmButtonGadget.GetComponent<Button>();
+        btnGadgetConfirm.onClick.RemoveAllListeners(); // Clear old listeners just in case
+        btnGadgetConfirm.onClick.AddListener(() => {
+            GadgetManager.Instance.ConfirmPlacement();
+            InactivateConfirm();
+        });
+
+        // 2. Body Confirm Button
+        Button btnBodyConfirm = confirmButtonBody.GetComponent<Button>();
+        btnBodyConfirm.onClick.RemoveAllListeners();
+        btnBodyConfirm.onClick.AddListener(() => {
+            BodyManager.Instance.ConfirmBody();
+            InactivateConfirm();
+        });
+
+        // 3. Cancel Button
+        Button btnCancel = cancelButton.GetComponent<Button>();
+        btnCancel.onClick.RemoveAllListeners();
+        btnCancel.onClick.AddListener(() => {
+            GadgetManager.Instance.CancelPreview();
+            BodyManager.Instance.CancelPreviewBody();
+            InactivateConfirm();
+        });
     }
 
     void SpawnStickSystem()
@@ -99,7 +124,10 @@ public class GarageManager : MonoBehaviour
         if (GadgetManager.Instance != null)
         {
             GadgetManager.Instance.stickBodyTransform = bodyGO.transform;
+            GadgetManager.Instance.garageManager = this;
         }
+
+        RebuildEquippedGadgets();
     }
 
     public void BodyButton()
@@ -404,5 +432,17 @@ public class GarageManager : MonoBehaviour
         GadgetManager.Instance.UpdatePreviewPosition(curIdx);
     }
 
+    public void RebuildEquippedGadgets()
+    {
+        for (int i = 0; i < GadgetManager.Instance.gadgetOwned.Length; i++)
+        {
+            GadgetInstance gadget = GadgetManager.Instance.gadgetOwned[i];
+            
+            if (gadget != null && gadget.isEquipped && gadget.slotIdx != -1)
+            {
+                GadgetManager.Instance.AttachVisualToSlot(gadget, gadget.slotIdx);
+            }
+        }
+    }
     
 }

@@ -16,7 +16,7 @@ public class RadialGadgetController : MonoBehaviour
     void Start()
     {
         PopulateRadialMenu();
-        Invoke(nameof(PopulateRadialMenu), 0.1f); 
+        // Invoke(nameof(PopulateRadialMenu), 0.1f); 
     }
 
     public void PopulateRadialMenu()

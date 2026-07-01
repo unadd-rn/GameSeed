@@ -19,6 +19,7 @@ public class BodyManager : MonoBehaviour
         if (currentEquippedBody == null || currentEquippedBody.data == null)
         {
             currentEquippedBody = new BodyInstance(def);
+            AddBodyToInventory(currentEquippedBody);
         }
         if(currentEquippedBody.data == null)
         {
