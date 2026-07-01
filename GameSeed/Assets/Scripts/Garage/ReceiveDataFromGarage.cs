@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ReceiveDataFromGarage : MonoBehaviour
 {
+    [Header("Kebutuhan")]
     public StickBody stickBody;
     public StickSlot gadgetSlot;
     public Transform player;
 
+    [Header("Body Stats")]
     public PlayerHealth playerHealth;
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class ReceiveDataFromGarage : MonoBehaviour
         stickBody.stickMesh = body.data.stickMesh;
         stickBody.stickMaterial = body.data.stickMaterial;
         player.GetComponent<Rigidbody>().drag = body.data.weight;
+        // ambil data damage
 
         for(int i = 0; i < GadgetManager.Instance.gadgetOwnedNeff; i++)
         {
