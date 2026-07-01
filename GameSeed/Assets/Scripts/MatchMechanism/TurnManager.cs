@@ -48,6 +48,7 @@ public class TurnManager : MonoBehaviour
 
     public void SetState(TurnState newState)
     {
+        if (currentState == TurnState.End) return;
         currentState = newState;
 
         switch (currentState)
