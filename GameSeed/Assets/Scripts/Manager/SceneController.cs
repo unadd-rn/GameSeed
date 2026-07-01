@@ -22,13 +22,19 @@ public class SceneController : MonoBehaviour
     // Now accepts a specific transition name!
     public void goToSceneName(string name, string transitionName = "Default")
     {
-        TransitionManager.Instance.GoToScene(name, transitionName);
+        if (transitionName == "")
+        {
+            SceneManager.LoadScene(name);
+            //StartCoroutine(LoadLevel(name));
+        }else{
+            TransitionManager.Instance.GoToScene(name, transitionName);
+        }
     }
 
-    IEnumerator LoadLevel(string name, string transitionName = "Default")
+    IEnumerator LoadLevel(string name)
     {
-        TransitionManager.Instance.GoToScene(name, transitionName);
-        yield break;
+        yield return new WaitForSecondsRealtime(1.3f);
+        SceneManager.LoadScene(name);
     }
 
     #region Main Menu
@@ -54,14 +60,14 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log("balik ke lobby1");
         // Example: Using a transition named "Square"
-        goToSceneName("Cet - matchLobby", "Square");
+        goToSceneName("Cet - matchLobby", "");
     }
 
     public void Rematch()
     {
         Debug.Log("balik ke Unad");
         // Example: Using a transition named "Square"
-        goToSceneName("Unad", "Square");
+        goToSceneName("Unad", "Gelap");
     }
 
     public void Lobby1()
@@ -89,7 +95,7 @@ public class SceneController : MonoBehaviour
         PlayerPrefs.Save();
 
         // Example: Using a transition named "BattleWipe"
-        goToSceneName("Unad", "BattleWipe");
+        goToSceneName("Unad", "Gelap");
     }
     #endregion
 }
