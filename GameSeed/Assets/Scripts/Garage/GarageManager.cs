@@ -49,17 +49,17 @@ public class GarageManager : MonoBehaviour
 
     void Start()
     {
-        textField.SetActive(false);
-        gadgetPanel.SetActive(false);
-        bodyPanel.SetActive(true);
-        confirmButtonGadget.SetActive(false);
-        confirmButtonBody.SetActive(false);
-        cancelButton.SetActive(false);
+        if (textField != null) textField.SetActive(false);
+        if (gadgetPanel != null) gadgetPanel.SetActive(false);
+        if (bodyPanel != null) bodyPanel.SetActive(true);
+        if (gadgetPanel != null) confirmButtonGadget.SetActive(false);
+        if (confirmButtonBody != null) confirmButtonBody.SetActive(false);
+        if (cancelButton != null) cancelButton.SetActive(false);
         
-        SetupGadgetButtons();
-        SetupBodyButtons();
+        if (gadgetPanel != null) SetupGadgetButtons();
+        if (bodyPanel != null) SetupBodyButtons();
 
-        SpawnStickSystem();
+        if (textField != null) SpawnStickSystem();
 
         sliderGadget.onValueChanged.AddListener(OnSliderValueChanged);
     }
