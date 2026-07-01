@@ -16,7 +16,7 @@ MonoBehaviour:
   description: By the willpower of ancestor!!
   model: {fileID: 0}
   mesh: {fileID: -4147266318922990756, guid: 3e64d12ce8ad5f640959ae2c7342e91f, type: 3}
-  material: {fileID: 2100000, guid: 065765fd1b2c63e4f8e6efa0e2de628e, type: 2}
+  material: {fileID: 2100000, guid: 27bab8097ba61f64ebfbefce64ca2f1a, type: 2}
   durability: 2
   weight: 0
   sizeX: 0.8
