@@ -31,9 +31,7 @@ public class ReceiveDataFromGarage : MonoBehaviour
                 AttachGadgetInMatch(curGadget, curGadget.slotIdx);
             }
         }
-
-        playerHealth.health = body.data.HP;
-        
+        // playerHealth.health = body.data.HP;
     }
 
     void AttachGadgetInMatch(GadgetInstance gadget, int slotIdx)
@@ -95,9 +93,4 @@ public class ReceiveDataFromGarage : MonoBehaviour
         return go;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
