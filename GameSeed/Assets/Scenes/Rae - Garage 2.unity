@@ -173,42 +173,54 @@ MonoBehaviour:
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   - id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   bodyOwnedNeff: 0
   currentEquippedBody:
     id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   tempPreviewBody:
     id: 
     data: {fileID: 0}
     isEquipped: 0
+    currentDurability: 0
   stickBody: {fileID: 5161452277950978789, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
     type: 3}
   def: {fileID: 11400000, guid: 78af31d9bb0c44b4389f8639fb1f22c5, type: 2}
@@ -257,6 +269,7 @@ MonoBehaviour:
   bodyManager: {fileID: 30119522}
   confirmButtonGadget: {fileID: 1068989393}
   confirmButtonBody: {fileID: 248930081}
+  cancelButton: {fileID: 919950324}
   textField: {fileID: 1827045671}
   bodyOrGadgetName: {fileID: 1753941526}
   bodyOrGadgetDesc: {fileID: 1845850553}
@@ -3073,6 +3086,18 @@ MonoBehaviour:
       - m_Target: {fileID: 30119522}
         m_TargetAssemblyTypeName: BodyManager, Assembly-CSharp
         m_MethodName: CancelPreviewBody
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 30119524}
+        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
+        m_MethodName: InactivateConfirm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

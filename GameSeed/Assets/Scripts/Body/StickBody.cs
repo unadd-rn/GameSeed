@@ -15,6 +15,8 @@ public class StickBody : MonoBehaviour
     public Sprite stickIcon; // Gambar untuk di UI Inventory
     public Mesh stickMesh;
     public Material stickMaterial;
+
+    [Header("Body Information")]
     [SerializeField] BodyType[] bodies;
 
     void Start()

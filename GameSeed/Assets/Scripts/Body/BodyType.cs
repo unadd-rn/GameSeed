@@ -18,4 +18,5 @@ public abstract class BodyType : ScriptableObject
     public float damage;
     public float weight = 20; // will be changed later
     public float HP;
+    public int durability;
 }

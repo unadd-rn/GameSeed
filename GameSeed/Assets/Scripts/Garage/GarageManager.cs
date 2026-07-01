@@ -21,10 +21,12 @@ public class GarageManager : MonoBehaviour
     [Header("Manager lain")]
     [SerializeField] GadgetManager gadgetManager;
     [SerializeField] BodyManager bodyManager;
+    // [SerializeField] SendDataToMatch sendDataToMatch;
 
     [Header("Confirm Button")]
     [SerializeField] GameObject confirmButtonGadget;
     [SerializeField] GameObject confirmButtonBody;
+    [SerializeField] GameObject cancelButton;
 
     [Header("Text")]
     [SerializeField] private GameObject textField;
@@ -44,7 +46,7 @@ public class GarageManager : MonoBehaviour
 
     [Header("Slider Gadget")]
     public Slider sliderGadget;
-    private int gadgetEqIdx;
+
     void Start()
     {
         textField.SetActive(false);
@@ -52,6 +54,7 @@ public class GarageManager : MonoBehaviour
         bodyPanel.SetActive(true);
         confirmButtonGadget.SetActive(false);
         confirmButtonBody.SetActive(false);
+        cancelButton.SetActive(false);
         
         SetupGadgetButtons();
         SetupBodyButtons();
@@ -113,7 +116,7 @@ public class GarageManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        SendData();
+        // sendDataToMatch.GetData();
         SceneManager.LoadScene("Cet - lobby1");
     }
 
@@ -169,6 +172,7 @@ public class GarageManager : MonoBehaviour
             {
                gadgetManager.StartPreviewGadget(currentG, 0);
                confirmButtonGadget.SetActive(true);
+               cancelButton.SetActive(true);
                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
                bodyOrGadgetDesc.text = currentG.data.description.ToString();
                textField.SetActive(true);
@@ -221,6 +225,7 @@ public class GarageManager : MonoBehaviour
             {
                 bodyManager.PreviewBody(i);
                 confirmButtonBody.SetActive(true);
+                cancelButton.SetActive(true);
                 bodyOrGadgetName.text = currentB.data.stickName.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
                 textField.SetActive(true);
@@ -247,8 +252,16 @@ public class GarageManager : MonoBehaviour
 
     public void RemoveBodyFromInventory(int slotIndex)
     {
+        if(bodyManager.bodyOwned[slotIndex].data == bodyManager.def)
+        {
+            Debug.LogWarning("Can't remove default body!");
+            return;
+        }
         if(bodyManager.bodyOwned[slotIndex].isEquipped)
+        {
             Debug.LogWarning("Can't remove equipped body!");
+            return;
+        }
 
         for(int i = bodyManager.bodyOwnedNeff - 1; i > slotIndex; i--)
             bodyManager.bodyOwned[i-1] = bodyManager.bodyOwned[i];
@@ -263,6 +276,7 @@ public class GarageManager : MonoBehaviour
     {
         confirmButtonBody.SetActive(false);
         confirmButtonGadget.SetActive(false);
+        cancelButton.SetActive(false);
     }
 
     public void RemoveState()
