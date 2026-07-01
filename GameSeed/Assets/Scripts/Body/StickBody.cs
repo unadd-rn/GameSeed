@@ -21,12 +21,12 @@ public class StickBody : MonoBehaviour
 
     void Start()
     {
-        if (bodies.Length > 0) {
-            int randIndex = Random.Range(0, bodies.Length);
-            Debug.Log(bodies.Length);
-            BodyType tempBodyType = bodies[randIndex];
-            ApplyPreview(tempBodyType);
-        }
+        // if (bodies.Length > 0) {
+        //     int randIndex = Random.Range(0, bodies.Length);
+        //     Debug.Log(bodies.Length);
+        //     BodyType tempBodyType = bodies[randIndex];
+        //     ApplyPreview(tempBodyType);
+        // }
     }
 
     public void ApplyPreview(BodyType body)

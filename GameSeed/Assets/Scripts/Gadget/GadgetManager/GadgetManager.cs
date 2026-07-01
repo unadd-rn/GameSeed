@@ -49,7 +49,7 @@ public class GadgetManager : MonoBehaviour
             if (startingGadgets[i] != null && i < gadgetOwned.Length)
             {
                 gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
-                gadgetOwned[i].isEquipped = true;
+                gadgetOwned[i].isEquipped = false;
                 gadgetOwnedNeff++;
             }
         }
@@ -317,7 +317,31 @@ public class GadgetManager : MonoBehaviour
         //baru di apus
         gadgetOwned[gadgetOwnedNeff - 1] = null;
         gadgetOwnedNeff--;
-    } //bismillah bismillah bismillah berhasil yaAllah
+    } 
+
+    public void AttachVisualToSlot(GadgetInstance gadget, int slotIndex)
+    {
+        Transform parent = stickBodyTransform != null ? stickBodyTransform : transform;
+        SlotDefinition frontSlot = garageManager.spawnedSlot.frontSlots[slotIndex];
+        SlotDefinition backSlot = garageManager.spawnedSlot.backSlots[slotIndex];
+
+        // Create front
+        GameObject frontVisual = CreateGadgetVisual(gadget.data, parent);
+        frontVisual.transform.localPosition = frontSlot.localPosition;
+        SetGadgetScale(frontVisual, gadget.data);
+        frontSlot.spawnedVisual = frontVisual;
+        frontSlot.occupant = gadget;
+
+        // Create back
+        GameObject backVisual = CreateGadgetVisual(gadget.data, parent);
+        backVisual.transform.localPosition = backSlot.localPosition;
+        backVisual.transform.localRotation = Quaternion.Euler(0, 180f, 0);
+        SetGadgetScale(backVisual, gadget.data);
+        backSlot.spawnedVisual = backVisual;
+        backSlot.occupant = gadget;
+    }
+    
+    //bismillah bismillah bismillah berhasil yaAllah
 
     // private void SetVisualAlpha(GameObject go, float alpha)
     // {

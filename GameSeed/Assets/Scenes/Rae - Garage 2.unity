@@ -172,8 +172,6 @@ MonoBehaviour:
   data: {fileID: 0}
   gadgetPanelTransform: {fileID: 235834660}
   bodyPanelTransform: {fileID: 1996602427}
-  gadgetManager: {fileID: 1587828863}
-  bodyManager: {fileID: 1587828861}
   confirmButtonGadget: {fileID: 1068989393}
   confirmButtonBody: {fileID: 248930081}
   cancelButton: {fileID: 919950324}
@@ -709,7 +707,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 30119524}
+        m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
+        m_MethodName: OnSliderValueChanged
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &158915262
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +948,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 30119524}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: GadgetButton
         m_Mode: 1
@@ -3478,9 +3488,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 30119520}
         m_TargetAssemblyTypeName: GadgetManager, Assembly-CSharp
-        m_MethodName: ConfirmPlacement
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4702,7 +4712,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 30119524}
         m_TargetAssemblyTypeName: GarageManager, Assembly-CSharp
         m_MethodName: BodyButton
         m_Mode: 1
