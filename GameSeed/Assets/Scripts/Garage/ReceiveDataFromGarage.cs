@@ -20,6 +20,7 @@ public class ReceiveDataFromGarage : MonoBehaviour
         stickBody.stickMesh = body.data.stickMesh;
         stickBody.stickMaterial = body.data.stickMaterial;
         player.GetComponent<Rigidbody>().drag = body.data.weight;
+        GadgetManager.Instance.playerTarget = this.playerGO;
         // ambil data damage
 
         for(int i = 0; i < GadgetManager.Instance.gadgetOwnedNeff; i++)
