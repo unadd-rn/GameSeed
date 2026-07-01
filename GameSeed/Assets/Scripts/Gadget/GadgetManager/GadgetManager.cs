@@ -15,8 +15,7 @@ public class GadgetManager : MonoBehaviour
     public GadgetInstance[] gadgetOwned = new GadgetInstance[maxGadget]; // maksimal 10
     public int gadgetOwnedNeff = 0;
 
-    [Header("Data")]
-    public StickSlot data;
+    [HideInInspector] public StickSlot data => garageManager != null ? garageManager.spawnedSlot : null;
 
     [Header("Spawned Reference")]
     public Transform stickBodyTransform;
@@ -115,6 +114,7 @@ public class GadgetManager : MonoBehaviour
 
         detachedGadget.data.Remove(playerTarget != null ? playerTarget : gameObject);
         detachedGadget.isEquipped = false;
+        detachedGadget.slotIdx = -1;
         
         frontSlot.occupant = null;
         backSlot.occupant = null;
@@ -141,7 +141,7 @@ public class GadgetManager : MonoBehaviour
 
         currentPreviewGadget = gadget;
 
-        previewOriginalSlotIdx = gadget.isEquipped ? FindGadgetIdxInSlot(gadget) : -1;
+        previewOriginalSlotIdx = gadget.slotIdx;
 
         if(previewOriginalSlotIdx != -1)
         {
@@ -149,29 +149,20 @@ public class GadgetManager : MonoBehaviour
             SlotDefinition oldback = garageManager.spawnedSlot.backSlots[previewOriginalSlotIdx];
             if(oldfront.spawnedVisual != null) oldfront.spawnedVisual.SetActive(false);
             if(oldback.spawnedVisual != null) oldback.spawnedVisual.SetActive(false);
+            startingSlotIndex = previewOriginalSlotIdx;
         }
         Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
         
         previewVisualFront = CreateGadgetVisual(gadget.data, parentTransform);
+        previewVisualFront.layer = LayerMask.NameToLayer("GadgetPreview");
         // previewVisualFront.transform.localPosition = data.frontSlots[startingSlotIndex].localPosition;
         previewVisualFront.transform.localRotation = Quaternion.identity;
         SetGadgetScale(previewVisualFront, gadget.data);
 
-        UpdatePreviewPosition(startingSlotIndex);
-    }
+        // SetVisualAlpha(previewVisualFront, 0.5f); 
 
-    public int FindGadgetIdxInSlot(GadgetInstance gadget)
-    {
-        int gadgetIdx = -1;
-        for(int i = 0; i < 4; i++)
-        {
-            if(gadget == data.frontSlots[i].occupant)
-            {
-                gadgetIdx = i;
-                break;
-            }
-        }
-        return gadgetIdx;
+        garageManager.sliderGadget.value = startingSlotIndex;
+        UpdatePreviewPosition(startingSlotIndex);
     }
 
     public void UpdatePreviewPosition(int newSlotIndex)
@@ -182,21 +173,26 @@ public class GadgetManager : MonoBehaviour
         currentPreviewSlotIndex = newSlotIndex;
 
         Vector3 worldPos = stickBodyTransform.TransformPoint(data.frontSlots[newSlotIndex].localPosition);
+        // worldPos += Camera.main.transform.forward * -0.03f;
         previewVisualFront.transform.position = worldPos;
 
         // previewVisualFront.transform.localPosition = data.frontSlots[newSlotIndex].localPosition;
-        Debug.Log($"parent: {previewVisualFront.transform.parent.name}");
-        Debug.Log($"parent world pos: {previewVisualFront.transform.parent.position}");
-        Debug.Log($"local pos set: {data.frontSlots[newSlotIndex].localPosition}");
-        Debug.Log($"actual world pos: {previewVisualFront.transform.position}");
+        // Debug.Log($"parent: {previewVisualFront.transform.parent.name}");
+        // Debug.Log($"parent world pos: {previewVisualFront.transform.parent.position}");
+        // Debug.Log($"local pos set: {data.frontSlots[newSlotIndex].localPosition}");
+        // Debug.Log($"actual world pos: {previewVisualFront.transform.position}");
     }
 
     public void ConfirmPlacement()
     {
         if(currentPreviewGadget == null || currentPreviewSlotIndex == -1) return;
+        previewVisualFront.layer = LayerMask.NameToLayer("Default");
+        // SetVisualAlpha(previewVisualFront, 1f); 
 
         if(previewOriginalSlotIdx != -1 && previewOriginalSlotIdx != currentPreviewSlotIndex)
+        {
             DetachGadget(previewOriginalSlotIdx);
+        }
         else if(previewOriginalSlotIdx != -1 && previewOriginalSlotIdx == currentPreviewSlotIndex)
         {
             SlotDefinition oldfront = garageManager.spawnedSlot.frontSlots[previewOriginalSlotIdx];
@@ -234,6 +230,7 @@ public class GadgetManager : MonoBehaviour
 
         currentPreviewGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
         currentPreviewGadget.isEquipped = true;
+        currentPreviewGadget.slotIdx = currentPreviewSlotIndex;
 
         RadialGadgetController radialController = FindObjectOfType<RadialGadgetController>();
         if (radialController != null)
@@ -321,6 +318,18 @@ public class GadgetManager : MonoBehaviour
         gadgetOwned[gadgetOwnedNeff - 1] = null;
         gadgetOwnedNeff--;
     } //bismillah bismillah bismillah berhasil yaAllah
+
+    // private void SetVisualAlpha(GameObject go, float alpha)
+    // {
+    //     MeshRenderer mr = go.GetComponent<MeshRenderer>();
+    //     if (mr == null) return;
+
+    //     // bikin instance material baru biar gak ngubah asset asli
+    //     Material mat = mr.material;
+    //     Color c = mat.color;
+    //     c.a = alpha;
+    //     mat.color = c;
+    // }
 
     // public void AttachGadget(GadgetInstance gadget, int slotIndex)
     // {
