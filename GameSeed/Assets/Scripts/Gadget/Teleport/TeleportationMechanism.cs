@@ -17,6 +17,11 @@ public class TeleportationMechanism : MonoBehaviour
     public Transform enemy;
     public float minDistanceToEnemy = 0.5f;
 
+    [Header("Teleport Settings")]
+    [Tooltip("Duration in seconds that the object stays invisible before reappearing.")]
+    public float invisibilityDuration = 1.0f; 
+    public GameObject visualModel; // Assign your object's 3D model/graphics here
+
     // public void Teleport()
     // {  
     //     Vector3 randomPoint;
@@ -53,6 +58,11 @@ public class TeleportationMechanism : MonoBehaviour
 
     public void Teleport()
     {
+        StartCoroutine(TeleportSequence());
+    }
+
+    private IEnumerator TeleportSequence()
+    {
         Vector3 finalPoint = Vector3.zero;
         bool foundValidSpot = false;
         
@@ -83,22 +93,32 @@ public class TeleportationMechanism : MonoBehaviour
 
         if (foundValidSpot)
         {
+            // 1. DISAPPEAR: Hide the visual model immediately
+            if (visualModel != null) visualModel.SetActive(false);
+
+            // 2. MOVE IMMEDIATELY: Relocate physics & position right away while hidden
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null) 
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero; 
                 rb.position = finalPoint; 
+                transform.position = finalPoint; // Sync transform instantly alongside Rigidbody
             }
             else
             {
                 transform.position = finalPoint;
             }
+
+            // 3. WAIT: Pause execution at the NEW destination, completely hidden
+            yield return new WaitForSeconds(invisibilityDuration);
+
+            // 4. REAPPEAR: Safely turn the visual model back on
+            if (visualModel != null) visualModel.SetActive(true);
         }
         else
         {
             Debug.LogWarning("Gagal nemu titik yang aman di arena");
         }
     }
-
 }
