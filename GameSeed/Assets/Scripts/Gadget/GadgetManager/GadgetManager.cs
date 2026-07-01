@@ -144,9 +144,12 @@ public class GadgetManager : MonoBehaviour
         Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
         
         previewVisualFront = CreateGadgetVisual(gadget.data, parentTransform);
+        previewVisualFront.layer = LayerMask.NameToLayer("GadgetPreview");
         // previewVisualFront.transform.localPosition = data.frontSlots[startingSlotIndex].localPosition;
         previewVisualFront.transform.localRotation = Quaternion.identity;
         SetGadgetScale(previewVisualFront, gadget.data);
+
+        // SetVisualAlpha(previewVisualFront, 0.5f); 
 
         garageManager.sliderGadget.value = startingSlotIndex;
         UpdatePreviewPosition(startingSlotIndex);
@@ -160,6 +163,7 @@ public class GadgetManager : MonoBehaviour
         currentPreviewSlotIndex = newSlotIndex;
 
         Vector3 worldPos = stickBodyTransform.TransformPoint(data.frontSlots[newSlotIndex].localPosition);
+        // worldPos += Camera.main.transform.forward * -0.03f;
         previewVisualFront.transform.position = worldPos;
 
         // previewVisualFront.transform.localPosition = data.frontSlots[newSlotIndex].localPosition;
@@ -172,6 +176,8 @@ public class GadgetManager : MonoBehaviour
     public void ConfirmPlacement()
     {
         if(currentPreviewGadget == null || currentPreviewSlotIndex == -1) return;
+        previewVisualFront.layer = LayerMask.NameToLayer("Default");
+        // SetVisualAlpha(previewVisualFront, 1f); 
 
         if(previewOriginalSlotIdx != -1 && previewOriginalSlotIdx != currentPreviewSlotIndex)
         {
@@ -296,6 +302,18 @@ public class GadgetManager : MonoBehaviour
         gadgetOwned[gadgetOwnedNeff - 1] = null;
         gadgetOwnedNeff--;
     } //bismillah bismillah bismillah berhasil yaAllah
+
+    // private void SetVisualAlpha(GameObject go, float alpha)
+    // {
+    //     MeshRenderer mr = go.GetComponent<MeshRenderer>();
+    //     if (mr == null) return;
+
+    //     // bikin instance material baru biar gak ngubah asset asli
+    //     Material mat = mr.material;
+    //     Color c = mat.color;
+    //     c.a = alpha;
+    //     mat.color = c;
+    // }
 
     // public void AttachGadget(GadgetInstance gadget, int slotIndex)
     // {
