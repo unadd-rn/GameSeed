@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks; //testing aja
 
 public class EnemyGadgetManager : MonoBehaviour
 {
@@ -167,5 +168,46 @@ public class EnemyGadgetManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    // This handles the FX, the 2-second wait, and the final activation
+    private IEnumerator ExecuteGadgetAfterDelay(GadgetInstance chosenGadget, int gadgetIndex)
+    {
+        // 1. Play the FX immediately
+        if (chosenGadget.data.gadgetName == "Bag Of Rice") {
+            Transform characterTransform = this.transform; 
+            WorldToScreenFXManager.Instance.PlayFX("Heal", characterTransform);
+            yield return new WaitForSeconds(0f);
+        }
+
+        if (chosenGadget.data.gadgetName == "nononon") {
+            Transform characterTransform = this.transform; 
+            WorldToScreenFXManager.Instance.PlayFX("Teleport", characterTransform);
+            yield return new WaitForSeconds(0.4f);
+        }
+
+
+        if (chosenGadget.data.gadgetName == "Adrenaline Shot") {
+            Transform characterTransform = this.transform; 
+            WorldToScreenFXManager.Instance.PlayFX("Power up", characterTransform);
+            yield return new WaitForSeconds(0f);
+        }
+
+        // 3. Safety Check: Did the enemy die while waiting?
+        if (this == null || gameObject == null) yield break;
+
+        // 4. Activate the gadget and clean up the list
+        Debug.Log($"[EnemyGadgetManager] Musuh memutuskan pakai gadget: {chosenGadget.data.gadgetName}");
+        chosenGadget.data.Activate(gameObject);
+        if (chosenGadget.data.gadgetName == "nononon") {
+            yield return new WaitForSeconds(0.2f);
+            Transform characterTransform = this.transform;
+            WorldToScreenFXManager.Instance.PlayFX("Teleport", characterTransform);
+        }
+        
+        // Safety check for list range just in case the list changed during those 2 seconds
+        if (gadgetIndex < enemyActiveGadgets.Count) {
+            enemyActiveGadgets.RemoveAt(gadgetIndex);
+        }
     }
 }
