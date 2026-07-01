@@ -228,15 +228,15 @@ public class GadgetManager : MonoBehaviour
         frontSlot.occupant = currentPreviewGadget;
         backSlot.occupant = currentPreviewGadget;
 
-        currentPreviewGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
+        // currentPreviewGadget.data.Apply(playerTarget != null ? playerTarget : gameObject);
         currentPreviewGadget.isEquipped = true;
         currentPreviewGadget.slotIdx = currentPreviewSlotIndex;
 
-        RadialGadgetController radialController = FindObjectOfType<RadialGadgetController>();
-        if (radialController != null)
-        {
-            radialController.PopulateRadialMenu();
-        }
+        // RadialGadgetController radialController = FindObjectOfType<RadialGadgetController>();
+        // if (radialController != null)
+        // {
+        //     radialController.PopulateRadialMenu();
+        // }
 
         previewVisualFront = null;
         currentPreviewGadget = null;
