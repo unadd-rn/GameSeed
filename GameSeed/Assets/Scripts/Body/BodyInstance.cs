@@ -7,6 +7,7 @@ public class BodyInstance
     public string id;
     public BodyType data; // reference to the SO blueprint
     public bool isEquipped;
+    public int currentDurability;
 
     public BodyInstance(BodyType baseData)
     {   
@@ -14,5 +15,6 @@ public class BodyInstance
         this.id = System.Guid.NewGuid().ToString();
         this.data = baseData;
         this.isEquipped = false;
+        this.currentDurability = baseData.durability;
     }
 }
