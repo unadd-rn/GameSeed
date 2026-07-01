@@ -20,17 +20,17 @@ public class CollisionHandler : MonoBehaviour
     public Sprite playerWinningSprite; // Drag the sprite for when Player wins
     public Sprite enemyWinningSprite;
 
+    private BodyInstance body;
     private Rigidbody rb;
     private Collider col;
-    private PlayerHealth playerHealth;
     private bool hasKnockback = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        playerHealth = GetComponent<PlayerHealth>();
-
+        body = BodyManager.Instance.currentEquippedBody;
+        
         if (statusImageUI != null)
         {
             statusImageUI.gameObject.SetActive(false);
@@ -67,8 +67,8 @@ public class CollisionHandler : MonoBehaviour
             PlayerHealth myPlayerHealth = GetComponent<PlayerHealth>();
             EnemyHealth myEnemyHealth = GetComponent<EnemyHealth>();
 
-            if (myPlayerHealth != null) myPlayerHealth.TakeDamage(1f, 'h');
-            if (myEnemyHealth != null) myEnemyHealth.TakeDamage(1f, 'h');
+            if (myPlayerHealth != null) myPlayerHealth.TakeDamage(body.data.damage, 'h');
+            if (myEnemyHealth != null) myEnemyHealth.TakeDamage(body.data.damage, 'h');
 
             if (GetComponent<PlayerHealth>() != null) {
                 ShowWinningImage(enemyWinningSprite);  
@@ -81,8 +81,8 @@ public class CollisionHandler : MonoBehaviour
             PlayerHealth otherPlayerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             EnemyHealth otherEnemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
 
-            if (otherPlayerHealth != null) otherPlayerHealth.TakeDamage(1f, 'h');
-            if (otherEnemyHealth != null) otherEnemyHealth.TakeDamage(1f, 'h');
+            if (otherPlayerHealth != null) otherPlayerHealth.TakeDamage(body.data.damage, 'h');
+            if (otherEnemyHealth != null) otherEnemyHealth.TakeDamage(body.data.damage, 'h');
 
             if (GetComponent<PlayerHealth>() != null) {
                 ShowWinningImage(playerWinningSprite);  
