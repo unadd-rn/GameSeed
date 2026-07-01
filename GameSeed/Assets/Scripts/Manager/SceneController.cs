@@ -74,12 +74,12 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log("balik ke lobby1");
         // Example: Using a transition named "Square"
-        goToSceneName("Cet - lobby1", "Square");
+        goToSceneName("Cet - lobby1", "");
     }
 
     public void Garage()
     {
-        Debug.Log("ke lobby 2");
+        Debug.Log("ke garage");
         // Example: Using a transition named "GarageDoor"
         goToSceneName("Rae - Garage 2", "Terang");
     }

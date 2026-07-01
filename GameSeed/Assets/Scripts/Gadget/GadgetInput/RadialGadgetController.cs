@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class RadialGadgetController : MonoBehaviour
 {
     [Header("References")]
-    public GadgetManager gadgetManager;
+    // public GadgetManager gadgetManager;
     public RadialMenu radialMenu;
 
     [Header("Prefabs")]
@@ -15,7 +15,8 @@ public class RadialGadgetController : MonoBehaviour
 
     void Start()
     {
-        Invoke(nameof(PopulateRadialMenu), 0.1f); 
+        PopulateRadialMenu();
+        // Invoke(nameof(PopulateRadialMenu), 0.1f); 
     }
 
     public void PopulateRadialMenu()
@@ -23,9 +24,9 @@ public class RadialGadgetController : MonoBehaviour
         radialMenu.ClearMenu();
         spawnedGadgetUI.Clear();
 
-        if (gadgetManager == null || arcGadgetPrefab == null) return;
+        if (GadgetManager.Instance == null || arcGadgetPrefab == null) return;
 
-        foreach (GadgetInstance gadget in gadgetManager.gadgetOwned)
+        foreach (GadgetInstance gadget in GadgetManager.Instance.gadgetOwned)
         {
             if (gadget == null) 
             {

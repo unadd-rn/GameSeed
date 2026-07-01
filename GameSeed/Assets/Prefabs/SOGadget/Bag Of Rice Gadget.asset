@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gadgetName: Bag Of Rice
   description: Obtained by defeating the mighty Ayam
-  model: {fileID: 0}
+  model: {fileID: 21300000, guid: d1437423bd1a32c4da4f4a4e46797d2f, type: 3}
   mesh: {fileID: 5305871256624515941, guid: dd6fae1cad96e29408ad132b0ec90d6f, type: 3}
   material: {fileID: 2100000, guid: 0223ce004d2586d41ba5ce6a72d074b9, type: 2}
   durability: 2
   weight: 0
-  sizeX: 0.3
-  sizeY: 0.3
-  sizeZ: 0.3
+  sizeX: 0.8
+  sizeY: 0.8
+  sizeZ: 0.8
   isActiveGadget: 1
   bonusHP: 5

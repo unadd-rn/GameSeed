@@ -19,12 +19,14 @@ public class GarageManager : MonoBehaviour
     [SerializeField] Transform bodyPanelTransform;
 
     [Header("Manager lain")]
-    [SerializeField] GadgetManager gadgetManager;
-    [SerializeField] BodyManager bodyManager;
+    // [SerializeField] GadgetManager GadgetManager.Instance;
+    // [SerializeField] BodyManager BodyManager.Instance;
+    // [SerializeField] SendDataToMatch sendDataToMatch;
 
     [Header("Confirm Button")]
     [SerializeField] GameObject confirmButtonGadget;
     [SerializeField] GameObject confirmButtonBody;
+    [SerializeField] GameObject cancelButton;
 
     [Header("Text")]
     [SerializeField] private GameObject textField;
@@ -44,21 +46,47 @@ public class GarageManager : MonoBehaviour
 
     [Header("Slider Gadget")]
     public Slider sliderGadget;
-    private int gadgetEqIdx;
+
     void Start()
     {
-        textField.SetActive(false);
-        gadgetPanel.SetActive(false);
-        bodyPanel.SetActive(true);
-        confirmButtonGadget.SetActive(false);
-        confirmButtonBody.SetActive(false);
+        if (textField != null) textField.SetActive(false);
+        if (gadgetPanel != null) gadgetPanel.SetActive(false);
+        if (bodyPanel != null) bodyPanel.SetActive(true);
+        if (gadgetPanel != null) confirmButtonGadget.SetActive(false);
+        if (confirmButtonBody != null) confirmButtonBody.SetActive(false);
+        if (cancelButton != null) cancelButton.SetActive(false);
         
-        SetupGadgetButtons();
-        SetupBodyButtons();
+        if (gadgetPanel != null) SetupGadgetButtons();
+        if (bodyPanel != null) SetupBodyButtons();
 
-        SpawnStickSystem();
+        if (textField != null) SpawnStickSystem();
 
         sliderGadget.onValueChanged.AddListener(OnSliderValueChanged);
+
+        // 1. Gadget Confirm Button
+        Button btnGadgetConfirm = confirmButtonGadget.GetComponent<Button>();
+        btnGadgetConfirm.onClick.RemoveAllListeners(); // Clear old listeners just in case
+        btnGadgetConfirm.onClick.AddListener(() => {
+            GadgetManager.Instance.ConfirmPlacement();
+            InactivateConfirm();
+        });
+
+        // 2. Body Confirm Button
+        Button btnBodyConfirm = confirmButtonBody.GetComponent<Button>();
+        btnBodyConfirm.onClick.RemoveAllListeners();
+        btnBodyConfirm.onClick.AddListener(() => {
+            BodyManager.Instance.ConfirmBody();
+            InactivateConfirm();
+        });
+
+        // 3. Cancel Button
+        Button btnCancel = cancelButton.GetComponent<Button>();
+        btnCancel.onClick.RemoveAllListeners();
+        btnCancel.onClick.AddListener(() => {
+            GadgetManager.Instance.CancelPreview();
+            BodyManager.Instance.CancelPreviewBody();
+            InactivateConfirm();
+        });
     }
 
     void SpawnStickSystem()
@@ -73,30 +101,33 @@ public class GarageManager : MonoBehaviour
         GameObject bodyGO = Instantiate(stickBodyPrefab, stickSpawnPoint.position, stickSpawnPoint.rotation);
         spawnedBody = bodyGO.GetComponent<StickBody>();
 
-        if(bodyManager.currentEquippedBody.data == null)
+        if(BodyManager.Instance.currentEquippedBody.data == null)
             Debug.LogError("gak nyampe for whatever reason");
         else Debug.Log("aman juga di sini");
 
-        if(bodyManager.currentEquippedBody != null)
-            spawnedBody.ApplyPreview(bodyManager.currentEquippedBody.data);
+        if(BodyManager.Instance.currentEquippedBody != null)
+            spawnedBody.ApplyPreview(BodyManager.Instance.currentEquippedBody.data);
 
         GameObject slotGO = Instantiate(stickSlotPrefab, bodyGO.transform);
         slotGO.transform.localPosition = Vector3.zero;
         slotGO.transform.localRotation = Quaternion.identity;
         spawnedSlot = slotGO.GetComponent<StickSlot>();
 
-        if (bodyManager != null)
+        if (BodyManager.Instance != null)
         {
-            bodyManager.stickBody = spawnedBody;
-            if (bodyManager.currentEquippedBody != null)
+            BodyManager.Instance.stickBody = spawnedBody;
+            if (BodyManager.Instance.currentEquippedBody != null)
             {
-                spawnedBody.ApplyPreview(bodyManager.currentEquippedBody.data);
+                spawnedBody.ApplyPreview(BodyManager.Instance.currentEquippedBody.data);
             }
         }
-        if (gadgetManager != null)
+        if (GadgetManager.Instance != null)
         {
-            gadgetManager.stickBodyTransform = bodyGO.transform;
+            GadgetManager.Instance.stickBodyTransform = bodyGO.transform;
+            GadgetManager.Instance.garageManager = this;
         }
+
+        RebuildEquippedGadgets();
     }
 
     public void BodyButton()
@@ -113,7 +144,7 @@ public class GarageManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        SendData();
+        // sendDataToMatch.GetData();
         SceneManager.LoadScene("Cet - lobby1");
     }
 
@@ -142,15 +173,15 @@ public class GarageManager : MonoBehaviour
     public void SetupGadgetButtons()
     {
         buttonsG = gadgetPanelTransform.GetComponentsInChildren<Button>(true);
-        for(int i = 0; i < gadgetManager.gadgetOwned.Length; i++)
+        for(int i = 0; i < GadgetManager.Instance.gadgetOwned.Length; i++)
         {
-            GadgetInstance currentG = gadgetManager.gadgetOwned[i];
+            GadgetInstance currentG = GadgetManager.Instance.gadgetOwned[i];
             Button currentButton = buttonsG[i];
 
             // currentButton.image.sprite = currentG.data.model; // ini bisa dibikin biar dia ambil anak dari button (karena bisa jadi bentuk button beda)
             Image childImage = currentButton.transform.GetChild(0).GetComponent<Image>();
             var tempColor = childImage.color;
-            if(i >= gadgetManager.gadgetOwnedNeff)
+            if(i >= GadgetManager.Instance.gadgetOwnedNeff)
             {
                 currentButton.interactable = false;
                 tempColor.a = 0f;
@@ -167,9 +198,9 @@ public class GarageManager : MonoBehaviour
             currentButton.onClick.RemoveAllListeners();
             currentButton.onClick.AddListener(() =>
             {
-               gadgetManager.StartPreviewGadget(currentG, 0);
-               sliderGadget.value = 0;
+               GadgetManager.Instance.StartPreviewGadget(currentG, 0);
                confirmButtonGadget.SetActive(true);
+               cancelButton.SetActive(true);
                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
                bodyOrGadgetDesc.text = currentG.data.description.ToString();
                textField.SetActive(true);
@@ -184,7 +215,7 @@ public class GarageManager : MonoBehaviour
         for(int i = 0; i < buttonsB.Length; i++)
         {
 
-            BodyInstance currentB = bodyManager.bodyOwned[i];
+            BodyInstance currentB = BodyManager.Instance.bodyOwned[i];
             Button currentButton = buttonsB[i];
             if(currentButton == null)
             {
@@ -202,15 +233,15 @@ public class GarageManager : MonoBehaviour
             }
             var tempColor = currentImage.color;
             // Debug.Log("udah masukin tempColor");
-            if(i >= bodyManager.bodyOwnedNeff)
+            if(i >= BodyManager.Instance.bodyOwnedNeff)
             {
-                // Debug.Log("i >= bodyManager.bodyOwnedNeff");
+                // Debug.Log("i >= BodyManager.Instance.bodyOwnedNeff");
                 tempColor.a = 0f;
                 currentImage.color = tempColor;
                 currentButton.interactable = false;
                 continue;
             }
-            // Debug.Log("i < bodyManager.bodyOwnedNeff");
+            // Debug.Log("i < BodyManager.Instance.bodyOwnedNeff");
             currentButton.interactable = true;
             tempColor.a = 1f;
             currentImage.color = tempColor;
@@ -220,8 +251,9 @@ public class GarageManager : MonoBehaviour
             // Debug.Log("Remove all listener");
             currentButton.onClick.AddListener(() =>
             {
-                bodyManager.PreviewBody(i);
+                BodyManager.Instance.PreviewBody(i);
                 confirmButtonBody.SetActive(true);
+                cancelButton.SetActive(true);
                 bodyOrGadgetName.text = currentB.data.stickName.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
                 textField.SetActive(true);
@@ -232,30 +264,38 @@ public class GarageManager : MonoBehaviour
 
     public void RemoveGadgetFromInventory(int slotIndex)
     {
-        if (gadgetManager.gadgetOwned[slotIndex].isEquipped)
+        if (GadgetManager.Instance.gadgetOwned[slotIndex].isEquipped)
         {
-            gadgetManager.DetachGadgetbyID(gadgetManager.gadgetOwned[slotIndex].id);
+            GadgetManager.Instance.DetachGadgetbyID(GadgetManager.Instance.gadgetOwned[slotIndex].id);
         }
-        for(int i = gadgetManager.gadgetOwnedNeff - 1; i > slotIndex; i--)
+        for(int i = GadgetManager.Instance.gadgetOwnedNeff - 1; i > slotIndex; i--)
         {
-            gadgetManager.gadgetOwned[i-1] = gadgetManager.gadgetOwned[i];
+            GadgetManager.Instance.gadgetOwned[i-1] = GadgetManager.Instance.gadgetOwned[i];
         }
-        gadgetManager.gadgetOwned[gadgetManager.gadgetOwnedNeff - 1] = null;
-        gadgetManager.gadgetOwnedNeff--;
+        GadgetManager.Instance.gadgetOwned[GadgetManager.Instance.gadgetOwnedNeff - 1] = null;
+        GadgetManager.Instance.gadgetOwnedNeff--;
         EmptyingGadgetButtons();
         SetupRemoveGadgetButtons();
     }
 
     public void RemoveBodyFromInventory(int slotIndex)
     {
-        if(bodyManager.bodyOwned[slotIndex].isEquipped)
+        if(BodyManager.Instance.bodyOwned[slotIndex].data == BodyManager.Instance.def)
+        {
+            Debug.LogWarning("Can't remove default body!");
+            return;
+        }
+        if(BodyManager.Instance.bodyOwned[slotIndex].isEquipped)
+        {
             Debug.LogWarning("Can't remove equipped body!");
+            return;
+        }
 
-        for(int i = bodyManager.bodyOwnedNeff - 1; i > slotIndex; i--)
-            bodyManager.bodyOwned[i-1] = bodyManager.bodyOwned[i];
+        for(int i = BodyManager.Instance.bodyOwnedNeff - 1; i > slotIndex; i--)
+            BodyManager.Instance.bodyOwned[i-1] = BodyManager.Instance.bodyOwned[i];
 
-        bodyManager.bodyOwned[bodyManager.bodyOwnedNeff - 1] = null;
-        bodyManager.bodyOwnedNeff--;
+        BodyManager.Instance.bodyOwned[BodyManager.Instance.bodyOwnedNeff - 1] = null;
+        BodyManager.Instance.bodyOwnedNeff--;
         EmptyingBodyButtons();
         SetupRemoveBodyButtons();
     }
@@ -264,6 +304,7 @@ public class GarageManager : MonoBehaviour
     {
         confirmButtonBody.SetActive(false);
         confirmButtonGadget.SetActive(false);
+        cancelButton.SetActive(false);
     }
 
     public void RemoveState()
@@ -284,7 +325,7 @@ public class GarageManager : MonoBehaviour
         for(int i = 0; i < buttonsB.Length; i++)
         {
 
-            BodyInstance currentB = bodyManager.bodyOwned[i];
+            BodyInstance currentB = BodyManager.Instance.bodyOwned[i];
             Button currentButton = buttonsB[i];
             if(currentButton == null)
             {
@@ -299,7 +340,7 @@ public class GarageManager : MonoBehaviour
                 return;
             }
             var tempColor = currentImage.color;
-            if(i >= bodyManager.bodyOwnedNeff)
+            if(i >= BodyManager.Instance.bodyOwnedNeff)
             {
                 tempColor.a = 0f;
                 currentImage.color = tempColor;
@@ -328,7 +369,7 @@ public class GarageManager : MonoBehaviour
         for(int i = 0; i < buttonsG.Length; i++)
         {
 
-            GadgetInstance currentG = gadgetManager.gadgetOwned[i];
+            GadgetInstance currentG = GadgetManager.Instance.gadgetOwned[i];
             Button currentButton = buttonsG[i];
             if(currentButton == null)
             {
@@ -343,7 +384,7 @@ public class GarageManager : MonoBehaviour
                 return;
             }
             var tempColor = currentImage.color;
-            if(i >= gadgetManager.gadgetOwnedNeff)
+            if(i >= GadgetManager.Instance.gadgetOwnedNeff)
             {
                 tempColor.a = 0f;
                 currentImage.color = tempColor;
@@ -371,14 +412,14 @@ public class GarageManager : MonoBehaviour
         if(spawnedBody == null || spawnedSlot == null || data == null) return;
 
         /* kirim body */
-        data.stickName = bodyManager.currentEquippedBody.data.stickName;
-        data.description = bodyManager.currentEquippedBody.data.description;
-        data.stickIcon = bodyManager.currentEquippedBody.data.stickIcon;
-        data.stickMesh = bodyManager.currentEquippedBody.data.stickMesh;
-        data.stickMaterial = bodyManager.currentEquippedBody.data.stickMaterial;
-        data.weight = bodyManager.currentEquippedBody.data.weight;
-        data.damage = bodyManager.currentEquippedBody.data.damage;
-        // data.HP = bodyManager.currentEquippedBody.data.HP; // hp di mana yah
+        data.stickName = BodyManager.Instance.currentEquippedBody.data.stickName;
+        data.description = BodyManager.Instance.currentEquippedBody.data.description;
+        data.stickIcon = BodyManager.Instance.currentEquippedBody.data.stickIcon;
+        data.stickMesh = BodyManager.Instance.currentEquippedBody.data.stickMesh;
+        data.stickMaterial = BodyManager.Instance.currentEquippedBody.data.stickMaterial;
+        data.weight = BodyManager.Instance.currentEquippedBody.data.weight;
+        data.damage = BodyManager.Instance.currentEquippedBody.data.damage;
+        // data.HP = BodyManager.Instance.currentEquippedBody.data.HP; // hp di mana yah
 
         /* kirim slot */
         data.frontSlots = spawnedSlot.frontSlots;
@@ -388,8 +429,20 @@ public class GarageManager : MonoBehaviour
     public void OnSliderValueChanged(float value)
     {
         int curIdx = Mathf.RoundToInt(value);
-        gadgetManager.UpdatePreviewPosition(curIdx);
+        GadgetManager.Instance.UpdatePreviewPosition(curIdx);
     }
 
+    public void RebuildEquippedGadgets()
+    {
+        for (int i = 0; i < GadgetManager.Instance.gadgetOwned.Length; i++)
+        {
+            GadgetInstance gadget = GadgetManager.Instance.gadgetOwned[i];
+            
+            if (gadget != null && gadget.isEquipped && gadget.slotIdx != -1)
+            {
+                GadgetManager.Instance.AttachVisualToSlot(gadget, gadget.slotIdx);
+            }
+        }
+    }
     
 }
