@@ -8533,6 +8533,12 @@ MonoBehaviour:
   teleportYOffset: 0.5
   enemy: {fileID: 2055251483}
   minDistanceToEnemy: 0.5
+<<<<<<< Updated upstream
+=======
+  invisibilityDuration: 1
+  visualModel: {fileID: 0}
+  edgePadding: 0.5
+>>>>>>> Stashed changes
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13583,6 +13589,12 @@ MonoBehaviour:
   teleportYOffset: 0.5
   enemy: {fileID: 1216302335}
   minDistanceToEnemy: 0.5
+<<<<<<< Updated upstream
+=======
+  invisibilityDuration: 1
+  visualModel: {fileID: 0}
+  edgePadding: 0.5
+>>>>>>> Stashed changes
 --- !u!114 &2055251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
