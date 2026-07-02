@@ -5411,6 +5411,7 @@ GameObject:
   - component: {fileID: 567858284}
   - component: {fileID: 567858283}
   - component: {fileID: 567858286}
+  - component: {fileID: 567858287}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5464,6 +5465,25 @@ MonoBehaviour:
   gameUI: {fileID: 498206779}
   vs: {fileID: 1564519379}
   playerThrowScript: {fileID: 0}
+--- !u!114 &567858287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567858282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56357a48ee5c5b3418a886ef1563949f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUI: {fileID: 259066906}
+  otherUI: {fileID: 498206779}
+  enemySlider: {fileID: 566832815}
+  playerSlider: {fileID: 622238497}
+  portraitAnimator: {fileID: 408669163}
+  pauseEventName: Pause
+  otherUIEventName: OtherUI
 --- !u!1 &576585162
 GameObject:
   m_ObjectHideFlags: 0
@@ -8690,6 +8710,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 259066906}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1133848479}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1133848482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9048,6 +9092,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1133848479}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1212279788
 MonoBehaviour:
