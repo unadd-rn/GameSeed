@@ -14,31 +14,71 @@ public class BodyManager : MonoBehaviour
     public StickBody stickBody;
     public BodyType def;
 
-    void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Bootstrap()
     {
-        if (currentEquippedBody == null || currentEquippedBody.data == null)
-        {
-            currentEquippedBody = new BodyInstance(def);
-            AddBodyToInventory(currentEquippedBody);
-        }
-        if(currentEquippedBody.data == null)
-        {
-            Debug.LogError("null di data");
-        } else
-        {
-            Debug.Log("aman kok");
-        }
+        if (Instance != null) return;
 
-        if (Instance != null && Instance != this)
+        GameObject go = new GameObject("BodyManager");
+        BodyManager mgr = go.AddComponent<BodyManager>();
+        Instance = mgr;
+        DontDestroyOnLoad(go);
+
+        mgr.def = Resources.Load<BodyManagerSettings>("BodyManagerSettings").defaultBody; // move the asset into Resources
+        mgr.LoadBodyData();
+
+        for(int i = 0; i < mgr.bodyOwned.Length; i++)
+            if(mgr.bodyOwned[i] != null)
+                mgr.bodyOwnedNeff++;
+
+        mgr.currentEquippedBody = null;
+        if(mgr.currentEquippedBody == null || mgr.currentEquippedBody.data == null)
         {
-            Destroy(gameObject);
-            return;
+            bool found = false;
+            for (int i = 0; i < mgr.bodyOwnedNeff; i++)
+            {
+                if (mgr.bodyOwned[i].isEquipped)
+                {
+                    mgr.currentEquippedBody = mgr.bodyOwned[i];
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                mgr.currentEquippedBody = new BodyInstance(mgr.def);
+                mgr.AddBodyToInventory(mgr.currentEquippedBody);
+            }
         }
-
-        Instance = this;
-
-        DontDestroyOnLoad(gameObject);
     }
+
+
+    // void Awake()
+    // {
+    //     if (currentEquippedBody == null || currentEquippedBody.data == null)
+    //     {
+    //         currentEquippedBody = new BodyInstance(def);
+    //         AddBodyToInventory(currentEquippedBody);
+    //     }
+    //     if(currentEquippedBody.data == null)
+    //     {
+    //         Debug.LogError("null di data");
+    //     } else
+    //     {
+    //         Debug.Log("aman kok");
+    //     }
+
+    //     if (Instance != null && Instance != this)
+    //     {
+    //         Destroy(gameObject);
+    //         return;
+    //     }
+
+    //     Instance = this;
+
+    //     DontDestroyOnLoad(gameObject);
+    // }
 
     void Start()
     {
@@ -74,7 +114,12 @@ public class BodyManager : MonoBehaviour
     public void ConfirmBody()
     {
         if(tempPreviewBody == null) return;
+        if(currentEquippedBody != null)
+            currentEquippedBody.isEquipped = false;
+
         currentEquippedBody = tempPreviewBody;
+        currentEquippedBody.isEquipped = true;
+        SaveBodyData();
     }
 
     public void CancelPreviewBody()

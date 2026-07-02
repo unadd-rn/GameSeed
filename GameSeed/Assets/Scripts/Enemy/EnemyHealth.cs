@@ -254,6 +254,7 @@ public class EnemyHealth : MonoBehaviour
                 BodyManager.Instance.AddBodyTypeToInventory(droppedBody);
                 Debug.Log($"Hoki! {droppedBody.stickName}");
                 bodyGetUI.SetActive(true);
+                BodyManager.Instance.SaveBodyData();
 
             }
             else

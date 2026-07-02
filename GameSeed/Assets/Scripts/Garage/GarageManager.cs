@@ -49,6 +49,8 @@ public class GarageManager : MonoBehaviour
 
     void Start()
     {
+        // BodyManager.Instance.stickBody = spawnedBody;
+
         if (textField != null) textField.SetActive(false);
         if (gadgetPanel != null) gadgetPanel.SetActive(false);
         if (bodyPanel != null) bodyPanel.SetActive(true);
