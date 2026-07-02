@@ -150,6 +150,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1841313860}
   - {fileID: 1660426053}
   - {fileID: 830893413}
   - {fileID: 947370371}
@@ -1567,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &259066907
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1734,6 +1735,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281498493}
+  m_CullTransparentMesh: 1
+--- !u!1 &309959073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309959074}
+  - component: {fileID: 309959076}
+  - component: {fileID: 309959075}
+  m_Layer: 5
+  m_Name: Bacground (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &309959074
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309959073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1711384303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.1703, y: 4.8173}
+  m_SizeDelta: {x: 818.2822, y: 1684.8729}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &309959075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309959073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.59607846}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &309959076
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309959073}
   m_CullTransparentMesh: 1
 --- !u!1 &316404722
 GameObject:
@@ -2417,66 +2493,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraits:
-  - label: Spinner
-    uiPortrait: {fileID: 694574007}
-    events:
-    - eventName: IN/OUT
-      inAnimation:
-        animationType: 1
-        followDelay: 0
-        trailColor: {r: 0, g: 0, b: 0, a: 0}
-        maximumTrailLag: {x: 0, y: 0}
-        maximumTrailLag2: {x: 0, y: 0}
-        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
-        spinDegrees: 180
-        zoomInScale: 0
-        spinZoomDuration: 0.2
-        wipeMask: {fileID: 0}
-        wipeDirection: 0
-        wipeDuration: 0
-        bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
-        shakeStrength: 0
-        shakeVibrato: 0
-        shakeRandomness: 0
-        shakeDuration: 0
-        canvasGroup: {fileID: 0}
-        fadeDuration: 0
-        wipeMaskFullSize: {x: 0, y: 0}
-        wipeMaskHiddenSize: {x: 0, y: 0}
-      outAnimation:
-        animationType: 1
-        followDelay: 0
-        trailColor: {r: 0, g: 0, b: 0, a: 0}
-        maximumTrailLag: {x: 0, y: 0}
-        maximumTrailLag2: {x: 0, y: 0}
-        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
-        spinDegrees: 360
-        zoomInScale: 0
-        spinZoomDuration: 0.2
-        wipeMask: {fileID: 0}
-        wipeDirection: 0
-        wipeDuration: 0
-        bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
-        shakeStrength: 0
-        shakeVibrato: 0
-        shakeRandomness: 0
-        shakeDuration: 0
-        canvasGroup: {fileID: 0}
-        fadeDuration: 0
-        wipeMaskFullSize: {x: 0, y: 0}
-        wipeMaskHiddenSize: {x: 0, y: 0}
-    uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: -332.2, y: -692.4}
-    isVisible: 0
   - label: P1 Bar
     uiPortrait: {fileID: 1664787834}
     events:
@@ -3857,6 +3873,306 @@ MonoBehaviour:
     originalScale: {x: 2, y: 2, z: 1}
     localRestPosition: {x: 417.5, y: -102.75}
     isVisible: 0
+  - label: PausePanel
+    uiPortrait: {fileID: 259066907}
+    events:
+    - eventName: Pause
+      inAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 45
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 0
+        zoomInScale: 0
+        spinZoomDuration: 0
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: WinPanel
+    uiPortrait: {fileID: 13608654}
+    events:
+    - eventName: Win
+      inAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 45
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 0
+        zoomInScale: 0
+        spinZoomDuration: 0
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: LosePanel
+    uiPortrait: {fileID: 1711384303}
+    events:
+    - eventName: Lose
+      inAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 45
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 0
+        zoomInScale: 0
+        spinZoomDuration: 0
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: Spinner
+    uiPortrait: {fileID: 1185389863}
+    events:
+    - eventName: putStick
+      inAnimation:
+        animationType: 1
+        followDelay: 0.1
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 180
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 360
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 1, y: 1, z: 1}
+    localRestPosition: {x: -332.2, y: -692.4}
+    isVisible: 0
+  - label: Spinner2
+    uiPortrait: {fileID: 1864433367}
+    events:
+    - eventName: putStick
+      inAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 180
+        zoomInScale: 0.1
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 360
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 1, y: 1, z: 1}
+    localRestPosition: {x: -332.2, y: -692.4}
+    isVisible: 0
   toggleButton: {fileID: 0}
   toggleEventName: cutIn
 --- !u!4 &408669164
@@ -4768,7 +5084,6 @@ GameObject:
   m_Component:
   - component: {fileID: 567858284}
   - component: {fileID: 567858283}
-  - component: {fileID: 567858285}
   - component: {fileID: 567858286}
   - component: {fileID: 567858287}
   m_Layer: 0
@@ -4808,22 +5123,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &567858285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567858282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56357a48ee5c5b3418a886ef1563949f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseUI: {fileID: 0}
-  otherUI: {fileID: 498206779}
-  enemySlider: {fileID: 0}
-  playerSlider: {fileID: 0}
 --- !u!114 &567858286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6389,6 +6688,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818013806}
   m_CullTransparentMesh: 1
+--- !u!1001 &824631788
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6822454451077709265, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 592.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1890.0659
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -332.03625
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 429f94e7c3841424385d4657a50cc21b, type: 3}
 --- !u!1 &830893412
 GameObject:
   m_ObjectHideFlags: 0
@@ -7259,7 +7626,7 @@ RectTransform:
   m_Father: {fileID: 2005974151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -1.4199982, y: -30.529999}
   m_SizeDelta: {x: 35.2, y: 32.260002}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7947,6 +8314,7 @@ GameObject:
   - component: {fileID: 1133848483}
   - component: {fileID: 1133848482}
   - component: {fileID: 1133848481}
+  - component: {fileID: 1133848484}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -8017,7 +8385,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858285}
+      - m_Target: {fileID: 1133848484}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -8028,18 +8396,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 259066906}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1133848482
 MonoBehaviour:
@@ -8079,6 +8435,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133848479}
   m_CullTransparentMesh: 1
+--- !u!114 &1133848484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133848479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56357a48ee5c5b3418a886ef1563949f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUI: {fileID: 259066906}
+  otherUI: {fileID: 498206779}
+  enemySlider: {fileID: 566832815}
+  playerSlider: {fileID: 622238497}
+  portraitAnimator: {fileID: 408669163}
+  pauseEventName: Pause
+  otherUIEventName: OtherUI
 --- !u!1 &1147004624
 GameObject:
   m_ObjectHideFlags: 0
@@ -8343,7 +8718,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858285}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -8530,6 +8905,7 @@ MonoBehaviour:
   DeathUI: {fileID: 1711384302}
   health: 3
   maxHp: 15
+  panelAnimator: {fileID: 408669163}
   HPos1: {fileID: 1974460202}
   HPos2: {fileID: 472877521}
   HPos3: {fileID: 1022496853}
@@ -11931,7 +12307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1711384303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11944,6 +12320,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 309959074}
   - {fileID: 1328137757}
   - {fileID: 316404723}
   - {fileID: 1878221791}
@@ -12212,6 +12589,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829906060}
+  m_CullTransparentMesh: 1
+--- !u!1 &1841313859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841313860}
+  - component: {fileID: 1841313862}
+  - component: {fileID: 1841313861}
+  m_Layer: 5
+  m_Name: Bacground (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1841313860
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841313859}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 13608654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.17022705, y: 4.817383}
+  m_SizeDelta: {x: 818.2822, y: 1684.8729}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1841313861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841313859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.59607846}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1841313862
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841313859}
   m_CullTransparentMesh: 1
 --- !u!1 &1864433366
 GameObject:
@@ -13573,6 +14025,7 @@ MonoBehaviour:
   WinUI: {fileID: 13608653}
   health: 3
   maxHp: 15
+  panelAnimator: {fileID: 408669163}
   HPos1: {fileID: 935838070}
   HPos2: {fileID: 886786944}
   HPos3: {fileID: 1286310426}
@@ -13921,4 +14374,4 @@ SceneRoots:
   - {fileID: 408669164}
   - {fileID: 1409068950}
   - {fileID: 671067084}
-  - {fileID: 1069865926}
+  - {fileID: 824631788}
