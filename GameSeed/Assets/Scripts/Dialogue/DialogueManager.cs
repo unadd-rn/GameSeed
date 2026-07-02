@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
+using DG.Tweening;
 using UnityEngine.EventSystems;
 using System;
 using Unity.VisualScripting;
@@ -27,6 +28,13 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float typingSpeed = 0.005f;
     [SerializeField] private int charsPerTick = 3;
 
+    [Header("DialogueBoxPositioning")]
+    [SerializeField] private RectTransform dialoguePanelRect;
+    [SerializeField] private Vector2 defaultAnchoredPosition;
+    [SerializeField] private Vector2 raisedAnchoredPosition;
+    [SerializeField] private float moveDuration = 0.25f;
+    [SerializeField] private Ease moveEase = Ease.OutCubic;
+
     private const string HIGHLIGHT_TAG = "highlight";
     private const string HIGHLIGHT_NONE = "none";
     private const string ACTOR_TAG = "actor";
@@ -44,14 +52,36 @@ public class DialogueManager : MonoBehaviour
     public event System.Action OnDialogueEnd;
     public event System.Action<string> OnHighlightTag;
     public bool IsTapLocked => tapLocked;
+    private Tween dialogueBoxMoveTween;
 
     private void Awake()
     {
         Debug.Log("DialogueManager Awake running");
         story = new Story(inkJson.text);
         Debug.Log("Story created successfully");
+
+        if (dialoguePanelRect == null && dialoguePanel != null)
+        {
+            dialoguePanelRect = dialoguePanel.GetComponent<RectTransform>();
+        }
+        if (dialoguePanelRect != null)
+        {
+            defaultAnchoredPosition = dialoguePanelRect.anchoredPosition;
+        }
     }
 
+    public void SetDialogueBoxRaised(bool raised)
+    {
+        if (dialoguePanelRect == null) return;
+
+        dialogueBoxMoveTween?.Kill();
+
+        Vector2 target = raised ? raisedAnchoredPosition : defaultAnchoredPosition;
+        dialogueBoxMoveTween = dialoguePanelRect
+        .DOAnchorPos(target, moveDuration)
+        .SetEase(moveEase)
+        .SetUpdate(UpdateType.Normal, true);
+    }
     public void SetWaitForAction(bool waiting)
     {
         waitingForAction = waiting;

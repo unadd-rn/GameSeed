@@ -8689,7 +8689,7 @@ MonoBehaviour:
   pindahLength: 2
   checkRadius: 1.5
   stickSpawn: {fileID: 1216302336}
-  isTutorialScene: 0
+  isTutorialScene: 1
 --- !u!114 &1216302338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12204,7 +12204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1771430557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12461,6 +12461,11 @@ MonoBehaviour:
   tutorialManager: {fileID: 623445646}
   typingSpeed: 0.005
   charsPerTick: 3
+  dialoguePanelRect: {fileID: 0}
+  defaultAnchoredPosition: {x: 0, y: 0}
+  raisedAnchoredPosition: {x: 0, y: 300}
+  moveDuration: 0.25
+  moveEase: 9
 --- !u!1 &1829906060
 GameObject:
   m_ObjectHideFlags: 0
@@ -13941,7 +13946,7 @@ MonoBehaviour:
   pindahLength: 2
   checkRadius: 1.5
   enemyAI: {fileID: 2055251481}
-  isTutorialScene: 0
+  isTutorialScene: 1
   enemyBodyScript: {fileID: 1543817072}
   enemyGadgetScript: {fileID: 2055251490}
   bodyDropChance: 0.6

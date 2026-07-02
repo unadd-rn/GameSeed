@@ -86,8 +86,8 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
-    - _CenterX: 0.5
-    - _CenterY: 0.2915982
+    - _CenterX: 0.16109288
+    - _CenterY: 0.27489817
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CornerRadius: 0.01

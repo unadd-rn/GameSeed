@@ -123,6 +123,13 @@ public class SceneController : MonoBehaviour
         goToSceneName("Unad", "Terang");
         AudioManager.Instance.PlayMusic("AyamBoss");
     }
+
+    public void StartTutorial()
+    {
+        Debug.Log("dilatih dulu loh yah");
+        
+        goToSceneName("Senna - prologue", "Terang");
+    }
     #endregion
 
     public void SFXButtonPressed()

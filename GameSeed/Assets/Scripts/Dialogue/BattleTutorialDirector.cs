@@ -69,7 +69,9 @@ public class BattleTutorialDirector : MonoBehaviour
 
     private void OnHighlightTag(string elementName)
     {
-        if (elementName.ToLower() == "spawn")
+        string el = elementName.ToLower();
+
+        if (el == "spawn")
         {
             if (spawnPreviewObject != null)
             {
@@ -77,6 +79,8 @@ public class BattleTutorialDirector : MonoBehaviour
             }
             stickSpawn.SetPlacementAllowed(true); // kata admin boleh place
         }
+
+        dialogueManager.SetDialogueBoxRaised(el == "    forcebar");
     }
 
     public void OnPlayerThrowComplete()
@@ -140,6 +144,7 @@ public class BattleTutorialDirector : MonoBehaviour
         }
 
         turnManager.SetState(TurnState.PlayerThrowing);
+        if (tutorialManager != null) tutorialManager.ShowFullDim();
         dialogueManager.EnterDialogue(afterEnemyTurnKnot);
     }
 
