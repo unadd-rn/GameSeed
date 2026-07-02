@@ -76,6 +76,7 @@ public class StickSpawn : MonoBehaviour
                 spawnPositionPlayer = areaHit.point;
                 TurnManager.Instance.SetState(TurnState.EnemyTurn);
                 hasPlaced = true;
+                AudioManager.Instance.PlaySFX("ButtonPressed");
                 this.enabled = false;
             }
         }

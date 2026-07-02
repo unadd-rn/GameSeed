@@ -50,6 +50,7 @@ public class EnemyAI : MonoBehaviour
     public void StartTurn()
     {
         StartCoroutine(ExecuteAITurn());
+        
     }
     private Vector3 PlaceStickRandomly()
     {
@@ -70,6 +71,7 @@ public class EnemyAI : MonoBehaviour
             transform.position = randomPos;
             refEnemyPosition = randomPos;
             TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+            AudioManager.Instance.PlaySFX("ButtonPressed");
             hasPlaced = true;
         }
 

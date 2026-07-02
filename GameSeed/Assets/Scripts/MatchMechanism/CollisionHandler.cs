@@ -145,6 +145,7 @@ public class CollisionHandler : MonoBehaviour
     {
         if (statusImageUI != null && winningSprite != null)
         {
+            AudioManager.Instance.PlaySFX("CutIn");
             statusImageUI.gameObject.SetActive(true); // Make sure the UI object is visible
             statusImageUI.sprite = winningSprite;     // Swap the image texture
             portraitAnimator.PlayEventIn("cutIn");
