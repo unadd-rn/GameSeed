@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51febd836eeda142bac53738d9d11a0, type: 3}
   m_Name: Chonk
   m_EditorClassIdentifier: 
-  stickName: 
-  description: 
-  stickIcon: {fileID: 0}
+  stickName: Chonk
+  description: 'This chonky stick looks like it has nine lives. (HP = 21, ATK = 3.5)  '
+  stickIcon: {fileID: 21300000, guid: 863917a8f60381d4685b021859fb40ca, type: 3}
   stickMesh: {fileID: -787792523241747757, guid: 81d533f39146c58489a100114c7017c0,
     type: 3}
   stickMaterial: {fileID: 2100000, guid: a370548356845d049ae640320d24396a, type: 2}

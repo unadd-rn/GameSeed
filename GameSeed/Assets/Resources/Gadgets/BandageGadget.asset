@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BandageGadget
   m_EditorClassIdentifier: 
   gadgetName: Bandage
-  description: First aid! First aid!
+  description: First aid! Can be used as a layer of protection against attacks and
+    wounds. (+10 HP)
   model: {fileID: 0}
   mesh: {fileID: 9091874763089778162, guid: 7d9c772ec9a829a40be200832a6bbc12, type: 3}
   material: {fileID: 2100000, guid: 065765fd1b2c63e4f8e6efa0e2de628e, type: 2}

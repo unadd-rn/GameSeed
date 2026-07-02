@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Bamboo Pistol Gadget
   m_EditorClassIdentifier: 
   gadgetName: Slingshot
-  description: This is the description of the gadget
+  description: A versatile, old-school weapon for long range. Deals 10 damage. (1
+    use per match)
   model: {fileID: 21300000, guid: 1a872254fce6a8743b83389b829f4364, type: 3}
   mesh: {fileID: 5665763164275481281, guid: 7b714e4309424cd4ea93479189fe1dc7, type: 3}
   material: {fileID: 2100000, guid: f58e905fbdee8ea4cbc93d2a7c096d71, type: 2}
