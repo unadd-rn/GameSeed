@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad01604d927e404c9f53dece7ba4131, type: 3}
   m_Name: KnockBackGadgetUnad
   m_EditorClassIdentifier: 
-  gadgetName: Knock
-  description: This is the description of the gadget
+  gadgetName: LPG
+  description: A classic gas canister that surely will make your enemy more careful.
+    (No damage if attacked)
   model: {fileID: 21300000, guid: 4bfa6dc7f6d1fc54486de32cd2643677, type: 3}
   mesh: {fileID: -567259905036692206, guid: 28692bc1feef44542a524ba5e00afe61, type: 3}
   material: {fileID: 2100000, guid: 37c45f8aa516b7d4a8f3bdcfae589abb, type: 2}

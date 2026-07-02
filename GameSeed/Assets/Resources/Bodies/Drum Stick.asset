@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Drum Stick
   m_EditorClassIdentifier: 
   stickName: Drum Stick
-  description: Boss's Exclusive
-  stickIcon: {fileID: 0}
+  description: A drum... stick? Deals a decent amount of damage. (HP = 12.5, ATK
+    = 10)
+  stickIcon: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19, type: 3}
   stickMesh: {fileID: 1248039166958328286, guid: c8c17690cb769ae44b11522fb465f380,
     type: 3}
   stickMaterial: {fileID: 2100000, guid: 7186e38d0b8e8074183b525b3f2bcb80, type: 2}

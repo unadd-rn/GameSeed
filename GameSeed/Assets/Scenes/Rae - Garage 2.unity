@@ -672,17 +672,17 @@ PrefabInstance:
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.44840705
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.42581773
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.6546385
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -1353,25 +1353,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -1512,25 +1523,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -2125,25 +2147,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -2284,25 +2317,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -4084,25 +4128,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -4975,25 +5030,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -5435,25 +5501,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5f04d9042ecd7924688d2b5dce6740a4,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 849
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 81
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -7046,25 +7123,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
@@ -7926,25 +8014,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slots (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6424340173814182026, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3f4e45851bdc4a4389ee5c676920d19,
+        type: 3}
+    - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 774
+      objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4484071
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4258177
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.654639
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7059358275239415210, guid: 80dade0004da2c746ba7c323f44d00d7,
         type: 3}

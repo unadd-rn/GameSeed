@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0845163552b1746994c425a987cfec, type: 3}
   m_Name: Tronton
   m_EditorClassIdentifier: 
-  stickName: 
-  description: 
-  stickIcon: {fileID: 0}
+  stickName: Tronton
+  description: A very durable and heavy-looking stick. (HP = 20, ATK = 4)
+  stickIcon: {fileID: 21300000, guid: 8cc49a7e53c343f49aca8c158fd99f78, type: 3}
   stickMesh: {fileID: -7196802604745430461, guid: 6379f1be1f97159428c7e9429e8a79ca,
     type: 3}
   stickMaterial: {fileID: 2100000, guid: 9a66147be3e917149993fd25ef7b7812, type: 2}

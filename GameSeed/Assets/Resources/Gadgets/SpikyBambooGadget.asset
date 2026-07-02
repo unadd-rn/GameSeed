@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SpikyBambooGadget
   m_EditorClassIdentifier: 
   gadgetName: Spiky Bamboo
-  description: By the willpower of ancestor!!
+  description: By the willpower of ancestor!! Sharp and dangerous bamboo that will
+    hurt enemies. (+2 ATK)
   model: {fileID: 0}
   mesh: {fileID: -4147266318922990756, guid: 3e64d12ce8ad5f640959ae2c7342e91f, type: 3}
   material: {fileID: 2100000, guid: 27bab8097ba61f64ebfbefce64ca2f1a, type: 2}

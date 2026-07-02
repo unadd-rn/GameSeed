@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a60d166c6c63f4091ff01ea416dcd4, type: 3}
   m_Name: Tung Tung Tung Sahur
   m_EditorClassIdentifier: 
-  stickName: 
-  description: 
-  stickIcon: {fileID: 0}
+  stickName: The Infinite S
+  description: The  infinite S design surely brings back nostalgia. (HP = 14, ATK
+    = 5.5)
+  stickIcon: {fileID: 21300000, guid: 2d931928c30b4a54791a00fad1b6b39a, type: 3}
   stickMesh: {fileID: 4579454407841743219, guid: 9421f358d9b080b4f8ebb497e42e014d,
     type: 3}
   stickMaterial: {fileID: 2100000, guid: 4527fafed3b85d64697e44e3cc059ce2, type: 2}

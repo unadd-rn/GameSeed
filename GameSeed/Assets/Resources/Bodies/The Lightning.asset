@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b1cf4cb803ba04a82eb158dc5f45f5, type: 3}
   m_Name: The Lightning
   m_EditorClassIdentifier: 
-  stickName: 
-  description: 
-  stickIcon: {fileID: 0}
+  stickName: The Lightning
+  description: A very cool and striking design. Looks a little bit fragile. (HP =
+    10, ATK = 7)
+  stickIcon: {fileID: 21300000, guid: cec3e635177c8744690d56fdc80bfa1d, type: 3}
   stickMesh: {fileID: 6416302070336371891, guid: 35405c5ebe949e54fbbbe2b3f3387929,
     type: 3}
   stickMaterial: {fileID: 2100000, guid: c9e4d042d5a139b4f9fb42aebefd76cf, type: 2}
