@@ -76,7 +76,7 @@ MonoBehaviour:
   - groupID: Slider
     clips:
     - {fileID: 8300000, guid: ad6c9a435eaa22b46a07c6b58a34467a, type: 3}
-  - groupID: Slingshot
+  - groupID: SlingshotActivate
     clips:
     - {fileID: 8300000, guid: 30ad1cceb9781c6439e6ebc956b49416, type: 3}
   - groupID: StickJatuh

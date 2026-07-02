@@ -27,6 +27,8 @@ public class ShootingMechanism : MonoBehaviour
         {
             rb.velocity = direction * shootForce;
         }
+
+        AudioManager.Instance.PlaySFX("SlingshotActivate");
     }
 
     // Tambahkan ini di ShootingMechanism.cs
