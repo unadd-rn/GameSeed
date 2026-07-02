@@ -178,10 +178,17 @@ public class ThrowEnemy : MonoBehaviour
         Vector3 flatSpin = spinAxisY * (hitPoint * stickData.spinScale * stickData.velocityScale); 
         
         rigid.angularVelocity += logRoll + flatSpin;
-
-        AudioManager.Instance.PlaySFX("StickJatuh");
+        
+        StartCoroutine(SFXAfterThrow());
 
         activeResetCoroutine = StartCoroutine(ResetAfterThrow());
+    }
+
+    IEnumerator SFXAfterThrow()
+    {
+        AudioManager.Instance.PlaySFX("TepokStick");
+        yield return new WaitForSeconds(0.2f);
+        AudioManager.Instance.PlaySFX("StickJatuh");
     }
 
     public void HandleKnockback()
