@@ -53,6 +53,12 @@ public class GadgetManager : MonoBehaviour
                 gadgetOwnedNeff++;
             }
         }
+
+        GarageManager grg = GameObject.FindWithTag("GarageM").GetComponent<GarageManager>();
+        if(grg != null)
+        {
+            garageManager = grg;
+        }
     }
 
     private void Start()
