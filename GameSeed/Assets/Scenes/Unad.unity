@@ -8931,11 +8931,11 @@ MonoBehaviour:
   HPos5: {fileID: 328158432}
   HPos6: {fileID: 329673571}
   Bar: {fileID: 158708057}
-  layer1: {r: 1, g: 0.21069163, b: 0.21069163, a: 1}
-  layer2: {r: 0.22327036, g: 0.22327036, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7188537, b: 0.23137254, a: 1}
-  layer4: {r: 0.5911315, g: 0.2295596, b: 1, a: 1}
-  layer5: {r: 0.23905289, g: 0.9622642, b: 0.28653654, a: 1}
+  layer1: {r: 0.5537276, g: 0.2117647, b: 1, a: 1}
+  layer2: {r: 0.79510325, g: 0.2235294, b: 1, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.9550948, a: 1}
+  layer4: {r: 1, g: 0.23137254, b: 0.60382456, a: 1}
+  layer5: {r: 0.9607843, g: 0.23921566, b: 0.27957654, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
@@ -9002,6 +9002,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9517,6 +9518,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5469898082748180843, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6822454451077709265, guid: 429f94e7c3841424385d4657a50cc21b,
         type: 3}
       propertyPath: m_Name
@@ -14159,10 +14165,10 @@ MonoBehaviour:
   HPos6: {fileID: 204517112}
   Bar: {fileID: 1664787835}
   layer1: {r: 1, g: 0.21176471, b: 0.21176471, a: 1}
-  layer2: {r: 0.22352941, g: 0.22352941, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7176471, b: 0.23137255, a: 1}
-  layer4: {r: 0.5921569, g: 0.23137255, b: 1, a: 1}
-  layer5: {r: 0.23921569, g: 0.9647059, b: 0.2901961, a: 1}
+  layer2: {r: 1, g: 0.2235294, b: 0.5932859, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.9722156, a: 1}
+  layer4: {r: 0.77618617, g: 0.23137254, b: 1, a: 1}
+  layer5: {r: 0.5427835, g: 0.23921569, b: 0.9647059, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
@@ -14250,6 +14256,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &2055251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
