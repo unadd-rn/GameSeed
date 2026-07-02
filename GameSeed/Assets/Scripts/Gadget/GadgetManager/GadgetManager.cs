@@ -31,6 +31,22 @@ public class GadgetManager : MonoBehaviour
     [Header("Testing Purpose Only")]
     [SerializeField] private BaseGadget[] startingGadgets;
 
+    [Header("Player Prefs")]
+    public GadgetDatabase database;
+    const string SAVE_GADGET_KEY = "GadgetOwnedData";
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void AutoInit()
+    {
+        if (Instance != null) return;
+
+        var go = new GameObject("Gadget Manager");
+        var gm = go.AddComponent<GadgetManager>();
+        gm.database = Resources.Load<GadgetDatabase>("GadgetDatabase"); // taruh aset di Assets/Resources/
+        GameObject grg = GameObject.FindWithTag("GarageM");
+        if(grg != null)
+            gm.garageManager = grg.GetComponent<GarageManager>();
+    }
 
     private void Awake()
     {
@@ -44,34 +60,29 @@ public class GadgetManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        for (int i = 0; i < startingGadgets.Length; i++)
+        LoadGadgetOwned();
+
+        if(garageManager == null)
         {
-            if (startingGadgets[i] != null && i < gadgetOwned.Length)
-            {
-                gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
-                gadgetOwned[i].isEquipped = true;
-                gadgetOwnedNeff++;
-            }
+            GameObject grg = GameObject.FindWithTag("GarageM");
+            if(grg != null)
+                garageManager = grg.GetComponent<GarageManager>();
         }
     }
 
     private void Start()
     {
-        // for (int i = 0; i < startingGadgets.Length; i++)
-        // {
-        //     if (startingGadgets[i] != null && i < gadgetOwned.Length)
-        //     {
-        //         gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
-        //         gadgetOwned[i].isEquipped = false;
-        //         gadgetOwnedNeff++;
-        //     }
-        // }
-
-        // for(int i = 0; i < startingGadgets.Length; i++)
-        // {
-            // if(startingGadgets[i] != null)
-                // Debug.Log($"Nama gadget: {startingGadgets[i].gadgedOwned[]}")
-        // }
+        Debug.Log("mau starting gadget");
+        for (int i = 0; i < startingGadgets.Length; i++)
+        {
+            if (startingGadgets[i] != null && i < gadgetOwned.Length)
+            {
+                gadgetOwned[i] = new GadgetInstance(startingGadgets[i]);
+                gadgetOwnedNeff++;
+            }
+        }
+        gadgetOwned[2].isEquipped = true;
+        gadgetOwned[2].slotIdx = 2;
     }
 
     private void SetGadgetScale(GameObject go, BaseGadget gadgetData)
@@ -120,6 +131,8 @@ public class GadgetManager : MonoBehaviour
         backSlot.occupant = null;
         frontSlot.spawnedVisual = null;
         backSlot.spawnedVisual = null;
+
+        SaveGadgetOwned();
     }
 
     public void DetachGadgetbyID(string id)
@@ -242,6 +255,8 @@ public class GadgetManager : MonoBehaviour
         currentPreviewGadget = null;
         currentPreviewSlotIndex = -1;
         previewOriginalSlotIdx = -1;
+
+        SaveGadgetOwned();
     }
 
     public void CancelPreview()
@@ -283,6 +298,7 @@ public class GadgetManager : MonoBehaviour
         }
         gadgetOwned[gadgetOwnedNeff] = gadget;
         gadgetOwnedNeff++;
+        SaveGadgetOwned();
     }
 
     public void HandleMatchEndDurability()
@@ -305,6 +321,7 @@ public class GadgetManager : MonoBehaviour
                 }
             }
         }
+        SaveGadgetOwned();
     }
 
     private void RemoveGadgetAtIndex(int index)
@@ -319,45 +336,55 @@ public class GadgetManager : MonoBehaviour
         gadgetOwnedNeff--;
     } //bismillah bismillah bismillah berhasil yaAllah
 
-    // private void SetVisualAlpha(GameObject go, float alpha)
-    // {
-    //     MeshRenderer mr = go.GetComponent<MeshRenderer>();
-    //     if (mr == null) return;
+    /* ini buat player pref */
 
-    //     // bikin instance material baru biar gak ngubah asset asli
-    //     Material mat = mr.material;
-    //     Color c = mat.color;
-    //     c.a = alpha;
-    //     mat.color = c;
-    // }
+    public void SaveGadgetOwned()
+    {
+        var wrapper = new GadgetSaveWrapper();
 
-    // public void AttachGadget(GadgetInstance gadget, int slotIndex)
-    // {
-    //     if(slotIndex < 0 || slotIndex >= data.frontSlots.Length) return;
-    //     Transform parentTransform = stickBodyTransform != null ? stickBodyTransform : transform;
+        for (int i = 0; i < gadgetOwnedNeff; i++)
+        {
+            var g = gadgetOwned[i];
+            if (g == null || g.data == null) continue;
 
-    //     SlotDefinition frontSlot = data.frontSlots[slotIndex];
-    //     GameObject frontVisual = Instantiate(gadget.data.prefab, parentTransform);
+            wrapper.gadgets.Add(new GadgetSaveData
+            {
+                gadgetId = g.data.uniqueName,
+                isEquipped = g.isEquipped,
+                slotIdx = g.slotIdx,
+                currentDurability = g.currentDurability
+            });
+        }
 
-    //     frontVisual.transform.localPosition = frontSlot.localPosition;
-    //     frontVisual.transform.localRotation = Quaternion.identity; // bikin dia lagi ngadep ke depan
-    //     SetGadgetScale(frontVisual, gadget.data);
+        string json = JsonUtility.ToJson(wrapper);
+        PlayerPrefs.SetString(SAVE_GADGET_KEY, json);
+        PlayerPrefs.Save();
+    }
 
-    //     SlotDefinition backSlot = data.backSlots[slotIndex];
-    //     GameObject backVisual = Instantiate(gadget.data.prefab, parentTransform);
+    public void LoadGadgetOwned()
+    {
+        if (!PlayerPrefs.HasKey(SAVE_GADGET_KEY)) return; // belum pernah save, biarin default
 
-    //     backVisual.transform.localPosition = backSlot.localPosition;
-    //     backVisual.transform.localRotation = Quaternion.Euler(0, 180f, 0);
-    //     SetGadgetScale(backVisual, gadget.data);
+        string json = PlayerPrefs.GetString(SAVE_GADGET_KEY);
+        var wrapper = JsonUtility.FromJson<GadgetSaveWrapper>(json);
 
-    //     gadget.data.Apply(data);
+        gadgetOwnedNeff = 0;
 
-    //     frontSlot.spawnedVisual = frontVisual;
-    //     backSlot.spawnedVisual = backVisual;
+        foreach (var saved in wrapper.gadgets)
+        {
+            BaseGadget asset = database.GetByUniqueName(saved.gadgetId);
+            if (asset == null) continue; // skip kalau assetnya udah gak ada/ID salah
 
-    //     frontSlot.occupant = gadget;
-    //     backSlot.occupant = gadget;
+            var instance = new GadgetInstance(asset);
+            instance.isEquipped = saved.isEquipped;
+            instance.slotIdx = saved.slotIdx;
+            instance.currentDurability = saved.currentDurability;
 
-    //     gadget.isEquipped = true;
-    // }
+            if (gadgetOwnedNeff < maxGadget)
+            {
+                gadgetOwned[gadgetOwnedNeff] = instance;
+                gadgetOwnedNeff++;
+            }
+        }
+    }
 }

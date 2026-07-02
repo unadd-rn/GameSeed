@@ -47,6 +47,12 @@ public class GarageManager : MonoBehaviour
     [Header("Slider Gadget")]
     public Slider sliderGadget;
 
+    [Header("Some buttons")]
+    public Button confirmBody;
+    public Button confirmGadget;
+    public Button cancelPreview;
+    public Button manageInventory;
+
     void Start()
     {
         if (textField != null) textField.SetActive(false);
@@ -62,6 +68,38 @@ public class GarageManager : MonoBehaviour
         if (textField != null) SpawnStickSystem();
 
         sliderGadget.onValueChanged.AddListener(OnSliderValueChanged);
+
+        /* ngasi-ngasi listener soalnya kalau lgsg keknya hilang */
+        if(confirmBody != null)
+        {
+            confirmBody.onClick.RemoveAllListeners();
+            confirmBody.onClick.AddListener(() =>
+            {
+               BodyManager.Instance.ConfirmBody();
+               InactivateConfirm();
+            });
+        }
+
+        if(confirmGadget != null)
+        {
+            confirmGadget.onClick.RemoveAllListeners();
+            confirmBody.onClick.AddListener(() =>
+            {
+               GadgetManager.Instance.ConfirmPlacement();
+               InactivateConfirm();
+            });
+        }
+
+        if(cancelPreview != null)
+        {
+            cancelPreview.onClick.RemoveAllListeners();
+            cancelPreview.onClick.AddListener(() =>
+            {
+               GadgetManager.Instance.CancelPreview();
+               BodyManager.Instance.CancelPreviewBody();
+               InactivateConfirm();
+            });
+        }
     }
 
     void SpawnStickSystem()
@@ -99,6 +137,14 @@ public class GarageManager : MonoBehaviour
         if (GadgetManager.Instance != null)
         {
             GadgetManager.Instance.stickBodyTransform = bodyGO.transform;
+            foreach (var gadget in GadgetManager.Instance.gadgetOwned)
+            {
+                if (gadget != null && gadget.isEquipped)
+                {
+                    GadgetManager.Instance.StartPreviewGadget(gadget, gadget.slotIdx);
+                    GadgetManager.Instance.ConfirmPlacement();
+                }
+            }
         }
     }
 
