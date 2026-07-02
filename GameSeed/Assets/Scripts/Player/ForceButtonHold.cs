@@ -47,6 +47,7 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     {
         isPressed = false;
         stickThrow.Throw();
+        AudioManager.Instance.PlaySFX("StickJatuh");
 
         AudioManager.Instance.StopLoopingSFX();
     }
