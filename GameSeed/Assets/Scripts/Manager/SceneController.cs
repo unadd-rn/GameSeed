@@ -12,6 +12,29 @@ public class SceneController : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (AudioManager.Instance == null) return;
+
+        switch (scene.name)
+        {
+            case "Cet - lobby1":
+                AudioManager.Instance.PlayMusic("MainMenu");
+                break;
+            case "Unad":
+                AudioManager.Instance.PlayMusic("AyamBoss");
+                break;
+        }
     }
     
     public void QuitGame()
