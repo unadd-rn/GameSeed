@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class StickSpawn : MonoBehaviour
 {
@@ -28,15 +29,26 @@ public class StickSpawn : MonoBehaviour
     void OnEnable()
     {
         controls.Player.Enable();
-        controls.Player.TouchPress.started += ctx => isTouching = true;
-        controls.Player.TouchPress.canceled += ctx => isTouching = false;
+        controls.Player.TouchPress.started += HandleTouchStart;
+        controls.Player.TouchPress.canceled += HandleTouchEnd;
     }
 
     void OnDisable()
     {
-        controls.Player.TouchPress.started -= ctx => isTouching = true;
-        controls.Player.TouchPress.canceled -= ctx => isTouching = false;
+        controls.Player.TouchPress.started -= HandleTouchStart;
+        controls.Player.TouchPress.canceled -= HandleTouchEnd;
         controls.Player.Disable();
+    }
+
+    // ini berdua buat guard di hp cuma idk bener atau kagak
+    private void HandleTouchStart(InputAction.CallbackContext ctx)
+    {
+        isTouching = true;
+    }
+
+    private void HandleTouchEnd(InputAction.CallbackContext ctx)
+    {
+        isTouching = false;
     }
 
     void Update()

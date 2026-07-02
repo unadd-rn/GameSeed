@@ -35,6 +35,7 @@ public class CollisionHandler : MonoBehaviour
         {
             statusImageUI.gameObject.SetActive(false);
         }
+        activeKnockbacks = 0;
     }
 
     void OnCollisionEnter(Collision collision)
