@@ -90,7 +90,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f489256677eebce47b98df4e6e34ab34, type: 3}
   - groupID: VersusAlt
     clips:
-    - {fileID: 8300000, guid: 50f3d12edbef0264c88a718b81c8e025, type: 3}
+    - {fileID: 8300000, guid: a2e300b390ed03c41b42d19065b2d8e3, type: 3}
   - groupID: PowerNaikTurun
     clips:
     - {fileID: 8300000, guid: 6b285a2ea74feb444bdf6b804b9139d6, type: 3}
