@@ -6,30 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Unad.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
     path: Assets/Scenes/Cet - lobby1.unity
     guid: b1f453954b3466d4fa3084e5892ef0e3
+  - enabled: 1
+    path: Assets/Scenes/Cet - matchLobby.unity
+    guid: ec5b90a3bd2f3694094dad88647bbb57
+  - enabled: 1
+    path: Assets/Scenes/Rae - Garage 2.unity
+    guid: 971c983421c99944bbdaabc6ca38e95e
+  - enabled: 1
+    path: Assets/Scenes/Match.unity
+    guid: cfc767d70da05784cba8221522c77eba
+  - enabled: 1
+    path: Assets/Scenes/Unad.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/Scenes/Rae - Garage.unity
     guid: 2d549aa0942eb8f4eb10bb48ac23cf8a
   - enabled: 0
     path: Assets/Scenes/Rae - Garage 1.unity
     guid: 087853e7974365c4fa0b32b8d1b97f10
-  - enabled: 1
-    path: Assets/Scenes/Cet - matchLobby.unity
-    guid: ec5b90a3bd2f3694094dad88647bbb57
   - enabled: 0
     path: Assets/Scenes/RenMenu.unity
     guid: e816e334274f1f1dfa759c429a734d79
   - enabled: 1
-    path: Assets/Scenes/Rae - Garage 2.unity
-    guid: 971c983421c99944bbdaabc6ca38e95e
-  - enabled: 1
     path: Assets/Scenes/RenOtakOtak.unity
     guid: f3b384d0ee132c44b83c639620e768f0
-  - enabled: 1
-    path: Assets/Scenes/Match.unity
-    guid: cfc767d70da05784cba8221522c77eba
   m_configObjects: {}
