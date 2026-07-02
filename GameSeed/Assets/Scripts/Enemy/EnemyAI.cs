@@ -73,22 +73,50 @@ public class EnemyAI : MonoBehaviour
 
         if (throwEnemyScript != null && TurnManager.Instance.GetCurrentState() == TurnState.EnemyTurn)
         {
+            Debug.Log("[EnemyAI - DETEKTIF] Syarat tembus! Masuk ke logic Raycast & Lempar.");
             throwEnemyScript.enabled = true;
             throwEnemyScript.OnStickPlaced();
             
             yield return new WaitForSeconds(1.0f);
 
-            if (gadgetManager != null && gadgetManager.TryUseGadget())
+            Vector3 directionToPlayer = playerTransform.position - transform.position;
+            directionToPlayer.y = 0; 
+            // if (directionToPlayer != Vector3.zero)
+            // {
+            //     transform.rotation = Quaternion.LookRotation(directionToPlayer);
+            // }
+
+            Vector3 rayStart = transform.position + (directionToPlayer.normalized * 1f);
+            bool hasLineOfSight = false;
+
+            int layerMask = ~(1 << LayerMask.NameToLayer("Ground"));
+
+            // Raycast biasa, tapi dia otomatis nembus benda yang layernya Ground
+            if (Physics.Raycast(rayStart, directionToPlayer.normalized, out RaycastHit hit, 15f, layerMask))
             {
-                // Kalau masuk ke sini, artinya musuh udah berhasil pake gadget.
+                if (hit.transform.CompareTag("Player"))
+                {
+                    hasLineOfSight = true;
+                    Debug.Log($"[EnemyAI - DEBUG] SUKSES! Kena Player di jarak {hit.distance}");
+                }
+                else
+                {
+                    hasLineOfSight = false; // Kehalang tembok / obstacle lain
+                    Debug.Log($"[EnemyAI - DEBUG] GAGAL! Kehalang object: {hit.transform.name}");
+                }
+            }
+            else
+            {
+                Debug.Log("[EnemyAI - DEBUG] Raycast nggak nabrak apa-apa.");
+            }
+
+            if (gadgetManager != null && gadgetManager.TryUseGadget(hasLineOfSight))
+            {
                 yield return new WaitForSeconds(thinkDelay);
-                
-                // Langsung oper turn ke player
                 TurnManager.Instance.SetState(TurnState.PlayerThrowing);
-                
-                // Stop eksekusi script ini biar dia ga lanjut ngelempar
                 yield break; 
             }
+            Debug.Log("[EnemyAI - DETEKTIF] Gadget gagal/nggak dipake. Lanjut Monte Carlo & Lempar biasa.");
 
             MoveScenario bestScene = RunMonteCarlo();
             throwEnemyScript.SetAIHitPoint(bestScene.hitPoint * -1f);
@@ -204,7 +232,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (col.CompareTag("OutOfBound"))
             {
-                Debug.Log("Out of bound detected!");
+                // Debug.Log("Out of bound detected!");
                 score -= 500;
             }
         }
@@ -221,19 +249,19 @@ public class EnemyAI : MonoBehaviour
         return score;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (debugPredictedPositions == null || debugPredictedPositions.Count == 0) return;
+    // private void OnDrawGizmos()
+    // {
+    //     if (debugPredictedPositions == null || debugPredictedPositions.Count == 0) return;
 
-        Gizmos.color = Color.yellow;
+    //     Gizmos.color = Color.yellow;
 
-        foreach(Vector3 pos in debugPredictedPositions)
-        {
-            Gizmos.DrawSphere(pos + Vector3.up * 0.5f, 0.3f);
-        }
+    //     foreach(Vector3 pos in debugPredictedPositions)
+    //     {
+    //         Gizmos.DrawSphere(pos + Vector3.up * 0.5f, 0.3f);
+    //     }
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, debugBestFinalPosition);
-        Gizmos.DrawSphere(debugBestFinalPosition, 0.4f);
-    }
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawLine(transform.position, debugBestFinalPosition);
+    //     Gizmos.DrawSphere(debugBestFinalPosition, 0.4f);
+    // }
 }

@@ -340,6 +340,22 @@ public class GadgetManager : MonoBehaviour
         backSlot.spawnedVisual = backVisual;
         backSlot.occupant = gadget;
     }
+
+    public void SaveInventory()
+    {
+        string json = JsonUtility.ToJson(this); 
+        PlayerPrefs.SetString("GadgetInventory", json);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadInventory()
+    {
+        if (PlayerPrefs.HasKey("GadgetInventory"))
+        {
+            string json = PlayerPrefs.GetString("GadgetInventory");
+            JsonUtility.FromJsonOverwrite(json, this);
+        }
+    }
     
     //bismillah bismillah bismillah berhasil yaAllah
 

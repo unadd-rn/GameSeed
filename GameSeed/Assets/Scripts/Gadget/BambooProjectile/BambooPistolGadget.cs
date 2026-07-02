@@ -29,19 +29,52 @@ public class BambooPistolGadget : BaseGadget
         ShootingMechanism shooter = target.GetComponent<ShootingMechanism>();
         StickSlot stickSlot = target.GetComponentInChildren<StickSlot>(); 
 
-        if (playerCap != null && playerCap.canShootBambooPistol > 0 && shooter != null && stickSlot != null)
+        if (playerCap == null || shooter == null || stickSlot == null) return;
+
+        if (playerCap.canShootBambooPistol > 0)
         {
             Transform spawnPoint = GetGadgetTransform(stickSlot);
+            if (spawnPoint == null)
+                return;
 
-            if (spawnPoint != null)
+            playerCap.canShootBambooPistol--; 
+
+            Vector3 correctedForward = spawnPoint.up;
+            Vector3 shootDirection = Vector3.ProjectOnPlane(spawnPoint.forward, Vector3.up).normalized;
+
+
+            if (shootDirection.magnitude < 0.1f) 
+                shootDirection = Vector3.ProjectOnPlane(spawnPoint.up, Vector3.up).normalized;
+
+            if (target.CompareTag("Player"))
             {
-                playerCap.canShootBambooPistol--;
-                shooter.Shoot(spawnPoint.position, spawnPoint.forward, projectilePrefab, target.tag);
+                StickThrowTest throwTest = target.GetComponent<StickThrowTest>();
+                if (throwTest != null)
+                {
+                    shootDirection = throwTest.GetStableForward() * throwTest.GetThrowDirectionZ();
+                }
             }
-            else
+            else if (target.CompareTag("Enemy"))
             {
-                Debug.LogWarning("Visual Bamboo Pistol tidak ditemukan di StickSlot!");
+                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                if (playerObj != null)
+                {
+                    Vector3 dirToPlayer = playerObj.transform.position - spawnPoint.position;
+                    dirToPlayer.y = 0;
+                    shootDirection = dirToPlayer.normalized;
+                }
             }
+            shootDirection.y = 0;
+            if (shootDirection == Vector3.zero) 
+            {
+                shootDirection = target.transform.forward;
+                shootDirection.y = 0; 
+            }
+            shootDirection.Normalize();
+
+            Vector3 spawnPosition = spawnPoint.position + (shootDirection * 0.5f);
+
+            shooter.Shoot(spawnPosition, shootDirection, projectilePrefab, target.tag);
         }
     }
 

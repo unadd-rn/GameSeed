@@ -19,7 +19,7 @@ public class PassiveStatGadget : BaseGadget
                 Debug.Log("Bandage applied");
             } else if (gadgetName == "Spiky Bamboo")
             {
-                cap.haveBandage=true;
+                cap.haveSpikyBamboo=true;
                 Debug.Log("Spiky Bamboo applied");
             } else if (gadgetName == "Motorcycle Helmet")
             {
