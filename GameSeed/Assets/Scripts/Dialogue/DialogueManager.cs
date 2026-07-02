@@ -5,6 +5,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine.EventSystems;
 using System;
+using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TutorialManager tutorialManager;
 
     [Header("TypewriterSpeed")]
-    [SerializeField] private float typingSpeed = 0.03f;
+    [SerializeField] private float typingSpeed = 0.01f;
 
     private const string HIGHLIGHT_TAG = "highlight";
     private const string HIGHLIGHT_NONE = "none";
@@ -37,8 +38,11 @@ public class DialogueManager : MonoBehaviour
     public bool IsDialoguePlaying => dialoguePlaying;
     public bool IsWaitingForAction => waitingForAction;
     private bool waitingForAction = false;
+    private bool ignoreTapThisFrame = false;
+    private bool tapLocked = false;
     public event System.Action OnDialogueEnd;
     public event System.Action<string> OnHighlightTag;
+    public bool IsTapLocked => tapLocked;
 
     private void Awake()
     {
@@ -52,13 +56,39 @@ public class DialogueManager : MonoBehaviour
         waitingForAction = waiting;
     }
 
+    public void IgnoreTapThisFrame()
+    {
+        ignoreTapThisFrame = true;
+    }
+
+    public void LockTapForDuration(float duration)
+    {
+        StartCoroutine(TapLockCoroutine(duration));
+    }
+
+    private IEnumerator TapLockCoroutine(float duration)
+    {
+        tapLocked = true;
+        yield return new WaitForSeconds(duration);
+        tapLocked = false;
+    }
+
     private void Update()
     {
+        if (ignoreTapThisFrame)
+        {
+            ignoreTapThisFrame = false;
+            return;
+        }
         if (!dialoguePlaying)
         {
             return;
         }
         if (waitingForAction)
+        {
+            return;
+        }
+        if (tapLocked)
         {
             return;
         }
@@ -136,6 +166,8 @@ public class DialogueManager : MonoBehaviour
                 StopCoroutine(typingCoroutine);
             }
             typingCoroutine = StartCoroutine(TypeLine(nextLine));
+
+            LockTapForDuration(1f);
         }
         else
         {

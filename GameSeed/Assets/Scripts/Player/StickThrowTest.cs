@@ -392,6 +392,8 @@ public class StickThrowTest : MonoBehaviour
 
     private void ResetStick()
     {
+        Debug.Log("ResetStick called, setting EnemyTurn");
+
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
         
@@ -409,7 +411,16 @@ public class StickThrowTest : MonoBehaviour
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;
-        TurnManager.Instance.SetState(TurnState.EnemyTurn);
+
+        BattleTutorialDirector director = FindObjectOfType<BattleTutorialDirector>();
+        if (director != null)
+        {
+            director.OnPlayerThrowComplete();
+        }
+        else
+        {
+            TurnManager.Instance.SetState(TurnState.EnemyTurn);
+        }
     }
 
     private void GetStableStickAxes(out Vector3 stableForward, out Vector3 stableRight)

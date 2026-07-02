@@ -18,10 +18,11 @@ public class BattleTutorialDirector : MonoBehaviour
     [SerializeField] private GameObject spawnPreviewObject;
 
     private bool introFinished = false;
+    private bool enemyTurnStarted = false;
 
     private void Start()
     {
-        stickSpawn.SetTutorialMode(true);
+        stickSpawn.SetPlacementAllowed(false);
 
         dialogueManager.OnDialogueEnd += OnDialogueFinished;
         dialogueManager.OnHighlightTag += OnHighlightTag;
@@ -37,12 +38,16 @@ public class BattleTutorialDirector : MonoBehaviour
         if (!introFinished)
         {
             introFinished = true;
-            turnManager.SetState(TurnState.PlayerPlacement);
+            if (tutorialManager != null) tutorialManager.HideTutorial(); 
+            if (!enemyTurnStarted)
+            {
+                enemyTurnStarted = true;
+                turnManager.SetState(TurnState.EnemyTurn);
+            }
         }
         else
         {
-            // After enemy turn dialogue ends
-            // Load next scene, show results, etc.
+            if (tutorialManager != null) tutorialManager.HideTutorial();
             Debug.Log("Tutorial complete");
         }
     }
@@ -55,7 +60,16 @@ public class BattleTutorialDirector : MonoBehaviour
             {
                 spawnPreviewObject.SetActive(true);
             }
+            stickSpawn.SetPlacementAllowed(true); // kata admin boleh place
         }
+    }
+
+    public void OnPlayerThrowComplete()
+    {
+        if (enemyTurnStarted) return;
+
+        dialogueManager.SetWaitForAction(false);
+        dialogueManager.ContinueStory();
     }
 
     private void OnStickPlaced()
@@ -87,11 +101,13 @@ public class BattleTutorialDirector : MonoBehaviour
 
     public void OnEnemyTurnEnd()
     {
+        turnManager.SetState(TurnState.PlayerThrowing);
         dialogueManager.EnterDialogue(afterEnemyTurnKnot);
     }
 
     private void OnDestroy()
     {
+        if (tutorialManager != null) tutorialManager.ShowFullDim();
         dialogueManager.OnDialogueEnd -= OnDialogueFinished;
         dialogueManager.OnHighlightTag -= OnHighlightTag;
         stickSpawn.StickPlaced -= OnStickPlaced;

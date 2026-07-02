@@ -4777,6 +4777,7 @@ MonoBehaviour:
   playerSpawnScript: {fileID: 1216302336}
   playerThrowScript: {fileID: 1216302330}
   enemyAIScript: {fileID: 2055251481}
+  isTutorialScene: 1
 --- !u!4 &567858284
 Transform:
   m_ObjectHideFlags: 0
@@ -8542,6 +8543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placementAreaCollider: {fileID: 1561170823}
   throwScript: {fileID: 1216302330}
+  isTutorialScene: 1
   spawnPositionPlayer: {x: 0, y: 0, z: 0}
 --- !u!114 &1216302337
 MonoBehaviour:
@@ -12357,7 +12359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1771430557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12612,7 +12614,7 @@ MonoBehaviour:
   actorPanel: {fileID: 0}
   actorText: {fileID: 0}
   tutorialManager: {fileID: 1276488290}
-  typingSpeed: 0.03
+  typingSpeed: 0.01
 --- !u!1 &1829906060
 GameObject:
   m_ObjectHideFlags: 0

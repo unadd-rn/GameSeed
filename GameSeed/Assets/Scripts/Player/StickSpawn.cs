@@ -8,6 +8,7 @@ public class StickSpawn : MonoBehaviour
     [Header("References")]
     [SerializeField] private Collider placementAreaCollider;
     [SerializeField] private StickThrowTest throwScript;
+    [SerializeField] private bool isTutorialScene = false;
 
     private Camera mainCamera;
     private PlayerControls controls;
@@ -16,6 +17,7 @@ public class StickSpawn : MonoBehaviour
     public Vector3 spawnPositionPlayer;
     public System.Action StickPlaced;
     private bool tutorialMode = false;
+    private bool placementAllowed = false;
 
     void Awake()
     {
@@ -25,6 +27,8 @@ public class StickSpawn : MonoBehaviour
         {
             throwScript.enabled = false;
         }
+
+        if (isTutorialScene) placementAllowed = false;
     }
 
     void OnEnable()
@@ -49,14 +53,15 @@ public class StickSpawn : MonoBehaviour
         }
     }
 
-    public void SetTutorialMode(bool enabled)
+    public void SetPlacementAllowed(bool allowed) // this is for tutorial placement
     {
-        tutorialMode = enabled;
+        placementAllowed = allowed;
     }
 
     private void HandlePlacement()
     {
         if (placementAreaCollider == null) return;
+        if (!placementAllowed) return; // this is for tutorial placement
 
         if(!hasPlaced){
             Vector2 screenPosition = GetInputScreenPosition();
@@ -71,6 +76,8 @@ public class StickSpawn : MonoBehaviour
                 spawnPositionPlayer = areaHit.point;
                 hasPlaced = true;
                 this.enabled = false;
+
+                FindObjectOfType<DialogueManager>().IgnoreTapThisFrame();
 
                 Debug.Log($"StickSpawn: placement confirmed, tutorialMode: {tutorialMode}, invoking StickPlaced");
                 StickPlaced?.Invoke();

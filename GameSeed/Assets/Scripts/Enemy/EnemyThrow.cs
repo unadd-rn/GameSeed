@@ -227,6 +227,15 @@ public class ThrowEnemy : MonoBehaviour
         rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         if (hitPointSlider != null) hitPointSlider.value = 0f;
         hasBeenThrown = false;
-        TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+
+        BattleTutorialDirector director = FindObjectOfType<BattleTutorialDirector>();
+        if (director != null)
+        {
+            director.OnEnemyTurnEnd();
+        }
+        else
+        {
+            TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+        }
     }
 }

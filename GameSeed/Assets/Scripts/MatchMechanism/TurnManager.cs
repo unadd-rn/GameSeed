@@ -11,15 +11,18 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private StickSpawn playerSpawnScript;
     [SerializeField] private StickThrowTest playerThrowScript;
     [SerializeField] private EnemyAI enemyAIScript;
+    [SerializeField] private bool isTutorialScene = false;
     private TurnState currentState;
     private PortraitAnimator portraitAnimator;
     private BossMatch bossMatch;
+    private bool tutorialMode = false;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
         portraitAnimator = GameObject.Find("Animaton").GetComponent<PortraitAnimator>();
+        tutorialMode = isTutorialScene;
     }
 
     void Start()
@@ -58,6 +61,10 @@ public class TurnManager : MonoBehaviour
                 if (playerThrowScript != null) playerThrowScript.enabled = true;
                 if (enemyAIScript != null) enemyAIScript.enabled = false;
                 playerThrowScript.SetUIVisible(false);
+                if (!tutorialMode)
+                {
+                    playerSpawnScript.SetPlacementAllowed(true);
+                }
                 break;
 
             case TurnState.PlayerThrowing:
@@ -66,6 +73,7 @@ public class TurnManager : MonoBehaviour
                 break;
 
             case TurnState.EnemyTurn:
+                Debug.Log("TurnManager: EnemyTurn state set");
                 if (playerSpawnScript != null) playerSpawnScript.enabled = false;
                 if (playerThrowScript != null) playerThrowScript.enabled = false;
                 
