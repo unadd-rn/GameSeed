@@ -15,6 +15,7 @@ public class BodyInstance
         Debug.Log("masukin body di sini");
         this.id = System.Guid.NewGuid().ToString();
         this.data = baseData;
+        this.bodyTypeName = baseData.stickName;
         this.isEquipped = false;
         this.currentDurability = baseData.durability;
     }

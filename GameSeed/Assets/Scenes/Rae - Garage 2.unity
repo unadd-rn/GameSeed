@@ -185,6 +185,12 @@ MonoBehaviour:
     type: 3}
   spawnedSlot: {fileID: 0}
   sliderGadget: {fileID: 122617111}
+  bodies:
+  - {fileID: 11400000, guid: 78af31d9bb0c44b4389f8639fb1f22c5, type: 2}
+  - {fileID: 11400000, guid: 99c922a205975be459e91296d777af48, type: 2}
+  - {fileID: 11400000, guid: e8ea29b7a47871344960e1c3c0da8b37, type: 2}
+  - {fileID: 11400000, guid: 71f0805efc3c2c34685dd88fe639e651, type: 2}
+  - {fileID: 11400000, guid: 9475f53fe65136f418467b51e8e9da1f, type: 2}
 --- !u!1001 &37280866
 PrefabInstance:
   m_ObjectHideFlags: 0
