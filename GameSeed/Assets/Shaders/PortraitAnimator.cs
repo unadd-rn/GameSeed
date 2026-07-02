@@ -32,6 +32,7 @@ public class PortraitEventAnimation
     public Vector4 finalTrailOffset = Vector4.zero;
 
     public Vector2 offScreenOffset = new Vector2(-1200f, 0f);
+    public float   slideRotation   = 0f;
     public float   slideDuration   = 0.45f;
 
     public float spinDegrees      = 360f;
@@ -380,6 +381,7 @@ public class PortraitAnimator : MonoBehaviour
         {
             case AnimationType.Slide:
                 p.uiPortrait.anchoredPosition = p.localRestPosition + anim.offScreenOffset;
+                p.uiPortrait.localEulerAngles = new Vector3(0f, 0f, anim.slideRotation);
                 break;
             case AnimationType.SpinZoom:
                 p.uiPortrait.anchoredPosition = p.localRestPosition;
@@ -411,13 +413,19 @@ public class PortraitAnimator : MonoBehaviour
     private void DoSlideIn(PortraitData p, PortraitEventAnimation anim, float delay)
     {
         p.uiPortrait.anchoredPosition = p.localRestPosition + anim.offScreenOffset;
+        p.uiPortrait.localEulerAngles = new Vector3(0f, 0f, anim.slideRotation);
+
         p.uiPortrait.DOAnchorPos(p.localRestPosition, anim.slideDuration).SetEase(Ease.OutQuint).SetDelay(delay);
+        p.uiPortrait.DOLocalRotate(Vector3.zero, anim.slideDuration, RotateMode.Fast).SetEase(Ease.OutQuint).SetDelay(delay);
     }
 
     private void DoSlideOut(PortraitData p, PortraitEventAnimation anim, float delay)
     {
         p.uiPortrait.anchoredPosition = p.localRestPosition;
+        p.uiPortrait.localEulerAngles = Vector3.zero;
+
         p.uiPortrait.DOAnchorPos(p.localRestPosition + anim.offScreenOffset, anim.slideDuration).SetEase(Ease.InQuint).SetDelay(delay);
+        p.uiPortrait.DOLocalRotate(new Vector3(0f, 0f, anim.slideRotation), anim.slideDuration, RotateMode.Fast).SetEase(Ease.InQuint).SetDelay(delay);
     }
 
     private void DoSpinZoomIn(PortraitData p, PortraitEventAnimation anim, float delay)
