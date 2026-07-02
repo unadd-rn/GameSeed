@@ -58,7 +58,7 @@ public class SceneController : MonoBehaviour
 
     public void Lobby()
     {
-        Debug.Log("balik ke lobby1");
+        Debug.Log("balik ke matchlobby");
         // Example: Using a transition named "Square"
         goToSceneName("Cet - matchLobby", "");
     }
