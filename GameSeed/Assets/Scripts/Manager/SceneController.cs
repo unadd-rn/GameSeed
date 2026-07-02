@@ -12,7 +12,7 @@ public class SceneController : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }

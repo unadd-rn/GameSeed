@@ -403,7 +403,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1843084296}
+      - m_Target: {fileID: 1449209029}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: Reset
         m_Mode: 1
@@ -673,9 +673,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1843084296}
+      - m_Target: {fileID: 1449209029}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1698,6 +1698,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1449209028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1449209030}
+  - component: {fileID: 1449209029}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1449209029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449209028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 0}
+--- !u!4 &1449209030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449209028}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1479094234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,7 +1946,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1843084295}
   - component: {fileID: 1843084297}
-  - component: {fileID: 1843084296}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1925,19 +1969,6 @@ Transform:
   - {fileID: 1479094235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1843084296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843084293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnim: {fileID: 0}
 --- !u!114 &1843084297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2036,7 +2067,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1843084296}
+      - m_Target: {fileID: 1449209029}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: Garage
         m_Mode: 1
@@ -2160,7 +2191,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 1000882662}
   - {fileID: 907319265}
+  - {fileID: 1449209030}
   - {fileID: 1843084295}
   - {fileID: 1375381269}
   - {fileID: 531887461}
   - {fileID: 1731380240}
+  - {fileID: 2115037422}
