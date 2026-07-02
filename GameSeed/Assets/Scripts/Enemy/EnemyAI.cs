@@ -73,6 +73,7 @@ public class EnemyAI : MonoBehaviour
 
         if (throwEnemyScript != null && TurnManager.Instance.GetCurrentState() == TurnState.EnemyTurn)
         {
+            Debug.Log("[EnemyAI - DETEKTIF] Syarat tembus! Masuk ke logic Raycast & Lempar.");
             throwEnemyScript.enabled = true;
             throwEnemyScript.OnStickPlaced();
             
@@ -80,18 +81,33 @@ public class EnemyAI : MonoBehaviour
 
             Vector3 directionToPlayer = playerTransform.position - transform.position;
             directionToPlayer.y = 0; 
-            if (directionToPlayer != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(directionToPlayer);
-            }
+            // if (directionToPlayer != Vector3.zero)
+            // {
+            //     transform.rotation = Quaternion.LookRotation(directionToPlayer);
+            // }
 
-            bool hasLineOfSight = true;
-            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, directionToPlayer.normalized, out RaycastHit hit, 15f))
+            Vector3 rayStart = transform.position + (directionToPlayer.normalized * 1f);
+            bool hasLineOfSight = false;
+
+            int layerMask = ~(1 << LayerMask.NameToLayer("Ground"));
+
+            // Raycast biasa, tapi dia otomatis nembus benda yang layernya Ground
+            if (Physics.Raycast(rayStart, directionToPlayer.normalized, out RaycastHit hit, 15f, layerMask))
             {
-                if (!hit.transform.CompareTag("Player"))
+                if (hit.transform.CompareTag("Player"))
                 {
-                    hasLineOfSight = false; 
+                    hasLineOfSight = true;
+                    Debug.Log($"[EnemyAI - DEBUG] SUKSES! Kena Player di jarak {hit.distance}");
                 }
+                else
+                {
+                    hasLineOfSight = false; // Kehalang tembok / obstacle lain
+                    Debug.Log($"[EnemyAI - DEBUG] GAGAL! Kehalang object: {hit.transform.name}");
+                }
+            }
+            else
+            {
+                Debug.Log("[EnemyAI - DEBUG] Raycast nggak nabrak apa-apa.");
             }
 
             if (gadgetManager != null && gadgetManager.TryUseGadget(hasLineOfSight))
@@ -100,6 +116,7 @@ public class EnemyAI : MonoBehaviour
                 TurnManager.Instance.SetState(TurnState.PlayerThrowing);
                 yield break; 
             }
+            Debug.Log("[EnemyAI - DETEKTIF] Gadget gagal/nggak dipake. Lanjut Monte Carlo & Lempar biasa.");
 
             MoveScenario bestScene = RunMonteCarlo();
             throwEnemyScript.SetAIHitPoint(bestScene.hitPoint * -1f);

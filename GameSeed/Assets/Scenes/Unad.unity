@@ -5408,7 +5408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &671067083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7577,6 +7577,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022496851}
   m_CullTransparentMesh: 1
+--- !u!1001 &1069865926
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131489869034263274, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManagerGarage
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dce5d802e0ced9e48bcb274a8432e7e7, type: 3}
 --- !u!1 &1078752690
 GameObject:
   m_ObjectHideFlags: 0
@@ -8533,6 +8601,8 @@ MonoBehaviour:
   teleportYOffset: 0.5
   enemy: {fileID: 2055251483}
   minDistanceToEnemy: 0.5
+  invisibilityDuration: 1
+  visualModel: {fileID: 0}
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8684,7 +8754,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1260426103}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Spawn
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -11459,7 +11529,7 @@ GameObject:
   - component: {fileID: 1561170825}
   - component: {fileID: 1561170824}
   - component: {fileID: 1561170823}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: SpawnPlayer
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -12908,7 +12978,7 @@ GameObject:
   - component: {fileID: 1992885062}
   - component: {fileID: 1992885061}
   - component: {fileID: 1992885060}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: SpawnEnemy
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -13519,13 +13589,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mandatoryGadgets:
-  - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
-  randomizableGadgetsPool:
   - {fileID: 11400000, guid: c8dece6f371d926478bf20ff1feaa696, type: 2}
+  randomizableGadgetsPool: []
   useRandomGadgets: 1
   minRandomGadgets: 1
   maxRandomGadgets: 2
-  chanceToUseGadget: 0
+  chanceToUseGadget: 1
   enemyStickSlot: {fileID: 2030508793}
   enemyStickBodyTransform: {fileID: 1543817071}
 --- !u!114 &2055251491
@@ -13583,6 +13652,8 @@ MonoBehaviour:
   teleportYOffset: 0.5
   enemy: {fileID: 1216302335}
   minDistanceToEnemy: 0.5
+  invisibilityDuration: 1
+  visualModel: {fileID: 0}
 --- !u!114 &2055251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13832,3 +13903,4 @@ SceneRoots:
   - {fileID: 408669164}
   - {fileID: 1409068950}
   - {fileID: 671067084}
+  - {fileID: 1069865926}
