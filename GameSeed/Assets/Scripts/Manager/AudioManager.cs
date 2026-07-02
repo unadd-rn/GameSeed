@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource SFXSource;
+    [SerializeField] private AudioSource loopingSFXSource;
 
     [System.Serializable]
     public struct MusicTrack
@@ -70,6 +71,34 @@ public class AudioManager : MonoBehaviour
         else 
         {
             Debug.LogWarning($"SFX group '{groupID}' kosong atau tidak ditemukan!");
+        }
+    }
+
+    public void PlayLoopingSFX(string groupID)
+    {
+        AudioClip clip = GetSoundEffectFromName(groupID);
+        
+        if (clip != null)
+        {
+            loopingSFXSource.clip = clip;
+            loopingSFXSource.loop = true; // Set loop jadi true
+            if (!loopingSFXSource.isPlaying)
+            {
+                loopingSFXSource.Play();
+            }
+        }
+        else 
+        {
+            Debug.LogWarning($"SFX group '{groupID}' kosong atau tidak ditemukan!");
+        }
+    }
+
+    // ---> Fungsi Baru Buat Berhentiin SFX Looping
+    public void StopLoopingSFX()
+    {
+        if (loopingSFXSource.isPlaying)
+        {
+            loopingSFXSource.Stop();
         }
     }
 
