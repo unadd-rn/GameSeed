@@ -61,6 +61,7 @@ public class TeleportationMechanism : MonoBehaviour
     public void Teleport()
     {
         StartCoroutine(TeleportSequence());
+        AudioManager.Instance.PlaySFX("TeleportActivate");
     }
 
     private IEnumerator TeleportSequence()

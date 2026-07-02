@@ -69,31 +69,31 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 6756e05cedfbd27479a12ced65345cc5, type: 3}
   - groupID: TeleportActivate
     clips:
-    - {fileID: 8300000, guid: 2d6a332c922a2fe4db9732cc5e1e0e37, type: 3}
+    - {fileID: 8300000, guid: 4bc6330c167e49e4588f78fc0579853f, type: 3}
   - groupID: ButtonPressed
     clips:
-    - {fileID: 8300000, guid: a8a1bd1e24a077c4b8448af5df40b339, type: 3}
+    - {fileID: 8300000, guid: 62023b727d5e8f54480664ed552198c6, type: 3}
   - groupID: Slider
     clips:
-    - {fileID: 8300000, guid: ad6c9a435eaa22b46a07c6b58a34467a, type: 3}
-  - groupID: Slingshot
+    - {fileID: 8300000, guid: dce66df858ec1c1469a584c4e97a12a5, type: 3}
+  - groupID: SlingshotActivate
     clips:
-    - {fileID: 8300000, guid: 30ad1cceb9781c6439e6ebc956b49416, type: 3}
+    - {fileID: 8300000, guid: 3d959c710b2c59240a417fd2a3bb10e9, type: 3}
   - groupID: StickJatuh
     clips:
-    - {fileID: 8300000, guid: 340085d994734fb4fada3f393cac748d, type: 3}
+    - {fileID: 8300000, guid: bcc86cffb79d06c40be702bff8d29096, type: 3}
   - groupID: TepokStick
     clips:
-    - {fileID: 8300000, guid: cb2fc1f3f063a33409644095486d4996, type: 3}
-    - {fileID: 8300000, guid: 563246703998a2f4f949b43310a472c9, type: 3}
-    - {fileID: 8300000, guid: ff51970b066cf824290d1adf1441c921, type: 3}
-    - {fileID: 8300000, guid: ca13bc65cf5c11944adedf55495778b2, type: 3}
+    - {fileID: 8300000, guid: dac48e74a27503a42b97254bcaf7ee37, type: 3}
+    - {fileID: 8300000, guid: 302479da69d8d90498b1b056d9d89e8c, type: 3}
+    - {fileID: 8300000, guid: 54def10636a5a60469b52441f7bbac10, type: 3}
+    - {fileID: 8300000, guid: f489256677eebce47b98df4e6e34ab34, type: 3}
   - groupID: VersusAlt
     clips:
     - {fileID: 8300000, guid: 50f3d12edbef0264c88a718b81c8e025, type: 3}
   - groupID: PowerNaikTurun
     clips:
-    - {fileID: 8300000, guid: 4788557bf42a0724f9509be122a4d8a7, type: 3}
+    - {fileID: 8300000, guid: 6b285a2ea74feb444bdf6b804b9139d6, type: 3}
 --- !u!82 &5469898082748180843
 AudioSource:
   m_ObjectHideFlags: 0

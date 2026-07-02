@@ -53,12 +53,9 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     {
         isPressed = false;
         stickThrow.Throw();
-        OnForceReleased?.Invoke();
-        if (AudioManager.Instance != null)
-        {
-        AudioManager.Instance.PlaySFX("StickJatuh");
 
         AudioManager.Instance.StopLoopingSFX();
-        }
+
+        AudioManager.Instance.PlayThrowSFXSequence();
     }
 }
