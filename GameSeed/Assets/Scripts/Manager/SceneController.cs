@@ -124,4 +124,9 @@ public class SceneController : MonoBehaviour
         AudioManager.Instance.PlayMusic("AyamBoss");
     }
     #endregion
+
+    public void SFXButtonPressed()
+    {
+        AudioManager.Instance.PlaySFX("ButtonPressed");
+    }
 }
