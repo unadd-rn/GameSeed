@@ -2493,66 +2493,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraits:
-  - label: Spinner
-    uiPortrait: {fileID: 694574007}
-    events:
-    - eventName: IN/OUT
-      inAnimation:
-        animationType: 1
-        followDelay: 0
-        trailColor: {r: 0, g: 0, b: 0, a: 0}
-        maximumTrailLag: {x: 0, y: 0}
-        maximumTrailLag2: {x: 0, y: 0}
-        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
-        spinDegrees: 180
-        zoomInScale: 0
-        spinZoomDuration: 0.2
-        wipeMask: {fileID: 0}
-        wipeDirection: 0
-        wipeDuration: 0
-        bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
-        shakeStrength: 0
-        shakeVibrato: 0
-        shakeRandomness: 0
-        shakeDuration: 0
-        canvasGroup: {fileID: 0}
-        fadeDuration: 0
-        wipeMaskFullSize: {x: 0, y: 0}
-        wipeMaskHiddenSize: {x: 0, y: 0}
-      outAnimation:
-        animationType: 1
-        followDelay: 0
-        trailColor: {r: 0, g: 0, b: 0, a: 0}
-        maximumTrailLag: {x: 0, y: 0}
-        maximumTrailLag2: {x: 0, y: 0}
-        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
-        spinDegrees: 360
-        zoomInScale: 0
-        spinZoomDuration: 0.2
-        wipeMask: {fileID: 0}
-        wipeDirection: 0
-        wipeDuration: 0
-        bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
-        shakeStrength: 0
-        shakeVibrato: 0
-        shakeRandomness: 0
-        shakeDuration: 0
-        canvasGroup: {fileID: 0}
-        fadeDuration: 0
-        wipeMaskFullSize: {x: 0, y: 0}
-        wipeMaskHiddenSize: {x: 0, y: 0}
-    uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: -332.2, y: -692.4}
-    isVisible: 0
   - label: P1 Bar
     uiPortrait: {fileID: 1664787834}
     events:
@@ -4112,6 +4052,126 @@ MonoBehaviour:
     uniqueMaterial: {fileID: 0}
     originalScale: {x: 2, y: 2, z: 1}
     localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: Spinner
+    uiPortrait: {fileID: 1185389863}
+    events:
+    - eventName: putStick
+      inAnimation:
+        animationType: 1
+        followDelay: 0.1
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 180
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 360
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 1, y: 1, z: 1}
+    localRestPosition: {x: -332.2, y: -692.4}
+    isVisible: 0
+  - label: Spinner2
+    uiPortrait: {fileID: 1864433367}
+    events:
+    - eventName: putStick
+      inAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 180
+        zoomInScale: 0.1
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 360
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 1, y: 1, z: 1}
+    localRestPosition: {x: -332.2, y: -692.4}
     isVisible: 0
   toggleButton: {fileID: 0}
   toggleEventName: cutIn
