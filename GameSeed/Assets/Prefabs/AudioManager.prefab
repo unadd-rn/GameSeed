@@ -75,7 +75,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 62023b727d5e8f54480664ed552198c6, type: 3}
   - groupID: Slider
     clips:
-    - {fileID: 8300000, guid: ad6c9a435eaa22b46a07c6b58a34467a, type: 3}
+    - {fileID: 8300000, guid: dce66df858ec1c1469a584c4e97a12a5, type: 3}
   - groupID: SlingshotActivate
     clips:
     - {fileID: 8300000, guid: 3d959c710b2c59240a417fd2a3bb10e9, type: 3}
@@ -93,7 +93,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 50f3d12edbef0264c88a718b81c8e025, type: 3}
   - groupID: PowerNaikTurun
     clips:
-    - {fileID: 8300000, guid: 4788557bf42a0724f9509be122a4d8a7, type: 3}
+    - {fileID: 8300000, guid: 6b285a2ea74feb444bdf6b804b9139d6, type: 3}
 --- !u!82 &5469898082748180843
 AudioSource:
   m_ObjectHideFlags: 0
