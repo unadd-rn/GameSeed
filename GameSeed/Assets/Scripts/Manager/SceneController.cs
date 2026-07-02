@@ -31,6 +31,12 @@ public class SceneController : MonoBehaviour
             case "Cet - lobby1":
                 AudioManager.Instance.PlayMusic("MainMenu");
                 break;
+            case "Cet - matchLobby":
+                AudioManager.Instance.PlayMusic("MainMenu");
+                break;
+            case "Rae - Garage 2":
+                AudioManager.Instance.PlayMusic("MainMenu");
+                break;
             case "Unad":
                 AudioManager.Instance.PlayMusic("AyamBoss");
                 break;
