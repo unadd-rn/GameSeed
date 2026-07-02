@@ -6,54 +6,40 @@ using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
+    public static VolumeSettings Instance;
     [SerializeField] private AudioMixer myMixer;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider sfxSlider;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("musicVolume"))
-        {
-            LoadMusicVolume();
-        }
+        Debug.Log("[VolumeSettings] HasKey: " + PlayerPrefs.HasKey("masterVolume"));
+        if (PlayerPrefs.HasKey("masterVolume"))
+            SetMasterVolume(PlayerPrefs.GetFloat("masterVolume"));
         else
-        {
-            SetMusicVolume();
-        }
-
-        if (PlayerPrefs.HasKey("sfxVolume"))
-        {
-            LoadSFXVolume();
-        }
-        else
-        {
-            SetSFXVolume();
-        }
+            SetMasterVolume(1f); // default
     }
 
-    public void SetMusicVolume()
+    public void SetMasterVolume(float volume)
     {
-        float volume = musicSlider.value;
-        myMixer.SetFloat("MusicVolume", Mathf.Log10(volume)*20);
-        PlayerPrefs.SetFloat("musicVolume", volume);
+        Debug.Log("[VolumeSettings] SetMasterVolume called with: " + volume);
+        myMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20);
+        PlayerPrefs.SetFloat("masterVolume", volume);
     }
 
-    public void SetSFXVolume()
+    public float GetMasterVolume()
     {
-        float volumee = sfxSlider.value;
-        myMixer.SetFloat("SFXVolume", Mathf.Log10(volumee)*20);
-        PlayerPrefs.SetFloat("sfxVolume", volumee);
-    }
-
-    private void LoadMusicVolume()
-    {
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        SetMusicVolume();
-    }
-
-    private void LoadSFXVolume()
-    {
-        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume");
-        SetSFXVolume();
+        return PlayerPrefs.HasKey("masterVolume") ? PlayerPrefs.GetFloat("masterVolume") : 1f;
     }
 }
