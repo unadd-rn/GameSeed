@@ -53,6 +53,7 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     {
         isPressed = false;
         stickThrow.Throw();
+        OnForceReleased?.Invoke();
 
         AudioManager.Instance.StopLoopingSFX();
 

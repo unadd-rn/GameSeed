@@ -28,6 +28,8 @@ public class EnemyHealth : MonoBehaviour
     public float checkRadius = 1.5f; // r sensor untuk mengecek musuh
     [SerializeField] private EnemyAI enemyAI;
     
+    [Header("Tutorial")]
+    [SerializeField] private bool isTutorialScene = false;
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rigid;
@@ -224,6 +226,16 @@ public class EnemyHealth : MonoBehaviour
 
     private void Win()
     {
+        if (isTutorialScene)
+        {
+            TurnManager.Instance.SetState(TurnState.End);
+            BattleTutorialDirector director = FindObjectOfType<BattleTutorialDirector>();
+            if (director != null)
+            {
+                director.PlayFinalSequence(true);
+                return;
+            }
+        }
         TurnManager.Instance.SetState(TurnState.End);
         PlayerPrefs.SetString("MatchStatus", "match selesai");
 

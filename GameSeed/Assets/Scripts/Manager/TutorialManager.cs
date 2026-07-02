@@ -36,6 +36,7 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         overlayImage.material = overlayMaterial;
+        ShowFullDim();
     }
 
     public void ShowTutorial(string elementName)
@@ -81,6 +82,7 @@ public class TutorialManager : MonoBehaviour
 
     public void ShowFullDim()
     {
+        if (overlayImage == null) return;
         overlayImage.gameObject.SetActive(true);
         overlayMaterial.SetFloat(Width, 0);
         overlayMaterial.SetFloat(Height, 0);
@@ -88,6 +90,7 @@ public class TutorialManager : MonoBehaviour
 
     public void HideTutorial()
     {
+        if (overlayImage == null) return;
         overlayImage.gameObject.SetActive(false);
     }
 }

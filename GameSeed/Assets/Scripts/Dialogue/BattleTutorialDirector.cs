@@ -14,11 +14,19 @@ public class BattleTutorialDirector : MonoBehaviour
     [SerializeField] private string introKnot = "Tutorial";
     [SerializeField] private string afterEnemyTurnKnot = "FirstTurn";
 
+    [Header("Final Sequence")]
+    [SerializeField] private string finalWinKnot = "TutorialWin";
+    [SerializeField] private string finalLoseKnot = "TutorialLose";
+    [SerializeField] private string garageSceneName = "Senna - garagetutorial";
+    [SerializeField] private string garageTransitionName = "Gelap";
+
     [Header("Spawn Preview")]
     [SerializeField] private GameObject spawnPreviewObject;
 
     private bool introFinished = false;
     private bool enemyTurnStarted = false;
+    private bool tutorialComplete = false;
+    private bool finalSequenceActive = false;
 
     private void Start()
     {
@@ -33,10 +41,18 @@ public class BattleTutorialDirector : MonoBehaviour
 
     private void OnDialogueFinished()
     {
+        if (finalSequenceActive)
+        {
+            finalSequenceActive = false;
+            if (tutorialManager != null) tutorialManager.HideTutorial();
+            SceneController.Instance.goToSceneName(garageSceneName, garageTransitionName);
+            return;
+        }
+
         if (!introFinished)
         {
             introFinished = true;
-            if (tutorialManager != null) tutorialManager.HideTutorial(); 
+            if (tutorialManager != null) tutorialManager.HideTutorial();
             if (!enemyTurnStarted)
             {
                 enemyTurnStarted = true;
@@ -46,6 +62,7 @@ public class BattleTutorialDirector : MonoBehaviour
         else
         {
             if (tutorialManager != null) tutorialManager.HideTutorial();
+            tutorialComplete = true;
             Debug.Log("Tutorial complete");
         }
     }
@@ -64,6 +81,13 @@ public class BattleTutorialDirector : MonoBehaviour
 
     public void OnPlayerThrowComplete()
     {
+        // Tutorial's turn-by-turn scripting is done; fall back to normal turn flow.
+        if (tutorialComplete)
+        {
+            turnManager.SetState(TurnState.EnemyTurn);
+            return;
+        }
+
         if (enemyTurnStarted) return;
 
         dialogueManager.SetWaitForAction(false);
@@ -91,20 +115,45 @@ public class BattleTutorialDirector : MonoBehaviour
 
     private void OnForcePressed()
     {
+        // Only advance dialogue if it's actually paused waiting on this input.
+        if (!dialogueManager.IsWaitingForAction) return;
+
         dialogueManager.SetWaitForAction(false);
         dialogueManager.ContinueStory();
     }
 
     private void OnForceReleased()
     {
+        if (!dialogueManager.IsWaitingForAction) return;
+
         dialogueManager.SetWaitForAction(false);
         dialogueManager.ContinueStory();
     }
 
     public void OnEnemyTurnEnd()
     {
+        // Tutorial's turn-by-turn scripting is done; fall back to normal turn flow.
+        if (tutorialComplete)
+        {
+            turnManager.SetState(TurnState.PlayerThrowing);
+            return;
+        }
+
         turnManager.SetState(TurnState.PlayerThrowing);
         dialogueManager.EnterDialogue(afterEnemyTurnKnot);
+    }
+
+    // Called by PlayerHealth.Die() / EnemyHealth.Win() when isTutorialScene is true,
+    // instead of their normal Win/Lose UI + panel animation flow.
+    public void PlayFinalSequence(bool playerWon)
+    {
+        if (finalSequenceActive) return;
+        finalSequenceActive = true;
+
+        if (tutorialManager != null) tutorialManager.ShowFullDim();
+
+        string knot = playerWon ? finalWinKnot : finalLoseKnot;
+        dialogueManager.EnterDialogue(knot);
     }
 
     private void OnDestroy()

@@ -24,7 +24,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TutorialManager tutorialManager;
 
     [Header("TypewriterSpeed")]
-    [SerializeField] private float typingSpeed = 0.01f;
+    [SerializeField] private float typingSpeed = 0.005f;
+    [SerializeField] private int charsPerTick = 3;
 
     private const string HIGHLIGHT_TAG = "highlight";
     private const string HIGHLIGHT_NONE = "none";
@@ -239,7 +240,7 @@ public class DialogueManager : MonoBehaviour
                 case HIGHLIGHT_TAG:
                     if (tagValue.ToLower() == HIGHLIGHT_NONE)
                     {
-                        tutorialManager.HideTutorial();
+                        tutorialManager.ShowFullDim();
                     }
                     else
                     {
@@ -262,7 +263,6 @@ public class DialogueManager : MonoBehaviour
         isTyping = true;
         dialogueText.text = line;
         dialogueText.maxVisibleCharacters = 0;
-
         dialogueText.ForceMeshUpdate();
 
         int totalVisibleCharacters = dialogueText.textInfo.characterCount;
@@ -270,7 +270,7 @@ public class DialogueManager : MonoBehaviour
 
         while (visibleCount < totalVisibleCharacters)
         {
-            visibleCount++;
+            visibleCount = Mathf.Min(visibleCount + charsPerTick, totalVisibleCharacters);
             dialogueText.maxVisibleCharacters = visibleCount;
             yield return new WaitForSeconds(typingSpeed);
         }

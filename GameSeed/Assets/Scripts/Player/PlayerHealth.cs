@@ -32,6 +32,9 @@ public class PlayerHealth : MonoBehaviour
     public float checkRadius = 1.5f; // r sensor untuk mengecek musuh
     [SerializeField] private StickSpawn stickSpawn;
 
+    [Header("Tutorial")]
+    [SerializeField] private bool isTutorialScene = false;
+
     
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -211,6 +214,16 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (isTutorialScene)
+        {
+            TurnManager.Instance.SetState(TurnState.End);
+            BattleTutorialDirector director = FindAnyObjectByType<BattleTutorialDirector>();
+            if (director != null)
+            {
+                director.PlayFinalSequence(false);
+                return;
+            }
+        }
         TurnManager.Instance.SetState(TurnState.End);
         PlayerPrefs.SetString("MatchStatus", "match selesai");
         PlayerPrefs.Save();

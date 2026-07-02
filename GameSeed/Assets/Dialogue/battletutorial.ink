@@ -25,7 +25,7 @@ That's your stick health. # highlight = PlayerHealth
 
 And that's mine. # highlight = EnemyHealth
 
-Alright! Come on, don't go easy on me!
+Alright! Come on, don't go easy on me! # highlight = none
 
 -> DONE
 
@@ -45,6 +45,22 @@ Unfortunately, you don't have any yet.
 You can loot them from the enemies you beat. So keep playing!
 
 Let's continue.
+
+-> DONE
+
+=== TutorialWin ===
+Haha, looks like you got a knack for this!
+
+Nice job. Now follow me, I have something to show you.
+
+-> DONE
+
+=== TutorialLose ===
+Don't be too hard on yourself!
+
+It's your first game.
+
+Follow me, I have something to show you.
 
 -> DONE
 
