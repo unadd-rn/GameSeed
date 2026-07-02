@@ -10,7 +10,6 @@ public class PlayerHealth : MonoBehaviour
     public float health;
 
     public float maxHp = 15f;
-    public PortraitAnimator panelAnimator;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
@@ -224,7 +223,5 @@ public class PlayerHealth : MonoBehaviour
         PlayerPrefs.Save();
         // death stuff
         if(DeathUI != null) DeathUI.SetActive(true);
-
-        panelAnimator.PlayEventIn("Lose");
     }
 }
