@@ -12,7 +12,9 @@ public class EnemyAI : MonoBehaviour
 
     [Header("AI Settings")]
     [SerializeField] private float thinkDelay = 1.5f;
-    [SerializeField] public int monteCarloSimulations = 20;
+    [Header("Monte Carlo Iteration Settings")]
+    [SerializeField] public int minSimulations = 10;
+    [SerializeField] public int maxSimulations = 50;
     private bool hasPlaced = false;
 
     private WaitForSeconds delayWait;
@@ -134,7 +136,9 @@ public class EnemyAI : MonoBehaviour
 
     private MoveScenario RunMonteCarlo()
     {
+        int currentIterations = Random.Range(minSimulations, maxSimulations + 1);
         debugPredictedPositions.Clear();
+        Debug.Log(currentIterations);
 
         MoveScenario bestScenario = new MoveScenario();
         bestScenario.score = float.MinValue;
@@ -146,7 +150,7 @@ public class EnemyAI : MonoBehaviour
         float gravity = Mathf.Abs(Physics.gravity.y);
         float exactAirTime = (2f * throwEnemyScript.StickDataRef.up) / gravity;
 
-        for (int i = 0; i < monteCarloSimulations; i++)
+        for (int i = 0; i < currentIterations; i++)
         {
             MoveScenario testScenario = new MoveScenario();
 

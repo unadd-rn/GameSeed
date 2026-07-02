@@ -58,7 +58,7 @@ public class LobbyMatchManager : MonoBehaviour
         }
         else
         {
-            sceneController.StartMatch("boss");
+            sceneController.StartBoss("boss");
         }
     }
 

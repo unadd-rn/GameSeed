@@ -70,6 +70,13 @@ public class SceneController : MonoBehaviour
         goToSceneName("Unad", "Gelap");
     }
 
+    public void Match()
+    {
+        Debug.Log("balik ke Match");
+        // Example: Using a transition named "Square"
+        goToSceneName("Match", "Gelap");
+    }
+
     public void Lobby1()
     {
         Debug.Log("balik ke lobby1");
@@ -87,6 +94,18 @@ public class SceneController : MonoBehaviour
 
     #region Match lobby
     public void StartMatch(string type)
+    {
+        Debug.Log("ke tempat tarung");
+
+        PlayerPrefs.SetString("MatchStatus", "match mulai");
+        PlayerPrefs.SetString("MatchType", type);
+        PlayerPrefs.Save();
+
+        // Example: Using a transition named "BattleWipe"
+        goToSceneName("Match", "Gelap");
+    }
+
+    public void StartBoss(string type)
     {
         Debug.Log("ke tempat tarung");
 
