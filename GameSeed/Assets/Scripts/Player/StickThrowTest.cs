@@ -41,6 +41,8 @@ public class StickThrowTest : MonoBehaviour
     private bool isDebugDataCalculated = false;
     private Coroutine activeResetCoroutine;
     private PortraitAnimator portraitAnimator;
+    public event System.Action OnSliderUsed;
+    private bool hasUsedSlider = false;
 
     void Awake()
     {
@@ -241,7 +243,17 @@ public class StickThrowTest : MonoBehaviour
                 calculatedHit = Mathf.Clamp(calculatedHit, -0.5f, 0.5f);
                 Debug.DrawLine(mainCamera.transform.position, hit.point, Color.green, 0.5f);
                 if (hitPointSlider != null)
+                {
                     hitPointSlider.value = calculatedHit*-1f;
+
+                    Debug.Log($"ProcessInput running, state: {TurnManager.Instance.GetCurrentState()}");
+                    if (!hasUsedSlider && Mathf.Abs(calculatedHit) > 0.05f)
+                    {
+                        Debug.Log("OnSliderUsed firing");
+                        hasUsedSlider = true;
+                        OnSliderUsed?.Invoke();    
+                    }
+                }
                 return;
             }
         }

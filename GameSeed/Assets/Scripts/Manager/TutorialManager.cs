@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable] 
+[System.Serializable]
 public class TutorialElement
 {
     public string elementName;
@@ -16,8 +15,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image overlayImage;
     [SerializeField] private Material overlayMaterial;
 
+    [Header("Canvas")]
+    [SerializeField] private Canvas canvas;
+
     [Header("Settings")]
-    [SerializeField] private float padding = 0.02f;       // extra space disekitar elemennya loh
+    [SerializeField] private float padding = 0.02f;
     [SerializeField] private float cornerRadius = 0.01f;
     [SerializeField] private float softness = 0.005f;
 
@@ -34,32 +36,40 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         overlayImage.material = overlayMaterial;
-        HideTutorial();
     }
 
     public void ShowTutorial(string elementName)
     {
         TutorialElement target = elements.Find(e => e.elementName == elementName);
 
+        Debug.Log($"ShowTutorial called with: '{elementName}', found: {target != null}");
+
         if (target == null)
         {
+                    Debug.LogWarning($"No element found with name '{elementName}', going dark");
             ShowFullDim();
             return;
         }
+
         overlayImage.gameObject.SetActive(true);
 
         Vector3[] corners = new Vector3[4];
         target.rectTransform.GetWorldCorners(corners);
 
-        float minX = corners[0].x / Screen.width;
-        float maxX = corners[2].x / Screen.width;
-        float minY = corners[0].y / Screen.height;
-        float maxY = corners[2].y / Screen.height;
+        float minX = Mathf.Min(corners[0].x, corners[1].x, corners[2].x, corners[3].x) / Screen.width;
+        float maxX = Mathf.Max(corners[0].x, corners[1].x, corners[2].x, corners[3].x) / Screen.width;
+        float minY = Mathf.Min(corners[0].y, corners[1].y, corners[2].y, corners[3].y) / Screen.height;
+        float maxY = Mathf.Max(corners[0].y, corners[1].y, corners[2].y, corners[3].y) / Screen.height;
+
+
+        Debug.Log($"Element: '{elementName}' | corners minX:{minX} maxX:{maxX} minY:{minY} maxY:{maxY}");
 
         float centerX = (minX + maxX) * 0.5f;
         float centerY = (minY + maxY) * 0.5f;
         float width = (maxX - minX) + padding;
         float height = (maxY - minY) + padding;
+
+        Debug.Log($"Shader values | centerX:{centerX} centerY:{centerY} width:{width} height:{height}");
 
         overlayMaterial.SetFloat(CenterX, centerX);
         overlayMaterial.SetFloat(CenterY, centerY);

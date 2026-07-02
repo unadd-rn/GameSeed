@@ -2,11 +2,11 @@ Shader "Unlit/TutorialOverlay"
 {
     Properties
     {
-        _Color ("Overlay Color", Color) = (0,0,0,0.5)
+        _Color ("Overlay Color", Color) = (0,0,0,0.8)
         _CenterX ("Center X (UV)", Float) = 0.5
         _CenterY ("Center Y (UV)", Float) = 0.5
-        _Width ("Width (UV)", Float) = 0.2
-        _Height ("Height (UV)", Float) = 0.1
+        _Width ("Width (UV)", Float) = 0
+        _Height ("Height (UV)", Float) = 0
         _CornerRadius ("Corner Radius (UV)", Float) = 0.01
         _Softness ("Edge Softness", Float) = 0.005
     }
@@ -57,11 +57,7 @@ Shader "Unlit/TutorialOverlay"
 
             float RoundedBoxSDF(float2 uv, float2 center, float2 halfSize, float cornerRadius)
             {
-                float aspect = _ScreenParams.x / _ScreenParams.y;
-                float2 p = (uv - center) * float2(aspect, 1.0);
-                float2 size = halfSize * float2(aspect, 1.0);
-
-                float2 d = abs(p) - size + cornerRadius;
+                float2 d = abs(uv - center) - halfSize + cornerRadius;
                 return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0) - cornerRadius;
             }
 

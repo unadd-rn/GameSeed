@@ -7,10 +7,12 @@ public class BattleTutorialDirector : MonoBehaviour
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private StickSpawn stickSpawn;
+    [SerializeField] private StickThrowTest stickThrowTest;
+    [SerializeField] private ForceButtonHold forceButton;
 
     [Header("Ink Knots")]
-    [SerializeField] private string introKnot = "battle_intro";
-    [SerializeField] private string afterEnemyTurnKnot = "after_enemy_turn";
+    [SerializeField] private string introKnot = "Tutorial";
+    [SerializeField] private string afterEnemyTurnKnot = "FirstTurn";
 
     [Header("Spawn Preview")]
     [SerializeField] private GameObject spawnPreviewObject;
@@ -19,9 +21,13 @@ public class BattleTutorialDirector : MonoBehaviour
 
     private void Start()
     {
+        stickSpawn.SetTutorialMode(true);
+
         dialogueManager.OnDialogueEnd += OnDialogueFinished;
         dialogueManager.OnHighlightTag += OnHighlightTag;
         stickSpawn.StickPlaced += OnStickPlaced;
+        forceButton.OnForcePressed += OnForcePressed;
+        forceButton.OnForceReleased += OnForceReleased;
 
         dialogueManager.EnterDialogue(introKnot);
     }
@@ -54,11 +60,29 @@ public class BattleTutorialDirector : MonoBehaviour
 
     private void OnStickPlaced()
     {
+        Debug.Log("BattleTutorialDirector: OnStickPlaced called");
+
         if (spawnPreviewObject != null)
         {
             spawnPreviewObject.SetActive(false);
         }
+
         tutorialManager.HideTutorial();
+        dialogueManager.SetWaitForAction(false);
+        turnManager.SetState(TurnState.PlayerThrowing);
+        dialogueManager.ContinueStory();
+    }
+
+    private void OnForcePressed()
+    {
+        dialogueManager.SetWaitForAction(false);
+        dialogueManager.ContinueStory();
+    }
+
+    private void OnForceReleased()
+    {
+        dialogueManager.SetWaitForAction(false);
+        dialogueManager.ContinueStory();
     }
 
     public void OnEnemyTurnEnd()
@@ -71,5 +95,7 @@ public class BattleTutorialDirector : MonoBehaviour
         dialogueManager.OnDialogueEnd -= OnDialogueFinished;
         dialogueManager.OnHighlightTag -= OnHighlightTag;
         stickSpawn.StickPlaced -= OnStickPlaced;
+        forceButton.OnForcePressed -= OnForcePressed;
+        forceButton.OnForceReleased -= OnForceReleased;
     }
 }

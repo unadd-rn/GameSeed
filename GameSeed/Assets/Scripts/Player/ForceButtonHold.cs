@@ -13,6 +13,8 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     [SerializeField] private StickThrowTest stickThrow;
 
     private bool isPressed;
+    public event System.Action OnForcePressed;
+    public event System.Action OnForceReleased;
     // Update is called once per frame
 
     void Start()
@@ -39,11 +41,13 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     {
         isPressed = true;
         forceTest.ChangeForce();
+        OnForcePressed?.Invoke();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isPressed = false;
         stickThrow.Throw();
+        OnForceReleased?.Invoke();
     }
 }

@@ -15,6 +15,7 @@ public class StickSpawn : MonoBehaviour
     private bool isTouching = false;
     public Vector3 spawnPositionPlayer;
     public System.Action StickPlaced;
+    private bool tutorialMode = false;
 
     void Awake()
     {
@@ -48,6 +49,11 @@ public class StickSpawn : MonoBehaviour
         }
     }
 
+    public void SetTutorialMode(bool enabled)
+    {
+        tutorialMode = enabled;
+    }
+
     private void HandlePlacement()
     {
         if (placementAreaCollider == null) return;
@@ -66,8 +72,12 @@ public class StickSpawn : MonoBehaviour
                 hasPlaced = true;
                 this.enabled = false;
 
+                Debug.Log($"StickSpawn: placement confirmed, tutorialMode: {tutorialMode}, invoking StickPlaced");
                 StickPlaced?.Invoke();
-                TurnManager.Instance.SetState(TurnState.EnemyTurn);
+                if (!tutorialMode)
+                {
+                    TurnManager.Instance.SetState(TurnState.EnemyTurn);
+                }
             }
         }
 

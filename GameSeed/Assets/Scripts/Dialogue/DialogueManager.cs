@@ -29,11 +29,14 @@ public class DialogueManager : MonoBehaviour
     private const string HIGHLIGHT_NONE = "none";
     private const string ACTOR_TAG = "actor";
     private const string NARRATOR_TAG = "narrator";
+    private const string WAIT_TAG = "wait";
     private Story story;
     private bool dialoguePlaying = false;
     private Coroutine typingCoroutine;
     private bool isTyping = false;
     public bool IsDialoguePlaying => dialoguePlaying;
+    public bool IsWaitingForAction => waitingForAction;
+    private bool waitingForAction = false;
     public event System.Action OnDialogueEnd;
     public event System.Action<string> OnHighlightTag;
 
@@ -44,9 +47,18 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Story created successfully");
     }
 
+    public void SetWaitForAction(bool waiting)
+    {
+        waitingForAction = waiting;
+    }
+
     private void Update()
     {
         if (!dialoguePlaying)
+        {
+            return;
+        }
+        if (waitingForAction)
         {
             return;
         }
@@ -74,6 +86,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialoguePlaying)
         {
+            Debug.LogWarning($"EnterDialogue('{knotName}') called while dialogue is already playing. Ignoring.");
             return;
         }       
         
@@ -121,14 +134,26 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleTags(List<string> tags)
     {
+        // Reset per-line state.
+        bool actorTagSeen = false;
+
         if (tags == null || tags.Count == 0)
         {
-            actorPanel.SetActive(false);
+            if (actorPanel != null) actorPanel.SetActive(false);
             return;
         }
 
         foreach (string tag in tags)
         {
+            string trimmedTag = tag.Trim().ToLower();
+
+            if (trimmedTag == WAIT_TAG)
+            {
+                waitingForAction = true;
+                Debug.Log("waitingForAction is doin the thing");
+                continue;
+            }
+
             string[] splitTag = tag.Split('=');
 
             if (splitTag.Length != 2)
@@ -141,17 +166,22 @@ public class DialogueManager : MonoBehaviour
 
             switch (tagKey)
             {
-                case ACTOR_TAG:
-                    if (tagValue.ToLower() == NARRATOR_TAG)
+                case "actor":
+                    actorTagSeen = true;
+                    if (actorPanel != null)
                         {
-                            actorPanel.SetActive(false);
+                            if (tagValue.ToLower() == NARRATOR_TAG)
+                            {
+                                actorPanel.SetActive(false);
+                            }
+                            else
+                            {
+                                actorPanel.SetActive(true);
+                                actorText.text = tagValue;  
+                            }
                         }
-                        else
-                        {
-                            actorPanel.SetActive(true);
-                            actorText.text = tagValue;
-                        }
-                        break;
+                    break;    
+
                 case HIGHLIGHT_TAG:
                     if (tagValue.ToLower() == HIGHLIGHT_NONE)
                     {
@@ -164,6 +194,13 @@ public class DialogueManager : MonoBehaviour
                     }
                     break;
             }
+        }
+
+        // If this line carried tags but none of them was an #actor = tag,
+        // default the actor panel to hidden instead of leaving whatever
+        if (!actorTagSeen && actorPanel != null)
+        {
+            actorPanel.SetActive(false);
         }
     }
     private IEnumerator TypeLine(string line)
@@ -197,12 +234,13 @@ public class DialogueManager : MonoBehaviour
         dialogueText.maxVisibleCharacters = dialogueText.textInfo.characterCount;
         isTyping = false;
     }
+
     private void ExitStory()
     {
         Debug.Log("Exiting dialogue");
         dialoguePlaying = false;
         dialoguePanel.SetActive(false);
-        actorPanel.SetActive(false);
+        if (actorPanel != null) actorPanel.SetActive(false);
         dialogueText.text = "";
         dialogueText.maxVisibleCharacters = 0;
         story.ResetState();

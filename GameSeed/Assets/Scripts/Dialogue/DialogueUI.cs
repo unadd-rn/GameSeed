@@ -5,20 +5,17 @@ using UnityEngine;
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private DialogueManager dialogueManager;
-    [SerializeField] private string knotName = "";
+
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(0))
-        {
-            return;
-        }
-        if (!dialogueManager.IsDialoguePlaying)
-        {
-            dialogueManager.EnterDialogue(knotName);
-        }
-        else
-        {
-            dialogueManager.ContinueStory();
-        }
+        if (!Input.GetMouseButtonDown(0)) return;
+
+        if (!dialogueManager.IsDialoguePlaying) return;
+
+        Debug.Log($"Tap detected | IsWaitingForAction: {dialogueManager.IsWaitingForAction}");
+
+        if (dialogueManager.IsWaitingForAction) return;
+
+        dialogueManager.ContinueStory();
     }
 }
