@@ -107,6 +107,17 @@ public class DialogueManager : MonoBehaviour
         ContinueStory();
     }
 
+    public void EnterDialogueWithDelay(string knotName, float delay)
+    {
+        StartCoroutine(DelayedEnterDialogue(knotName, delay));
+    }
+
+    private IEnumerator DelayedEnterDialogue(string knotName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EnterDialogue(knotName);
+    }
+
     public void ContinueStory()
     {
         if (isTyping)
@@ -130,6 +141,17 @@ public class DialogueManager : MonoBehaviour
         {
             ExitStory();
         }
+    }
+
+    public void ContinueStoryWithDelay(float delay)
+    {
+        StartCoroutine(DelayedContinueStory(delay));
+    }
+    
+    private IEnumerator DelayedContinueStory(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ContinueStory();
     }
 
     private void HandleTags(List<string> tags)

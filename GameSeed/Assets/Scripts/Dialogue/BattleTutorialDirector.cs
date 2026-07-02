@@ -29,7 +29,7 @@ public class BattleTutorialDirector : MonoBehaviour
         forceButton.OnForcePressed += OnForcePressed;
         forceButton.OnForceReleased += OnForceReleased;
 
-        dialogueManager.EnterDialogue(introKnot);
+        dialogueManager.EnterDialogueWithDelay(introKnot, 5f);
     }
 
     private void OnDialogueFinished()
@@ -70,7 +70,7 @@ public class BattleTutorialDirector : MonoBehaviour
         tutorialManager.HideTutorial();
         dialogueManager.SetWaitForAction(false);
         turnManager.SetState(TurnState.PlayerThrowing);
-        dialogueManager.ContinueStory();
+        dialogueManager.ContinueStoryWithDelay(2f);
     }
 
     private void OnForcePressed()
