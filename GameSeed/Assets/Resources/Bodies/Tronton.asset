@@ -20,5 +20,5 @@ MonoBehaviour:
   stickMaterial: {fileID: 2100000, guid: 9a66147be3e917149993fd25ef7b7812, type: 2}
   damage: 4
   weight: 15
-  HP: 0
+  HP: 20
   durability: 0

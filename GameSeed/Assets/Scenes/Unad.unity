@@ -7073,7 +7073,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 567858287}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Match
+        m_MethodName: Rematch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12480,7 +12480,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 567858287}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Match
+        m_MethodName: Rematch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
