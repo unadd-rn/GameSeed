@@ -68,6 +68,27 @@ MonoBehaviour:
   - groupID: TeleportActivate
     clips:
     - {fileID: 8300000, guid: 2d6a332c922a2fe4db9732cc5e1e0e37, type: 3}
+  - groupID: ButtonPressed
+    clips:
+    - {fileID: 8300000, guid: a8a1bd1e24a077c4b8448af5df40b339, type: 3}
+  - groupID: Slider
+    clips:
+    - {fileID: 8300000, guid: ad6c9a435eaa22b46a07c6b58a34467a, type: 3}
+  - groupID: Slingshot
+    clips:
+    - {fileID: 8300000, guid: 30ad1cceb9781c6439e6ebc956b49416, type: 3}
+  - groupID: StickJatuh
+    clips:
+    - {fileID: 8300000, guid: 340085d994734fb4fada3f393cac748d, type: 3}
+  - groupID: TepokStick
+    clips:
+    - {fileID: 8300000, guid: cb2fc1f3f063a33409644095486d4996, type: 3}
+    - {fileID: 8300000, guid: 563246703998a2f4f949b43310a472c9, type: 3}
+    - {fileID: 8300000, guid: ff51970b066cf824290d1adf1441c921, type: 3}
+    - {fileID: 8300000, guid: ca13bc65cf5c11944adedf55495778b2, type: 3}
+  - groupID: VersusAlt
+    clips:
+    - {fileID: 8300000, guid: 50f3d12edbef0264c88a718b81c8e025, type: 3}
 --- !u!82 &5469898082748180843
 AudioSource:
   m_ObjectHideFlags: 0
