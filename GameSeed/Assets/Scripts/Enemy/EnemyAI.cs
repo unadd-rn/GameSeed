@@ -70,8 +70,10 @@ public class EnemyAI : MonoBehaviour
             Vector3 randomPos = PlaceStickRandomly();
             transform.position = randomPos;
             refEnemyPosition = randomPos;
-            TurnManager.Instance.SetState(TurnState.PlayerThrowing);
-            AudioManager.Instance.PlaySFX("ButtonPressed");
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX("ButtonPressed");
+            }
             hasPlaced = true;
         }
 
@@ -121,7 +123,15 @@ public class EnemyAI : MonoBehaviour
             if (gadgetManager != null && gadgetManager.TryUseGadget(hasLineOfSight))
             {
                 yield return new WaitForSeconds(thinkDelay);
-                TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+                BattleTutorialDirector director = FindObjectOfType<BattleTutorialDirector>();
+                if (director != null)
+                {
+                    director.OnEnemyTurnEnd();
+                }
+                else
+                {
+                    TurnManager.Instance.SetState(TurnState.PlayerThrowing);
+                }
                 yield break; 
             }
             Debug.Log("[EnemyAI - DETEKTIF] Gadget gagal/nggak dipake. Lanjut Monte Carlo & Lempar biasa.");

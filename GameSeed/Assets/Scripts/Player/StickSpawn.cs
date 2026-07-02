@@ -17,7 +17,6 @@ public class StickSpawn : MonoBehaviour
     private bool isTouching = false;
     public Vector3 spawnPositionPlayer;
     public System.Action StickPlaced;
-    private bool tutorialMode = false;
     private bool placementAllowed = false;
 
     void Awake()
@@ -87,14 +86,17 @@ public class StickSpawn : MonoBehaviour
                 transform.position = areaHit.point;
                 spawnPositionPlayer = areaHit.point;
                 hasPlaced = true;
-                AudioManager.Instance.PlaySFX("ButtonPressed");
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX("ButtonPressed");
+                }
                 this.enabled = false;
 
                 FindObjectOfType<DialogueManager>().IgnoreTapThisFrame();
 
-                Debug.Log($"StickSpawn: placement confirmed, tutorialMode: {tutorialMode}, invoking StickPlaced");
+                Debug.Log($"StickSpawn: placement confirmed, tutorialMode: {isTutorialScene}, invoking StickPlaced");
                 StickPlaced?.Invoke();
-                if (!tutorialMode)
+                if (!isTutorialScene)
                 {
                     TurnManager.Instance.SetState(TurnState.EnemyTurn);
                 }
@@ -133,6 +135,11 @@ public class StickSpawn : MonoBehaviour
         eventDataCurrentPosition.position = GetInputScreenPosition();
         System.Collections.Generic.List<RaycastResult> results = new System.Collections.Generic.List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        if (results.Count > 0)
+        {
+            Debug.Log("Blocked by UI: " + string.Join(", ", results.ConvertAll(r => r.gameObject.name)));
+        }
         return results.Count > 0;
     }
 }

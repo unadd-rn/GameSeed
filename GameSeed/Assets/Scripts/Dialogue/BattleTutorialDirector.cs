@@ -22,8 +22,6 @@ public class BattleTutorialDirector : MonoBehaviour
 
     private void Start()
     {
-        stickSpawn.SetPlacementAllowed(false);
-
         dialogueManager.OnDialogueEnd += OnDialogueFinished;
         dialogueManager.OnHighlightTag += OnHighlightTag;
         stickSpawn.StickPlaced += OnStickPlaced;
@@ -75,6 +73,8 @@ public class BattleTutorialDirector : MonoBehaviour
     private void OnStickPlaced()
     {
         Debug.Log("BattleTutorialDirector: OnStickPlaced called");
+        Debug.Log($"dialogueManager null? {dialogueManager == null}");
+        Debug.Log($"waitingForAction before: {dialogueManager.IsWaitingForAction}");
 
         if (spawnPreviewObject != null)
         {
@@ -83,8 +83,10 @@ public class BattleTutorialDirector : MonoBehaviour
 
         tutorialManager.HideTutorial();
         dialogueManager.SetWaitForAction(false);
+        Debug.Log($"waitingForAction after: {dialogueManager.IsWaitingForAction}");
         turnManager.SetState(TurnState.PlayerThrowing);
         dialogueManager.ContinueStoryWithDelay(2f);
+        Debug.Log("ContinueStoryWithDelay called");
     }
 
     private void OnForcePressed()

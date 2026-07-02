@@ -68,6 +68,10 @@ public class TurnManager : MonoBehaviour
                 {
                     playerSpawnScript.SetPlacementAllowed(true);
                 }
+                else
+                {
+                    playerSpawnScript.SetPlacementAllowed(false);
+                }
                 break;
 
             case TurnState.PlayerThrowing:
