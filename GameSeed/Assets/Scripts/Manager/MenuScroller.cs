@@ -11,6 +11,7 @@ public class MenuScroller : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlayMusic("MainMenu");
         if (PlayerPrefs.GetInt("HasScrolled", 0) == 1)
         {
             hasScrolled = true; 
