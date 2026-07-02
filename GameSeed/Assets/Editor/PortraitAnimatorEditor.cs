@@ -9,10 +9,6 @@
 //    AnimationType dropdown, keeping the Inspector readable even with many
 //    portraits and events.
 // ═══════════════════════════════════════════════════════════════════════════
-// ═══════════════════════════════════════════════════════════════════════════
-//  PortraitAnimatorEditor.cs
-//  Place this file inside any folder named Editor/ in your project.
-// ═══════════════════════════════════════════════════════════════════════════
 
 #if UNITY_EDITOR
 using System.Collections.Generic;
@@ -197,6 +193,7 @@ public class PortraitAnimatorEditor : Editor
             case AnimationType.Slide:
                 MiniLabel("Slide");
                 PropOf(a, "offScreenOffset", new GUIContent("Off-Screen Offset", "Offset ADDED to the rest position relative to its current layout home."));
+                PropOf(a, "slideRotation", new GUIContent("Slide Rotation", "Rotation applied while off-screen, animating back to 0."));
                 PropOf(a, "slideDuration");
                 break;
 

@@ -45,7 +45,7 @@ public class SceneController : MonoBehaviour
         {
             Debug.Log("[MainMenu] no save so new game");
             // Example: Using a transition named "Circle"
-            goToSceneName("Cet - matchLobby", "Gelap");
+            goToSceneName("Cet - matchLobby", "");
             AudioManager.Instance.PlayMusic("MainMenu");
             return;
         }
@@ -92,7 +92,7 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log("ke garage");
         // Example: Using a transition named "GarageDoor"
-        goToSceneName("Rae - Garage 2", "Gelap");
+        goToSceneName("Rae - Garage 2", "Terang");
         AudioManager.Instance.PlayMusic("MainMenu");
     }
     #endregion //mainmenu End
@@ -107,7 +107,7 @@ public class SceneController : MonoBehaviour
         PlayerPrefs.Save();
 
         // Example: Using a transition named "BattleWipe"
-        goToSceneName("Match", "Terang");
+        goToSceneName("Match", "Gelap");
         AudioManager.Instance.PlayMusic("InGame");
     }
 
