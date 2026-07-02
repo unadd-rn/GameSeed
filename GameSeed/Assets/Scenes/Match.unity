@@ -10924,6 +10924,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4ecd5384eb8e45b4e935f3e296e4831d, type: 2}
   - {fileID: 11400000, guid: 9cd0d90ac87b97d4aa1175023ee7a6a5, type: 2}
   - {fileID: 11400000, guid: 247e889b3f032604596ce5aea3acfbae, type: 2}
+  - {fileID: 11400000, guid: 6d00ebfb78024aa4da15f68dcd856711, type: 2}
 --- !u!23 &1543817073 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5553547069057059481, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
