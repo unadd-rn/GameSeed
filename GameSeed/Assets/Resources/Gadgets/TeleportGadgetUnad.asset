@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf09684c0426ae4786f6e7ccd0954e3, type: 3}
+  m_Name: TeleportGadgetUnad
+  m_EditorClassIdentifier: 
+  gadgetName: Default
+  description: This is the description of the gadget
+  model: {fileID: 21300000, guid: 01e632444fb6d914ba4b0db3e502b4f1, type: 3}
+  mesh: {fileID: 6607839196387346367, guid: 1310025274406f64984d3e6b65232a54, type: 3}
+  material: {fileID: 2100000, guid: f0a4622d74ab1ed4b945588ad47833f1, type: 2}
+  durability: 100
+  weight: 0
+  sizeX: 0.8
+  sizeY: 0.8
+  sizeZ: 0.8
+  isActiveGadget: 1

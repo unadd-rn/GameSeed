@@ -56,12 +56,22 @@ public class BambooPistolGadget : BaseGadget
             }
             else if (target.CompareTag("Enemy"))
             {
+                Vector3 stableForward = Vector3.ProjectOnPlane(spawnPoint.forward, Vector3.up).normalized;
+                if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+
                 GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
                 if (playerObj != null)
                 {
                     Vector3 dirToPlayer = playerObj.transform.position - spawnPoint.position;
                     dirToPlayer.y = 0;
-                    shootDirection = dirToPlayer.normalized;
+                    
+                    float dot = Vector3.Dot(dirToPlayer.normalized, stableForward);
+                    
+                    shootDirection = dot > 0f ? stableForward : -stableForward;
+                }
+                else
+                {
+                    shootDirection = stableForward;
                 }
             }
             shootDirection.y = 0;

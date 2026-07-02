@@ -1307,7 +1307,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1686950806}
+      - m_Target: {fileID: 1810796115}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: Lobby1
         m_Mode: 1
@@ -1317,6 +1317,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: boss1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1810796115}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &981130136
@@ -1451,6 +1463,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: boss1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1810796115}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &997701976
@@ -1939,7 +1963,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1686950806}
+      - m_Target: {fileID: 1810796115}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: StartMatch
         m_Mode: 5
@@ -1949,6 +1973,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: normal1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1810796115}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1100778941
@@ -2901,7 +2937,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1547898600}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1810796115}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1547898600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3116,28 +3164,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1686950807}
-  - component: {fileID: 1686950806}
   - component: {fileID: 1686950808}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: Scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1686950806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686950805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnim: {fileID: 0}
 --- !u!4 &1686950807
 Transform:
   m_ObjectHideFlags: 0
@@ -3172,7 +3206,7 @@ MonoBehaviour:
   TutorialFinished: 1
   winNumber: 6
   winNumberCondition: 5
-  sceneController: {fileID: 1686950806}
+  sceneController: {fileID: 0}
 --- !u!1 &1755732354
 GameObject:
   m_ObjectHideFlags: 0
@@ -3201,7 +3235,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: b3cc1191cdbb2924fbf6e19e1842df5f, type: 2}
   m_InitialState: 1
-  m_WrapMode: 2
+  m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
@@ -3314,6 +3348,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 4000, y: 4000}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1810796113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1810796114}
+  - component: {fileID: 1810796115}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1810796114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810796113}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 692.76764, y: 557.9414, z: -4.6149435}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1810796115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810796113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 0}
 --- !u!1 &1823236387
 GameObject:
   m_ObjectHideFlags: 0
@@ -3635,6 +3714,7 @@ SceneRoots:
   - {fileID: 1362059841}
   - {fileID: 1024539181}
   - {fileID: 1247843900}
+  - {fileID: 1810796114}
   - {fileID: 1686950807}
   - {fileID: 1755732356}
   - {fileID: 1659394019}

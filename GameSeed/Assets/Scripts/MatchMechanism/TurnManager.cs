@@ -33,11 +33,13 @@ public class TurnManager : MonoBehaviour
         {
             if (playerThrowScript != null) playerThrowScript.SetUIVisible(false);
             bossMatch.CheckMatchTypeLogic(); 
+            Debug.Log("bossmatch found");
         }
         else 
         {
             if (portraitAnimator != null) portraitAnimator.PlayEventIn("IN/OUT");
             SetState(TurnState.PlayerPlacement);
+            Debug.Log("bossmatch null");
         }
     }
 
@@ -57,6 +59,7 @@ public class TurnManager : MonoBehaviour
         switch (currentState)
         {
             case TurnState.PlayerPlacement:
+                Debug.Log("Turn placement");
                 if (playerSpawnScript != null) playerSpawnScript.enabled = true;
                 if (playerThrowScript != null) playerThrowScript.enabled = true;
                 if (enemyAIScript != null) enemyAIScript.enabled = false;

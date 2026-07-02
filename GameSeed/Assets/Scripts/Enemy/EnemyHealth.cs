@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float health;
     private int win;
     public float maxHp = 15f;
+    public PortraitAnimator panelAnimator;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
@@ -42,13 +43,36 @@ public class EnemyHealth : MonoBehaviour
     [Range(0f, 1f)] public float bodyDropChance = 0.5f; 
     [Range(0f, 1f)] public float gadgetDropChance = 0.4f;
     [SerializeField] private GameObject bodyGetUI;
+    private List<BaseGadget> droppableGadgets = new List<BaseGadget>();
 
     void Start()
     {
+        if (enemyBodyScript != null && enemyBodyScript.CurrentBodyData != null)
+        {
+            maxHp = enemyBodyScript.CurrentBodyData.HP;
+            health = maxHp;
+        }
+
         if(WinUI != null) WinUI.SetActive(false);
         rigid = GetComponent<Rigidbody>();
+        if (enemyGadgetScript != null)
+        {
+            List<GadgetInstance> initialGadgets = enemyGadgetScript.GetActiveGadgets();
+            if (initialGadgets != null)
+            {
+                foreach (var gadget in initialGadgets)
+                {
+                    if (gadget.data != null)
+                    {
+                        droppableGadgets.Add(gadget.data);
+                    }
+                }
+            }
+        }
         UpdateUI();
     }
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -113,8 +137,10 @@ public class EnemyHealth : MonoBehaviour
         bool isSpaceClear = false;
 
         // looping buat mastiin tempat respawn benar-benar kosong dari musuh
-        while (!isSpaceClear)
+        int attempts = 0; 
+        while (!isSpaceClear && attempts < 50)
         {
+            attempts++;
             isSpaceClear = true;
             
             // bikin sensor berbentuk bola untuk mengecek area sekitar
@@ -149,43 +175,28 @@ public class EnemyHealth : MonoBehaviour
         if(Bar!=null) Bar.gameObject.SetActive(true);//nnti kl dah ada mode invisible masukkin ke if
         // array biar gampang di-looping
         Image[] heartSlots = { HPos1, HPos2, HPos3, HPos4, HPos5, HPos6 };
+        Color[] layerColors = { layer1, layer2, layer3, layer4, layer5 };
 
         for (int i = 0; i < heartSlots.Length; i++)
         {
             if(heartSlots[i]==null) continue;
 
-            float Blayer5 = health - 12f - i*0.5f;
-            float Blayer4 = health - 9f - i*0.5f;
-            float Blayer3 = health - 6f - i*0.5f;
-            float Blayer2 = health - 3f - i*0.5f;
-            float Blayer1 = health - i*0.5f;
+            bool activated = false;
+            // Find the highest layer that is active for this slot
+            int maxPossibleLayer = Mathf.CeilToInt(health / 3f) + 1; // upper bound
+            for (int L = maxPossibleLayer; L >= 0; L--)
+            {
+                float threshold = L * 3f + i * 0.5f + 0.5f;
+                if (health >= threshold)
+                {
+                    heartSlots[i].gameObject.SetActive(true);
+                    heartSlots[i].color = layerColors[L % layerColors.Length];
+                    activated = true;
+                    break;
+                }
+            }
 
-            if (Blayer5 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer5;
-            }
-            else if (Blayer4 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer4;
-            } 
-            else if (Blayer3 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer3;
-            } 
-            else if (Blayer2 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer2;
-            }
-            else if (Blayer1 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer1;
-            } 
-            else 
+            if (!activated)
             {
                 if (heartSlots[i].gameObject.activeSelf && !flashingBar.Contains(heartSlots[i]))
                 {
@@ -234,6 +245,7 @@ public class EnemyHealth : MonoBehaviour
 
         // if(WinUI != null) WinUI.SetActive(true); entah knp gk bisa kl di cek null dl???
         WinUI.SetActive(true);
+        panelAnimator.PlayEventIn("Win");
     }
 
     private void TryDropEnemyBody()
@@ -270,17 +282,17 @@ public class EnemyHealth : MonoBehaviour
 
     private void TryDropEnemyGadget()
     {
-        if (enemyGadgetScript == null)
+        if (droppableGadgets == null || droppableGadgets.Count == 0)
+        {
+            Debug.Log("Active gadget Null - Musuh memang tidak punya gadget dari awal");
             return;
-        List<GadgetInstance> activeGadgets = enemyGadgetScript.GetActiveGadgets();
-        if (activeGadgets == null || activeGadgets.Count == 0)
-            return;
+        }
 
         float roll = Random.Range(0f, 1f);
         if (roll <= gadgetDropChance)
         {
-            int randomIndex = Random.Range(0, activeGadgets.Count);
-            BaseGadget droppedGadgetData = activeGadgets[randomIndex].data;
+            int randomIndex = Random.Range(0, droppableGadgets.Count);
+            BaseGadget droppedGadgetData = droppableGadgets[randomIndex];
 
             if (droppedGadgetData != null)
             {
@@ -289,6 +301,7 @@ public class EnemyHealth : MonoBehaviour
             }
 
             bodyGetUI.SetActive(true);
+            Debug.Log($"Hoki! Mendapatkan gadget: {droppedGadgetData.name}");
         }
         else
         {

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9bef86b949fa14db57aafb6e1eb658, type: 3}
+  m_Name: BandageGadget
+  m_EditorClassIdentifier: 
+  gadgetName: Bandage
+  description: First aid! First aid!
+  model: {fileID: 0}
+  mesh: {fileID: 9091874763089778162, guid: 7d9c772ec9a829a40be200832a6bbc12, type: 3}
+  material: {fileID: 2100000, guid: 065765fd1b2c63e4f8e6efa0e2de628e, type: 2}
+  durability: 2
+  weight: 0
+  sizeX: 0.8
+  sizeY: 0.8
+  sizeZ: 0.8
+  isActiveGadget: 0
+  bonusHP: 5
+  bonusDamage: 0

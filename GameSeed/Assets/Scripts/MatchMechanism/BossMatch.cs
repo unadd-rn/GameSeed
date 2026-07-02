@@ -16,7 +16,8 @@ public class BossMatch : MonoBehaviour
 
     public void CheckMatchTypeLogic()
     {
-            if (enemyAI != null) enemyAI.monteCarloSimulations = 100;
+            if (enemyAI != null) enemyAI.minSimulations = 100;
+            if (enemyAI != null) enemyAI.maxSimulations = 100;
             StartCoroutine(runBossMatchAnimation());
     }
 

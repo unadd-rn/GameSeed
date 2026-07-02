@@ -42,6 +42,8 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         isPressed = true;
         forceTest.ChangeForce();
         OnForcePressed?.Invoke();
+
+        AudioManager.Instance.PlayLoopingSFX("PowerNaikTurun");
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -49,5 +51,8 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         isPressed = false;
         stickThrow.Throw();
         OnForceReleased?.Invoke();
+        AudioManager.Instance.PlaySFX("StickJatuh");
+
+        AudioManager.Instance.StopLoopingSFX();
     }
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b1cf4cb803ba04a82eb158dc5f45f5, type: 3}
+  m_Name: The Lightning
+  m_EditorClassIdentifier: 
+  stickName: 
+  description: 
+  stickIcon: {fileID: 0}
+  stickMesh: {fileID: 6416302070336371891, guid: 35405c5ebe949e54fbbbe2b3f3387929,
+    type: 3}
+  stickMaterial: {fileID: 2100000, guid: c9e4d042d5a139b4f9fb42aebefd76cf, type: 2}
+  damage: 7
+  weight: 10
+  HP: 10
+  durability: 0

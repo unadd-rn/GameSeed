@@ -150,6 +150,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1841313860}
   - {fileID: 1660426053}
   - {fileID: 830893413}
   - {fileID: 947370371}
@@ -735,6 +736,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &147469182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,9 +1164,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1147004626}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+        m_MethodName: Lobby1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1161,6 +1174,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: normal
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &170582208
@@ -1567,7 +1592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &259066907
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1734,6 +1759,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281498493}
+  m_CullTransparentMesh: 1
+--- !u!1 &309959073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309959074}
+  - component: {fileID: 309959076}
+  - component: {fileID: 309959075}
+  m_Layer: 5
+  m_Name: Bacground (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &309959074
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309959073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1711384303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.1703, y: 4.8173}
+  m_SizeDelta: {x: 818.2822, y: 1684.8729}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &309959075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309959073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.59607846}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &309959076
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309959073}
   m_CullTransparentMesh: 1
 --- !u!1 &316404722
 GameObject:
@@ -2417,66 +2517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraits:
-  - label: Spinner
-    uiPortrait: {fileID: 694574007}
-    events:
-    - eventName: IN/OUT
-      inAnimation:
-        animationType: 1
-        followDelay: 0
-        trailColor: {r: 0, g: 0, b: 0, a: 0}
-        maximumTrailLag: {x: 0, y: 0}
-        maximumTrailLag2: {x: 0, y: 0}
-        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
-        spinDegrees: 180
-        zoomInScale: 0
-        spinZoomDuration: 0.2
-        wipeMask: {fileID: 0}
-        wipeDirection: 0
-        wipeDuration: 0
-        bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
-        shakeStrength: 0
-        shakeVibrato: 0
-        shakeRandomness: 0
-        shakeDuration: 0
-        canvasGroup: {fileID: 0}
-        fadeDuration: 0
-        wipeMaskFullSize: {x: 0, y: 0}
-        wipeMaskHiddenSize: {x: 0, y: 0}
-      outAnimation:
-        animationType: 1
-        followDelay: 0
-        trailColor: {r: 0, g: 0, b: 0, a: 0}
-        maximumTrailLag: {x: 0, y: 0}
-        maximumTrailLag2: {x: 0, y: 0}
-        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
-        offScreenOffset: {x: 0, y: 0}
-        slideDuration: 0
-        spinDegrees: 360
-        zoomInScale: 0
-        spinZoomDuration: 0.2
-        wipeMask: {fileID: 0}
-        wipeDirection: 0
-        wipeDuration: 0
-        bounceStartScale: 0
-        bounceOvershoot: 0
-        bounceDuration: 0
-        shakeStrength: 0
-        shakeVibrato: 0
-        shakeRandomness: 0
-        shakeDuration: 0
-        canvasGroup: {fileID: 0}
-        fadeDuration: 0
-        wipeMaskFullSize: {x: 0, y: 0}
-        wipeMaskHiddenSize: {x: 0, y: 0}
-    uniqueMaterial: {fileID: 0}
-    originalScale: {x: 1, y: 1, z: 1}
-    localRestPosition: {x: -332.2, y: -692.4}
-    isVisible: 0
   - label: P1 Bar
     uiPortrait: {fileID: 1664787834}
     events:
@@ -3857,6 +3897,306 @@ MonoBehaviour:
     originalScale: {x: 2, y: 2, z: 1}
     localRestPosition: {x: 417.5, y: -102.75}
     isVisible: 0
+  - label: PausePanel
+    uiPortrait: {fileID: 259066907}
+    events:
+    - eventName: Pause
+      inAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 45
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 0
+        zoomInScale: 0
+        spinZoomDuration: 0
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: WinPanel
+    uiPortrait: {fileID: 13608654}
+    events:
+    - eventName: Win
+      inAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 45
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 0
+        zoomInScale: 0
+        spinZoomDuration: 0
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: LosePanel
+    uiPortrait: {fileID: 1711384303}
+    events:
+    - eventName: Lose
+      inAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 45
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 3
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 1306}
+        slideDuration: 0.3
+        spinDegrees: 0
+        zoomInScale: 0
+        spinZoomDuration: 0
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0.2
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 2, y: 2, z: 1}
+    localRestPosition: {x: 417.5, y: -102.75}
+    isVisible: 0
+  - label: Spinner
+    uiPortrait: {fileID: 1185389863}
+    events:
+    - eventName: putStick
+      inAnimation:
+        animationType: 1
+        followDelay: 0.1
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 180
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 360
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 1, y: 1, z: 1}
+    localRestPosition: {x: -332.2, y: -692.4}
+    isVisible: 0
+  - label: Spinner2
+    uiPortrait: {fileID: 1864433367}
+    events:
+    - eventName: putStick
+      inAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 180
+        zoomInScale: 0.1
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+      outAnimation:
+        animationType: 1
+        followDelay: 0
+        trailColor: {r: 0, g: 0, b: 0, a: 0}
+        maximumTrailLag: {x: 0, y: 0}
+        maximumTrailLag2: {x: 0, y: 0}
+        finalTrailOffset: {x: 0, y: 0, z: 0, w: 0}
+        offScreenOffset: {x: 0, y: 0}
+        slideDuration: 0
+        spinDegrees: 360
+        zoomInScale: 0
+        spinZoomDuration: 0.2
+        wipeMask: {fileID: 0}
+        wipeDirection: 0
+        wipeDuration: 0
+        bounceStartScale: 0
+        bounceOvershoot: 0
+        bounceDuration: 0
+        shakeStrength: 0
+        shakeVibrato: 0
+        shakeRandomness: 0
+        shakeDuration: 0
+        canvasGroup: {fileID: 0}
+        fadeDuration: 0
+        wipeMaskFullSize: {x: 0, y: 0}
+        wipeMaskHiddenSize: {x: 0, y: 0}
+    uniqueMaterial: {fileID: 0}
+    originalScale: {x: 1, y: 1, z: 1}
+    localRestPosition: {x: -332.2, y: -692.4}
+    isVisible: 0
   toggleButton: {fileID: 0}
   toggleEventName: cutIn
 --- !u!4 &408669164
@@ -4679,6 +5019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 566832816}
   - component: {fileID: 566832817}
+  - component: {fileID: 566832818}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -4758,6 +5099,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &566832818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566832815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bc7a421a0cb5a45bcbe189f2d59e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &567858282
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,9 +5121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567858284}
   - component: {fileID: 567858283}
-  - component: {fileID: 567858285}
   - component: {fileID: 567858286}
-  - component: {fileID: 567858287}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4808,22 +5159,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &567858285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567858282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56357a48ee5c5b3418a886ef1563949f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseUI: {fileID: 0}
-  otherUI: {fileID: 498206779}
-  enemySlider: {fileID: 0}
-  playerSlider: {fileID: 0}
 --- !u!114 &567858286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4840,19 +5175,6 @@ MonoBehaviour:
   gameUI: {fileID: 498206779}
   vs: {fileID: 1564519379}
   playerThrowScript: {fileID: 0}
---- !u!114 &567858287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567858282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnim: {fileID: 0}
 --- !u!1 &576585162
 GameObject:
   m_ObjectHideFlags: 0
@@ -5019,6 +5341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 622238498}
   - component: {fileID: 622238499}
+  - component: {fileID: 622238500}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -5098,6 +5421,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &622238500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622238497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bc7a421a0cb5a45bcbe189f2d59e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631855266
 GameObject:
   m_ObjectHideFlags: 0
@@ -6350,7 +6685,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 818013810}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &818013810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7071,9 +7418,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1147004626}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: Rematch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7259,7 +7618,7 @@ RectTransform:
   m_Father: {fileID: 2005974151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -1.4199982, y: -30.529999}
   m_SizeDelta: {x: 35.2, y: 32.260002}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7585,6 +7944,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1135143459873748248, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: startingGadgets.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7942,6 +8306,7 @@ GameObject:
   - component: {fileID: 1133848483}
   - component: {fileID: 1133848482}
   - component: {fileID: 1133848481}
+  - component: {fileID: 1133848484}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -8012,7 +8377,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858285}
+      - m_Target: {fileID: 1133848484}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -8024,17 +8389,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 259066906}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1133848482
 MonoBehaviour:
@@ -8074,6 +8439,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133848479}
   m_CullTransparentMesh: 1
+--- !u!114 &1133848484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133848479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56357a48ee5c5b3418a886ef1563949f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUI: {fileID: 259066906}
+  otherUI: {fileID: 498206779}
+  enemySlider: {fileID: 566832815}
+  playerSlider: {fileID: 622238497}
+  portraitAnimator: {fileID: 408669163}
+  pauseEventName: Pause
+  otherUIEventName: OtherUI
 --- !u!1 &1147004624
 GameObject:
   m_ObjectHideFlags: 0
@@ -8083,8 +8467,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1147004625}
+  - component: {fileID: 1147004626}
   m_Layer: 0
-  m_Name: MatchManager
+  m_Name: SceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8105,6 +8490,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1147004626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147004624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 0}
 --- !u!1 &1166458079
 GameObject:
   m_ObjectHideFlags: 0
@@ -8338,7 +8736,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858285}
+      - m_Target: {fileID: 1133848484}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -8525,6 +8923,7 @@ MonoBehaviour:
   DeathUI: {fileID: 1711384302}
   health: 3
   maxHp: 15
+  panelAnimator: {fileID: 408669163}
   HPos1: {fileID: 1974460202}
   HPos2: {fileID: 472877521}
   HPos3: {fileID: 1022496853}
@@ -8532,11 +8931,11 @@ MonoBehaviour:
   HPos5: {fileID: 328158432}
   HPos6: {fileID: 329673571}
   Bar: {fileID: 158708057}
-  layer1: {r: 1, g: 0.21069163, b: 0.21069163, a: 1}
-  layer2: {r: 0.22327036, g: 0.22327036, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7188537, b: 0.23137254, a: 1}
-  layer4: {r: 0.5911315, g: 0.2295596, b: 1, a: 1}
-  layer5: {r: 0.23905289, g: 0.9622642, b: 0.28653654, a: 1}
+  layer1: {r: 0.5537276, g: 0.2117647, b: 1, a: 1}
+  layer2: {r: 0.79510325, g: 0.2235294, b: 1, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.9550948, a: 1}
+  layer4: {r: 1, g: 0.23137254, b: 0.60382456, a: 1}
+  layer5: {r: 0.9607843, g: 0.23921566, b: 0.27957654, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
@@ -9110,6 +9509,89 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 4000, y: 4000}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1283889382
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6822454451077709265, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.17997219
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.17997219
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17997219
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 549.9071
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1185.0907
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342093777893936594, guid: 429f94e7c3841424385d4657a50cc21b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 429f94e7c3841424385d4657a50cc21b, type: 3}
 --- !u!1 &1286310424
 GameObject:
   m_ObjectHideFlags: 0
@@ -9972,9 +10454,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1147004626}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+        m_MethodName: Rematch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9982,6 +10464,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: normal
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1387605686
@@ -11073,9 +11567,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+      - m_Target: {fileID: 1133848484}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11083,6 +11577,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: normal
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1147004626}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: Lobby1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1494713555
@@ -11914,7 +12420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1711384303
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11927,6 +12433,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 309959074}
   - {fileID: 1328137757}
   - {fileID: 316404723}
   - {fileID: 1878221791}
@@ -12196,6 +12703,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829906060}
   m_CullTransparentMesh: 1
+--- !u!1 &1841313859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841313860}
+  - component: {fileID: 1841313862}
+  - component: {fileID: 1841313861}
+  m_Layer: 5
+  m_Name: Bacground (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1841313860
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841313859}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 13608654}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.17022705, y: 4.817383}
+  m_SizeDelta: {x: 818.2822, y: 1684.8729}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1841313861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841313859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.59607846}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1841313862
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841313859}
+  m_CullTransparentMesh: 1
 --- !u!1 &1864433366
 GameObject:
   m_ObjectHideFlags: 0
@@ -12461,9 +13043,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1147004626}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: Rematch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1409068949}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: SFXButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13386,7 +13980,8 @@ MonoBehaviour:
   playerTransform: {fileID: 1216302335}
   rigid: {fileID: 2055251484}
   thinkDelay: 2
-  monteCarloSimulations: 10
+  minSimulations: 10
+  maxSimulations: 50
   refEnemyPosition: {x: 0, y: 0, z: 0}
   gadgetManager: {fileID: 2055251490}
 --- !u!114 &2055251482
@@ -13553,8 +14148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WinUI: {fileID: 13608653}
-  health: 1
+  health: 3
   maxHp: 15
+  panelAnimator: {fileID: 408669163}
   HPos1: {fileID: 935838070}
   HPos2: {fileID: 886786944}
   HPos3: {fileID: 1286310426}
@@ -13563,18 +14159,18 @@ MonoBehaviour:
   HPos6: {fileID: 204517112}
   Bar: {fileID: 1664787835}
   layer1: {r: 1, g: 0.21176471, b: 0.21176471, a: 1}
-  layer2: {r: 0.22352941, g: 0.22352941, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7176471, b: 0.23137255, a: 1}
-  layer4: {r: 0.5921569, g: 0.23137255, b: 1, a: 1}
-  layer5: {r: 0.23921569, g: 0.9647059, b: 0.2901961, a: 1}
+  layer2: {r: 1, g: 0.2235294, b: 0.5932859, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.9722156, a: 1}
+  layer4: {r: 0.77618617, g: 0.23137254, b: 1, a: 1}
+  layer5: {r: 0.5427835, g: 0.23921569, b: 0.9647059, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
   enemyAI: {fileID: 2055251481}
   enemyBodyScript: {fileID: 1543817072}
   enemyGadgetScript: {fileID: 2055251490}
-  bodyDropChance: 0.8
-  gadgetDropChance: 0.8
+  bodyDropChance: 1
+  gadgetDropChance: 1
   bodyGetUI: {fileID: 760765183}
 --- !u!114 &2055251490
 MonoBehaviour:
@@ -13589,12 +14185,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mandatoryGadgets:
-  - {fileID: 11400000, guid: c8dece6f371d926478bf20ff1feaa696, type: 2}
+  - {fileID: 11400000, guid: ea33418a4eebc6c4cacc418660ecb713, type: 2}
   randomizableGadgetsPool: []
   useRandomGadgets: 1
   minRandomGadgets: 1
   maxRandomGadgets: 2
-  chanceToUseGadget: 1
+  chanceToUseGadget: 0.75
   enemyStickSlot: {fileID: 2030508793}
   enemyStickBodyTransform: {fileID: 1543817071}
 --- !u!114 &2055251491
@@ -13904,3 +14500,4 @@ SceneRoots:
   - {fileID: 1409068950}
   - {fileID: 671067084}
   - {fileID: 1069865926}
+  - {fileID: 1283889382}
