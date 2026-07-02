@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float health;
     private int win;
     public float maxHp = 15f;
+    public PortraitAnimator panelAnimator;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
@@ -251,6 +252,7 @@ public class EnemyHealth : MonoBehaviour
 
         // if(WinUI != null) WinUI.SetActive(true); entah knp gk bisa kl di cek null dl???
         WinUI.SetActive(true);
+        panelAnimator.PlayEventIn("Win");
     }
 
     private void TryDropEnemyBody()
