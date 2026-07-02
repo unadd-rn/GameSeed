@@ -42,11 +42,26 @@ public class EnemyHealth : MonoBehaviour
     [Range(0f, 1f)] public float bodyDropChance = 0.5f; 
     [Range(0f, 1f)] public float gadgetDropChance = 0.4f;
     [SerializeField] private GameObject bodyGetUI;
+    private List<BaseGadget> droppableGadgets = new List<BaseGadget>();
 
     void Start()
     {
         if(WinUI != null) WinUI.SetActive(false);
         rigid = GetComponent<Rigidbody>();
+        if (enemyGadgetScript != null)
+        {
+            List<GadgetInstance> initialGadgets = enemyGadgetScript.GetActiveGadgets();
+            if (initialGadgets != null)
+            {
+                foreach (var gadget in initialGadgets)
+                {
+                    if (gadget.data != null)
+                    {
+                        droppableGadgets.Add(gadget.data);
+                    }
+                }
+            }
+        }
         UpdateUI();
     }
 
@@ -270,17 +285,17 @@ public class EnemyHealth : MonoBehaviour
 
     private void TryDropEnemyGadget()
     {
-        if (enemyGadgetScript == null)
+        if (droppableGadgets == null || droppableGadgets.Count == 0)
+        {
+            Debug.Log("Active gadget Null - Musuh memang tidak punya gadget dari awal");
             return;
-        List<GadgetInstance> activeGadgets = enemyGadgetScript.GetActiveGadgets();
-        if (activeGadgets == null || activeGadgets.Count == 0)
-            return;
+        }
 
         float roll = Random.Range(0f, 1f);
         if (roll <= gadgetDropChance)
         {
-            int randomIndex = Random.Range(0, activeGadgets.Count);
-            BaseGadget droppedGadgetData = activeGadgets[randomIndex].data;
+            int randomIndex = Random.Range(0, droppableGadgets.Count);
+            BaseGadget droppedGadgetData = droppableGadgets[randomIndex];
 
             if (droppedGadgetData != null)
             {
@@ -289,6 +304,7 @@ public class EnemyHealth : MonoBehaviour
             }
 
             bodyGetUI.SetActive(true);
+            Debug.Log($"Hoki! Mendapatkan gadget: {droppedGadgetData.name}");
         }
         else
         {

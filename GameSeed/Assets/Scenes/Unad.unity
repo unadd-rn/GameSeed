@@ -7585,6 +7585,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1135143459873748248, guid: dce5d802e0ced9e48bcb274a8432e7e7,
+        type: 3}
+      propertyPath: startingGadgets.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1356883144363044025, guid: dce5d802e0ced9e48bcb274a8432e7e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13573,8 +13578,8 @@ MonoBehaviour:
   enemyAI: {fileID: 2055251481}
   enemyBodyScript: {fileID: 1543817072}
   enemyGadgetScript: {fileID: 2055251490}
-  bodyDropChance: 0.8
-  gadgetDropChance: 0.8
+  bodyDropChance: 0
+  gadgetDropChance: 1
   bodyGetUI: {fileID: 760765183}
 --- !u!114 &2055251490
 MonoBehaviour:

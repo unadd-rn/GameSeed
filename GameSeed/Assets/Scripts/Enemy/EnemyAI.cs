@@ -81,18 +81,22 @@ public class EnemyAI : MonoBehaviour
 
             Vector3 directionToPlayer = playerTransform.position - transform.position;
             directionToPlayer.y = 0; 
-            // if (directionToPlayer != Vector3.zero)
-            // {
-            //     transform.rotation = Quaternion.LookRotation(directionToPlayer);
-            // }
 
-            Vector3 rayStart = transform.position + (directionToPlayer.normalized * 1f);
+            Vector3 stableForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            if (stableForward == Vector3.zero) stableForward = Vector3.forward;
+
+            // Karena ga boleh flip/muter, kita cek playernya lebih condong di depan atau belakang musuh
+            float dotForward = Vector3.Dot(directionToPlayer.normalized, stableForward);
+            // Kalau player di depan, arah cek = depan. Kalau di belakang, arah cek = belakang.
+            Vector3 straightAim = dotForward > 0f ? stableForward : -stableForward; 
+
+            Vector3 rayStart = transform.position + (straightAim * 1f);
             bool hasLineOfSight = false;
 
             int layerMask = ~(1 << LayerMask.NameToLayer("Ground"));
 
-            // Raycast biasa, tapi dia otomatis nembus benda yang layernya Ground
-            if (Physics.Raycast(rayStart, directionToPlayer.normalized, out RaycastHit hit, 15f, layerMask))
+            // Raycast-nya dipaksa LURUS pake straightAim, ga nyari posisi player (directionToPlayer) samsek
+            if (Physics.Raycast(rayStart, straightAim, out RaycastHit hit, 15f, layerMask))
             {
                 if (hit.transform.CompareTag("Player"))
                 {
@@ -101,7 +105,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    hasLineOfSight = false; // Kehalang tembok / obstacle lain
+                    hasLineOfSight = false; 
                     Debug.Log($"[EnemyAI - DEBUG] GAGAL! Kehalang object: {hit.transform.name}");
                 }
             }
