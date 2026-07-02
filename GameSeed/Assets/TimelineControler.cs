@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 [RequireComponent(typeof(PlayableDirector))]
-public class SimpleTimelineSpeed : MonoBehaviour
+public class TimelineControler : MonoBehaviour
 {
     public float speedMultiplier = 0.5f;
 

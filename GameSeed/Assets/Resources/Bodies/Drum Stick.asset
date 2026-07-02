@@ -18,6 +18,7 @@ MonoBehaviour:
   stickMesh: {fileID: 1248039166958328286, guid: c8c17690cb769ae44b11522fb465f380,
     type: 3}
   stickMaterial: {fileID: 2100000, guid: 7186e38d0b8e8074183b525b3f2bcb80, type: 2}
-  damage: 20
-  weight: 20
+  damage: 10
+  weight: 10
   HP: 25
+  durability: 0
