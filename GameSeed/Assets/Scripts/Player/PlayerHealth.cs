@@ -116,8 +116,10 @@ public class PlayerHealth : MonoBehaviour
         bool isSpaceClear = false;
 
         // looping buat mastiin tempat respawn benar-benar kosong dari musuh
-        while (!isSpaceClear)
+        int attempts = 0; 
+        while (!isSpaceClear && attempts < 50)
         {
+            attempts++;
             isSpaceClear = true;
             
             // Bikin sensor berbentuk bola untuk mengecek area sekitar
