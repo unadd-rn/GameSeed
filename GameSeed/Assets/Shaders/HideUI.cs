@@ -13,7 +13,7 @@ public class HideUI : MonoBehaviour
     [Tooltip("Add all the event names you want to trigger at the same time here.")]
     [SerializeField] private List<string> eventNames = new List<string> { "putStick" };
 
-    private bool isUIVisible = false;
+    private bool isUIVisible = true;
 
     void Start()
     {
