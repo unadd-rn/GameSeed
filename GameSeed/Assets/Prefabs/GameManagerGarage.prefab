@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1135143459873748248}
   m_Layer: 0
   m_Name: GameManagerGarage
-  m_TagString: Untagged
+  m_TagString: GarageM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

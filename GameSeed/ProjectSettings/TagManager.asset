@@ -8,6 +8,7 @@ TagManager:
   - OutOfBound
   - Ground
   - Projectile
+  - GarageM
   layers:
   - Default
   - TransparentFX
