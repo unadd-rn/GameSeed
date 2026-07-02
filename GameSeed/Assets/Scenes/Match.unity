@@ -8321,6 +8321,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10922,7 +10923,7 @@ MonoBehaviour:
   bodies:
   - {fileID: 11400000, guid: 38aa31195f85ae84ba3156bbebef7e1f, type: 2}
   - {fileID: 11400000, guid: 4ecd5384eb8e45b4e935f3e296e4831d, type: 2}
-  - {fileID: 11400000, guid: 9cd0d90ac87b97d4aa1175023ee7a6a5, type: 2}
+  - {fileID: 11400000, guid: 78af31d9bb0c44b4389f8639fb1f22c5, type: 2}
   - {fileID: 11400000, guid: 247e889b3f032604596ce5aea3acfbae, type: 2}
   - {fileID: 11400000, guid: 6d00ebfb78024aa4da15f68dcd856711, type: 2}
 --- !u!23 &1543817073 stripped
@@ -12985,6 +12986,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &2055251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
