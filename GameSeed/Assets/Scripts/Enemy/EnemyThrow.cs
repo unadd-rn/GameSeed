@@ -179,6 +179,8 @@ public class ThrowEnemy : MonoBehaviour
         
         rigid.angularVelocity += logRoll + flatSpin;
 
+        AudioManager.Instance.PlaySFX("StickJatuh");
+
         activeResetCoroutine = StartCoroutine(ResetAfterThrow());
     }
 

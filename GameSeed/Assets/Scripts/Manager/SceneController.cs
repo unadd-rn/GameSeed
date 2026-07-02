@@ -46,6 +46,7 @@ public class SceneController : MonoBehaviour
             Debug.Log("[MainMenu] no save so new game");
             // Example: Using a transition named "Circle"
             goToSceneName("Cet - matchLobby", "Gelap");
+            AudioManager.Instance.PlayMusic("MainMenu");
             return;
         }
     }
@@ -61,6 +62,7 @@ public class SceneController : MonoBehaviour
         Debug.Log("balik ke matchlobby");
         // Example: Using a transition named "Square"
         goToSceneName("Cet - matchLobby", "");
+        AudioManager.Instance.PlayMusic("MainMenu");
     }
 
     public void Rematch()
@@ -75,6 +77,7 @@ public class SceneController : MonoBehaviour
         Debug.Log("balik ke Match");
         // Example: Using a transition named "Square"
         goToSceneName("Match", "Gelap");
+        AudioManager.Instance.PlayMusic("InGame");
     }
 
     public void Lobby1()
@@ -82,6 +85,7 @@ public class SceneController : MonoBehaviour
         Debug.Log("balik ke lobby1");
         // Example: Using a transition named "Square"
         goToSceneName("Cet - lobby1", "");
+        AudioManager.Instance.PlayMusic("MainMenu");
     }
 
     public void Garage()
@@ -89,6 +93,7 @@ public class SceneController : MonoBehaviour
         Debug.Log("ke garage");
         // Example: Using a transition named "GarageDoor"
         goToSceneName("Rae - Garage 2", "Gelap");
+        AudioManager.Instance.PlayMusic("MainMenu");
     }
     #endregion //mainmenu End
 
@@ -103,6 +108,7 @@ public class SceneController : MonoBehaviour
 
         // Example: Using a transition named "BattleWipe"
         goToSceneName("Match", "Terang");
+        AudioManager.Instance.PlayMusic("InGame");
     }
 
     public void StartBoss(string type)
@@ -115,6 +121,12 @@ public class SceneController : MonoBehaviour
 
         // Example: Using a transition named "BattleWipe"
         goToSceneName("Unad", "Terang");
+        AudioManager.Instance.PlayMusic("AyamBoss");
     }
     #endregion
+
+    public void SFXButtonPressed()
+    {
+        AudioManager.Instance.PlaySFX("ButtonPressed");
+    }
 }

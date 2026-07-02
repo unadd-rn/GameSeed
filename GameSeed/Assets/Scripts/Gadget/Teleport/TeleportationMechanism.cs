@@ -21,6 +21,8 @@ public class TeleportationMechanism : MonoBehaviour
     [Tooltip("Duration in seconds that the object stays invisible before reappearing.")]
     public float invisibilityDuration = 1.0f; 
     public GameObject visualModel; // Assign your object's 3D model/graphics here
+    [Header("Safety Padding")]
+    public float edgePadding = 0.5f;
 
     // public void Teleport()
     // {  
@@ -72,53 +74,54 @@ public class TeleportationMechanism : MonoBehaviour
         while (!foundValidSpot && attempts < maxAttempts)
         {
             attempts++;
-            float randomX = Random.Range(minX, maxX);
-            float randomZ = Random.Range(minZ, maxZ);
+            
+            // Shrink the random area by the edgePadding
+            float randomX = Random.Range(minX + edgePadding, maxX - edgePadding);
+            float randomZ = Random.Range(minZ + edgePadding, maxZ - edgePadding);
             
             Vector3 rayStart = new Vector3(randomX, 100f, randomZ);
             
             if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 200f))
             {
-                if (hit.collider.CompareTag("OutOfBound")) continue;
+                if (!hit.collider.CompareTag("Ground")) continue;
 
                 Vector2 pointXZ = new Vector2(hit.point.x, hit.point.z);
                 Vector2 enemyXZ = new Vector2(enemy.position.x, enemy.position.z);
                 
                 if (Vector2.Distance(pointXZ, enemyXZ) < minDistanceToEnemy) continue;
 
-                finalPoint = hit.point + (Vector3.up * teleportYOffset);
+                Vector3 proposedPoint = hit.point + (Vector3.up * teleportYOffset);
+                if (Physics.CheckSphere(proposedPoint, edgePadding))
+                {
+                    // If it hits another collider (other than the floor), skip this spot
+                    // Note: You may need a LayerMask here so it ignores the ground itself
+                }
+
+                finalPoint = proposedPoint;
                 foundValidSpot = true;
             }
         }
 
         if (foundValidSpot)
         {
-            // 1. DISAPPEAR: Hide the visual model immediately
             if (visualModel != null) visualModel.SetActive(false);
 
-            // 2. MOVE IMMEDIATELY: Relocate physics & position right away while hidden
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null) 
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero; 
                 rb.position = finalPoint; 
-                transform.position = finalPoint; // Sync transform instantly alongside Rigidbody
             }
-            else
-            {
-                transform.position = finalPoint;
-            }
+            transform.position = finalPoint;
 
-            // 3. WAIT: Pause execution at the NEW destination, completely hidden
             yield return new WaitForSeconds(invisibilityDuration);
 
-            // 4. REAPPEAR: Safely turn the visual model back on
             if (visualModel != null) visualModel.SetActive(true);
         }
         else
         {
-            Debug.LogWarning("Gagal nemu titik yang aman di arena");
+            Debug.LogWarning("Gagal nemu titik yang aman di arena setelah " + maxAttempts + " percobaan.");
         }
     }
 }

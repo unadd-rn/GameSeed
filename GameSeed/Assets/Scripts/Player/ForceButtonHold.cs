@@ -39,11 +39,16 @@ public class ForceButtonHold : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     {
         isPressed = true;
         forceTest.ChangeForce();
+
+        AudioManager.Instance.PlayLoopingSFX("PowerNaikTurun");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isPressed = false;
         stickThrow.Throw();
+        AudioManager.Instance.PlaySFX("StickJatuh");
+
+        AudioManager.Instance.StopLoopingSFX();
     }
 }

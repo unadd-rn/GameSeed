@@ -1054,9 +1054,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1948756753}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+        m_MethodName: Lobby1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4599,7 +4599,6 @@ GameObject:
   - component: {fileID: 567858284}
   - component: {fileID: 567858283}
   - component: {fileID: 567858285}
-  - component: {fileID: 567858287}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4653,19 +4652,9 @@ MonoBehaviour:
   otherUI: {fileID: 498206779}
   enemySlider: {fileID: 0}
   playerSlider: {fileID: 0}
---- !u!114 &567858287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567858282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnim: {fileID: 0}
+  portraitAnimator: {fileID: 0}
+  pauseEventName: Pause
+  otherUIEventName: OtherUI
 --- !u!1 &576585162
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,9 +6783,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1948756753}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Rematch
+        m_MethodName: Match
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8253,6 +8242,7 @@ MonoBehaviour:
   DeathUI: {fileID: 1711384302}
   health: 3
   maxHp: 15
+  panelAnimator: {fileID: 0}
   HPos1: {fileID: 1974460202}
   HPos2: {fileID: 472877521}
   HPos3: {fileID: 1022496853}
@@ -8260,11 +8250,11 @@ MonoBehaviour:
   HPos5: {fileID: 328158432}
   HPos6: {fileID: 329673571}
   Bar: {fileID: 158708057}
-  layer1: {r: 1, g: 0.21069163, b: 0.21069163, a: 1}
-  layer2: {r: 0.22327036, g: 0.22327036, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7188537, b: 0.23137254, a: 1}
-  layer4: {r: 0.5911315, g: 0.2295596, b: 1, a: 1}
-  layer5: {r: 0.23905289, g: 0.9622642, b: 0.28653654, a: 1}
+  layer1: {r: 0.40731633, g: 0.2117647, b: 1, a: 1}
+  layer2: {r: 0.83834255, g: 0.2235294, b: 1, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.8719593, a: 1}
+  layer4: {r: 1, g: 0.23137254, b: 0.549231, a: 1}
+  layer5: {r: 0.9607843, g: 0.23921566, b: 0.25988123, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
@@ -8331,6 +8321,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9603,9 +9594,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1948756753}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+        m_MethodName: Lobby1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9755,51 +9746,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
---- !u!1 &1409068948
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1409068950}
-  - component: {fileID: 1409068949}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1409068949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409068948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnim: {fileID: 0}
---- !u!4 &1409068950
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409068948}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 692.76764, y: 557.9414, z: -4.6149435}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430308394
 GameObject:
   m_ObjectHideFlags: 0
@@ -10704,9 +10650,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1948756753}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Lobby
+        m_MethodName: Lobby1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10977,8 +10923,9 @@ MonoBehaviour:
   bodies:
   - {fileID: 11400000, guid: 38aa31195f85ae84ba3156bbebef7e1f, type: 2}
   - {fileID: 11400000, guid: 4ecd5384eb8e45b4e935f3e296e4831d, type: 2}
-  - {fileID: 11400000, guid: 9cd0d90ac87b97d4aa1175023ee7a6a5, type: 2}
+  - {fileID: 11400000, guid: 78af31d9bb0c44b4389f8639fb1f22c5, type: 2}
   - {fileID: 11400000, guid: 247e889b3f032604596ce5aea3acfbae, type: 2}
+  - {fileID: 11400000, guid: 6d00ebfb78024aa4da15f68dcd856711, type: 2}
 --- !u!23 &1543817073 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5553547069057059481, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
@@ -11883,9 +11830,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 567858287}
+      - m_Target: {fileID: 1948756753}
         m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: Rematch
+        m_MethodName: Match
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12223,6 +12170,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1948756752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1948756754}
+  - component: {fileID: 1948756753}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1948756753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948756752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b584f335ec6776458d946eb1a750cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 0}
+--- !u!4 &1948756754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948756752}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.3946973, y: -7.6077147, z: 2.3824158}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1974460200
 GameObject:
   m_ObjectHideFlags: 0
@@ -12887,6 +12879,7 @@ MonoBehaviour:
   WinUI: {fileID: 13608653}
   health: 3
   maxHp: 15
+  panelAnimator: {fileID: 0}
   HPos1: {fileID: 935838070}
   HPos2: {fileID: 886786944}
   HPos3: {fileID: 1286310426}
@@ -12895,18 +12888,18 @@ MonoBehaviour:
   HPos6: {fileID: 204517112}
   Bar: {fileID: 1664787835}
   layer1: {r: 1, g: 0.21176471, b: 0.21176471, a: 1}
-  layer2: {r: 0.22352941, g: 0.22352941, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7176471, b: 0.23137255, a: 1}
-  layer4: {r: 0.5921569, g: 0.23137255, b: 1, a: 1}
-  layer5: {r: 0.23921569, g: 0.9647059, b: 0.2901961, a: 1}
+  layer2: {r: 1, g: 0.2235294, b: 0.5430437, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.966446, a: 1}
+  layer4: {r: 0.7652851, g: 0.23137254, b: 1, a: 1}
+  layer5: {r: 0.47012037, g: 0.23921569, b: 0.9647059, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
   enemyAI: {fileID: 2055251481}
   enemyBodyScript: {fileID: 1543817072}
   enemyGadgetScript: {fileID: 2055251490}
-  bodyDropChance: 1
-  gadgetDropChance: 1
+  bodyDropChance: 0.6
+  gadgetDropChance: 0.6
   bodyGetUI: {fileID: 760765183}
 --- !u!114 &2055251490
 MonoBehaviour:
@@ -12993,6 +12986,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &2055251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13236,9 +13230,9 @@ SceneRoots:
   - {fileID: 1147004625}
   - {fileID: 1939850271}
   - {fileID: 567858284}
+  - {fileID: 1948756754}
   - {fileID: 1007127308}
   - {fileID: 1875347284}
   - {fileID: 408669164}
-  - {fileID: 1409068950}
   - {fileID: 671067084}
   - {fileID: 1069865926}

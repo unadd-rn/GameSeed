@@ -32,7 +32,11 @@ public class ReceiveDataFromGarage : MonoBehaviour
                 AttachGadgetInMatch(curGadget, curGadget.slotIdx);
             }
         }
-        // playerHealth.health = body.data.HP;
+        if (playerHealth != null)
+        {
+            playerHealth.maxHp = body.data.HP;
+            playerHealth.health = body.data.HP;
+        }
     }
 
     void AttachGadgetInMatch(GadgetInstance gadget, int slotIdx)

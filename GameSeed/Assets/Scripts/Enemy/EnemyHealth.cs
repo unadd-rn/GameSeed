@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float health;
     private int win;
     public float maxHp = 15f;
+    public PortraitAnimator panelAnimator;
     
     [Header("UI References")]
     public Image HPos1, HPos2, HPos3, HPos4, HPos5, HPos6, Bar;
@@ -46,6 +47,12 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
+        if (enemyBodyScript != null && enemyBodyScript.CurrentBodyData != null)
+        {
+            maxHp = enemyBodyScript.CurrentBodyData.HP;
+            health = maxHp;
+        }
+
         if(WinUI != null) WinUI.SetActive(false);
         rigid = GetComponent<Rigidbody>();
         if (enemyGadgetScript != null)
@@ -64,6 +71,8 @@ public class EnemyHealth : MonoBehaviour
         }
         UpdateUI();
     }
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -166,43 +175,28 @@ public class EnemyHealth : MonoBehaviour
         if(Bar!=null) Bar.gameObject.SetActive(true);//nnti kl dah ada mode invisible masukkin ke if
         // array biar gampang di-looping
         Image[] heartSlots = { HPos1, HPos2, HPos3, HPos4, HPos5, HPos6 };
+        Color[] layerColors = { layer1, layer2, layer3, layer4, layer5 };
 
         for (int i = 0; i < heartSlots.Length; i++)
         {
             if(heartSlots[i]==null) continue;
 
-            float Blayer5 = health - 12f - i*0.5f;
-            float Blayer4 = health - 9f - i*0.5f;
-            float Blayer3 = health - 6f - i*0.5f;
-            float Blayer2 = health - 3f - i*0.5f;
-            float Blayer1 = health - i*0.5f;
+            bool activated = false;
+            // Find the highest layer that is active for this slot
+            int maxPossibleLayer = Mathf.CeilToInt(health / 3f) + 1; // upper bound
+            for (int L = maxPossibleLayer; L >= 0; L--)
+            {
+                float threshold = L * 3f + i * 0.5f + 0.5f;
+                if (health >= threshold)
+                {
+                    heartSlots[i].gameObject.SetActive(true);
+                    heartSlots[i].color = layerColors[L % layerColors.Length];
+                    activated = true;
+                    break;
+                }
+            }
 
-            if (Blayer5 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer5;
-            }
-            else if (Blayer4 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer4;
-            } 
-            else if (Blayer3 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer3;
-            } 
-            else if (Blayer2 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer2;
-            }
-            else if (Blayer1 >= 0.5f)
-            {
-                heartSlots[i].gameObject.SetActive(true);
-                heartSlots[i].color = layer1;
-            } 
-            else 
+            if (!activated)
             {
                 if (heartSlots[i].gameObject.activeSelf && !flashingBar.Contains(heartSlots[i]))
                 {
@@ -251,6 +245,7 @@ public class EnemyHealth : MonoBehaviour
 
         // if(WinUI != null) WinUI.SetActive(true); entah knp gk bisa kl di cek null dl???
         WinUI.SetActive(true);
+        panelAnimator.PlayEventIn("Win");
     }
 
     private void TryDropEnemyBody()
