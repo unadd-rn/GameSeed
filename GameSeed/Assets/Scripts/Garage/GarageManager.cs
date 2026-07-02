@@ -47,8 +47,20 @@ public class GarageManager : MonoBehaviour
     [Header("Slider Gadget")]
     public Slider sliderGadget;
 
+    // [Header("Testing Bodies")]
+    // [SerializeField] private BodyType[] bodies = new BodyType[10];
+
     void Start()
-    {
+    {   /*--- testing ----*/
+        // for(int i = 0; i < bodies.Length; i++)
+        // {
+        //     if(bodies[i] != null)
+        //     {
+        //         BodyManager.Instance.AddBodyTypeToInventory(bodies[i]);
+        //     }
+        // }
+        /*-----------------*/
+
         if (textField != null) textField.SetActive(false);
         if (gadgetPanel != null) gadgetPanel.SetActive(false);
         if (bodyPanel != null) bodyPanel.SetActive(true);
@@ -247,11 +259,13 @@ public class GarageManager : MonoBehaviour
             currentImage.color = tempColor;
 
             currentImage.sprite = currentB.data.stickIcon;
+
+            int currIdx = i;
             currentButton.onClick.RemoveAllListeners();
             // Debug.Log("Remove all listener");
             currentButton.onClick.AddListener(() =>
             {
-                BodyManager.Instance.PreviewBody(i);
+                BodyManager.Instance.PreviewBody(currIdx);
                 confirmButtonBody.SetActive(true);
                 cancelButton.SetActive(true);
                 bodyOrGadgetName.text = currentB.data.stickName.ToString();
@@ -291,8 +305,10 @@ public class GarageManager : MonoBehaviour
             return;
         }
 
-        for(int i = BodyManager.Instance.bodyOwnedNeff - 1; i > slotIndex; i--)
-            BodyManager.Instance.bodyOwned[i-1] = BodyManager.Instance.bodyOwned[i];
+        for (int i = slotIndex; i < BodyManager.Instance.bodyOwnedNeff - 1; i++)
+        {
+            BodyManager.Instance.bodyOwned[i] = BodyManager.Instance.bodyOwned[i + 1];
+        }
 
         BodyManager.Instance.bodyOwned[BodyManager.Instance.bodyOwnedNeff - 1] = null;
         BodyManager.Instance.bodyOwnedNeff--;

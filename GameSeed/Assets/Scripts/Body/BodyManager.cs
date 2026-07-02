@@ -16,19 +16,6 @@ public class BodyManager : MonoBehaviour
 
     void Awake()
     {
-        if (currentEquippedBody == null || currentEquippedBody.data == null)
-        {
-            currentEquippedBody = new BodyInstance(def);
-            AddBodyToInventory(currentEquippedBody);
-        }
-        if(currentEquippedBody.data == null)
-        {
-            Debug.LogError("null di data");
-        } else
-        {
-            Debug.Log("aman kok");
-        }
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -38,6 +25,19 @@ public class BodyManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+        if (currentEquippedBody == null || currentEquippedBody.data == null)
+        {
+            currentEquippedBody = new BodyInstance(def);
+            currentEquippedBody.isEquipped = true;
+            AddBodyToInventory(currentEquippedBody);
+        }
+        if(currentEquippedBody.data == null)
+        {
+            Debug.LogError("null di data");
+        } else
+        {
+            Debug.Log("aman kok");
+        }
     }
 
     void Start()
