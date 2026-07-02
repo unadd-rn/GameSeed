@@ -88,7 +88,7 @@ public class SceneController : MonoBehaviour
     {
         Debug.Log("ke garage");
         // Example: Using a transition named "GarageDoor"
-        goToSceneName("Rae - Garage 2", "Terang");
+        goToSceneName("Rae - Garage 2", "Gelap");
     }
     #endregion //mainmenu End
 
@@ -102,7 +102,7 @@ public class SceneController : MonoBehaviour
         PlayerPrefs.Save();
 
         // Example: Using a transition named "BattleWipe"
-        goToSceneName("Match", "Gelap");
+        goToSceneName("Match", "Terang");
     }
 
     public void StartBoss(string type)
@@ -114,7 +114,7 @@ public class SceneController : MonoBehaviour
         PlayerPrefs.Save();
 
         // Example: Using a transition named "BattleWipe"
-        goToSceneName("Unad", "Gelap");
+        goToSceneName("Unad", "Terang");
     }
     #endregion
 }
