@@ -12,6 +12,7 @@ public class BossMatch : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlaySFX("VersusAlt");
     }
 
     public void CheckMatchTypeLogic()

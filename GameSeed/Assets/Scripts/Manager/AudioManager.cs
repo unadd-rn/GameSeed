@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -93,13 +94,24 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // ---> Fungsi Baru Buat Berhentiin SFX Looping
     public void StopLoopingSFX()
     {
         if (loopingSFXSource.isPlaying)
         {
             loopingSFXSource.Stop();
         }
+    }
+
+    public void PlayThrowSFXSequence()
+    {
+        StartCoroutine(SFXAfterThrow());
+    }
+
+    public IEnumerator SFXAfterThrow()
+    {
+        PlaySFX("TepokStick");
+        yield return new WaitForSeconds(0.2f);
+        PlaySFX("StickJatuh");
     }
 
     private AudioClip GetMusicFromName(string trackName)
