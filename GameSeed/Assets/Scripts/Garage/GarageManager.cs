@@ -60,6 +60,12 @@ public class GarageManager : MonoBehaviour
 
     [Header("Slider Gadget")]
     public Slider sliderGadget;
+    [SerializeField] Slider sliderReadOnly;
+    public GameObject sliderROGO;
+
+    [Header("Text Guidance")]
+    public GameObject textNyuruhSlide;
+
 
     // [Header("Testing Bodies")]
     // [SerializeField] private BodyType[] bodies = new BodyType[10];
@@ -76,6 +82,9 @@ public class GarageManager : MonoBehaviour
         /*-----------------*/
 
         BodyManager.Instance.tempPreviewBody = BodyManager.Instance.currentEquippedBody;
+        sliderReadOnly.enabled = false;
+        sliderROGO.SetActive(false);
+        textNyuruhSlide.SetActive(false);
 
         if (textField != null) textField.SetActive(false);
         if (gadgetPanel != null) gadgetPanel.SetActive(false);
@@ -234,6 +243,7 @@ public class GarageManager : MonoBehaviour
 
             if(currentG.data.model != null)
                 childImage.sprite = currentG.data.model;
+                // childImage.SetNativeSize();
 
             currentButton.image.sprite = NormalStateBG;
             currentButton.onClick.RemoveAllListeners();
@@ -243,8 +253,10 @@ public class GarageManager : MonoBehaviour
                confirmButtonGadget.SetActive(true);
                cancelButton.SetActive(true);
                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
+               sliderROGO.SetActive(true);
                bodyOrGadgetDesc.text = currentG.data.description.ToString();
                textField.SetActive(true);
+               textNyuruhSlide.SetActive(true);
             });
         }
     }
@@ -313,7 +325,7 @@ public class GarageManager : MonoBehaviour
         {
             gmi.DetachGadgetbyID(gmi.gadgetOwned[slotIndex].id);
         }
-        for(int i = slotIndex; i < gmi.gadgetOwnedNeff; i++)
+        for(int i = slotIndex; i < gmi.gadgetOwnedNeff - 1; i++)
         {
             gmi.gadgetOwned[i] = gmi.gadgetOwned[i+1];
         }
@@ -413,7 +425,8 @@ public class GarageManager : MonoBehaviour
             tempColor.a = 1f;
             currentImage.color = tempColor;
 
-            // currentImage.sprite = currentB.data.stickIcon;
+            currentImage.sprite = currentB.data.stickIcon;
+            currentImage.SetNativeSize();
 
             int currIdx = i;
             currentButton.image.sprite = RemoveStateBG;
@@ -423,6 +436,7 @@ public class GarageManager : MonoBehaviour
                 confirmImageBody.SetActive(true);
                 Image cib = confirmImageBody.GetComponent<Image>();
                 cib.sprite = currentB.data.stickIcon;
+                cib.SetNativeSize();
                 
                 GOStickBody.SetActive(false);
 
@@ -435,8 +449,8 @@ public class GarageManager : MonoBehaviour
                    GOStickBody.SetActive(false);
                    popupPanel.SetActive(false);
                    confirmImageBody.SetActive(false);
-                   EmptyingBodyButtons();
-                   SetupRemoveBodyButtons();
+                //    EmptyingBodyButtons();
+                //    SetupRemoveBodyButtons();
                 });
                 bodyOrGadgetName.text = currentB.data.stickName.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
@@ -478,7 +492,8 @@ public class GarageManager : MonoBehaviour
             tempColor.a = 1f;
             currentImage.color = tempColor;
 
-            // currentImage.sprite = currentG.data.model;
+            currentImage.sprite = currentG.data.model;
+            // currentImage.SetNativeSize();
 
             int currIdx = i;
             currentButton.image.sprite = RemoveStateBG;
@@ -504,8 +519,8 @@ public class GarageManager : MonoBehaviour
                     GOStickBody.SetActive(true);
                     popupPanel.SetActive(false);
                     RemoveGadgetFromInventory(currIdx);
-                    EmptyingBodyButtons();
-                    SetupRemoveGadgetButtons();
+                    // EmptyingGadgetButtons();
+                    // SetupRemoveGadgetButtons();
                 });
                 textField.SetActive(true);
             });
@@ -533,6 +548,7 @@ public class GarageManager : MonoBehaviour
 
     public void OnSliderValueChanged(float value)
     {
+        sliderReadOnly.value = value;
         int curIdx = Mathf.RoundToInt(value);
         GadgetManager.Instance.UpdatePreviewPosition(curIdx);
     }

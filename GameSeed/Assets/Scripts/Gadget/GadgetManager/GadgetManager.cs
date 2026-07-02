@@ -248,6 +248,8 @@ public class GadgetManager : MonoBehaviour
         currentPreviewGadget = null;
         currentPreviewSlotIndex = -1;
         previewOriginalSlotIdx = -1;
+        garageManager.sliderROGO.SetActive(false);
+        garageManager.textNyuruhSlide.SetActive(false);
     }
 
     public void CancelPreview()
