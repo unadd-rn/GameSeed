@@ -349,21 +349,21 @@ public class GadgetManager : MonoBehaviour
         backSlot.occupant = gadget;
     }
 
-    public void SaveInventory()
-    {
-        string json = JsonUtility.ToJson(this); 
-        PlayerPrefs.SetString("GadgetInventory", json);
-        PlayerPrefs.Save();
-    }
+    // public void SaveInventory()
+    // {
+    //     string json = JsonUtility.ToJson(this); 
+    //     PlayerPrefs.SetString("GadgetInventory", json);
+    //     PlayerPrefs.Save();
+    // }
 
-    public void LoadInventory()
-    {
-        if (PlayerPrefs.HasKey("GadgetInventory"))
-        {
-            string json = PlayerPrefs.GetString("GadgetInventory");
-            JsonUtility.FromJsonOverwrite(json, this);
-        }
-    }
+    // public void LoadInventory()
+    // {
+    //     if (PlayerPrefs.HasKey("GadgetInventory"))
+    //     {
+    //         string json = PlayerPrefs.GetString("GadgetInventory");
+    //         JsonUtility.FromJsonOverwrite(json, this);
+    //     }
+    // }
     
     //bismillah bismillah bismillah berhasil yaAllah
 
