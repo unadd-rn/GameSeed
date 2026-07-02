@@ -60,7 +60,11 @@ public class GarageManager : MonoBehaviour
 
     [Header("Slider Gadget")]
     public Slider sliderGadget;
-    
+    [SerializeField] Slider sliderReadOnly;
+    public GameObject sliderROGO;
+
+    [Header("Text Guidance")]
+    public GameObject textNyuruhSlide;
 
 
     // [Header("Testing Bodies")]
@@ -78,6 +82,9 @@ public class GarageManager : MonoBehaviour
         /*-----------------*/
 
         BodyManager.Instance.tempPreviewBody = BodyManager.Instance.currentEquippedBody;
+        sliderReadOnly.enabled = false;
+        sliderROGO.SetActive(false);
+        textNyuruhSlide.SetActive(false);
 
         if (textField != null) textField.SetActive(false);
         if (gadgetPanel != null) gadgetPanel.SetActive(false);
@@ -246,8 +253,10 @@ public class GarageManager : MonoBehaviour
                confirmButtonGadget.SetActive(true);
                cancelButton.SetActive(true);
                bodyOrGadgetName.text = currentG.data.gadgetName.ToString();
+               sliderROGO.SetActive(true);
                bodyOrGadgetDesc.text = currentG.data.description.ToString();
                textField.SetActive(true);
+               textNyuruhSlide.SetActive(true);
             });
         }
     }
@@ -539,6 +548,7 @@ public class GarageManager : MonoBehaviour
 
     public void OnSliderValueChanged(float value)
     {
+        sliderReadOnly.value = value;
         int curIdx = Mathf.RoundToInt(value);
         GadgetManager.Instance.UpdatePreviewPosition(curIdx);
     }
