@@ -130,7 +130,7 @@ public class GarageManager : MonoBehaviour
         
 
         GameObject bodyGO = Instantiate(stickBodyPrefab, stickSpawnPoint.position, stickSpawnPoint.rotation);
-        // GOStickBody = bodyGO;
+        GOStickBody = bodyGO;
         spawnedBody = bodyGO.GetComponent<StickBody>();
 
         if(BodyManager.Instance.currentEquippedBody.data == null)
@@ -186,7 +186,11 @@ public class GarageManager : MonoBehaviour
         for(int i = 0; i < buttonsG.Length; i++)
         {
             Button currentButton = buttonsG[i];
-            currentButton.image.sprite = null;
+            // currentButton.image.sprite = null;
+            Image childImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            var tempcl = childImage.color;
+            tempcl.a = 0f;
+            childImage.color = tempcl;
             currentButton.onClick.RemoveAllListeners();
         }
     }
@@ -197,7 +201,11 @@ public class GarageManager : MonoBehaviour
         for(int i = 0; i < buttonsB.Length; i++)
         {
             Button currentButton = buttonsB[i];
-            currentButton.image.sprite = null;
+            // currentButton.image.sprite = null;
+            Image childImage = currentButton.transform.GetChild(0).GetComponent<Image>();
+            var tempcl = childImage.color;
+            tempcl.a = 0f;
+            childImage.color = tempcl;
             currentButton.onClick.RemoveAllListeners();
         }
     }
@@ -416,6 +424,7 @@ public class GarageManager : MonoBehaviour
                 Image cib = confirmImageBody.GetComponent<Image>();
                 cib.sprite = currentB.data.stickIcon;
                 
+                GOStickBody.SetActive(false);
 
                 popupPanel.SetActive(true);
                 Button yesBtn = yesButton.GetComponent<Button>();
@@ -423,8 +432,11 @@ public class GarageManager : MonoBehaviour
                 yesBtn.onClick.AddListener(() =>
                 {
                    RemoveBodyFromInventory(currIdx); 
+                   GOStickBody.SetActive(false);
                    popupPanel.SetActive(false);
                    confirmImageBody.SetActive(false);
+                   EmptyingBodyButtons();
+                   SetupRemoveBodyButtons();
                 });
                 bodyOrGadgetName.text = currentB.data.stickName.ToString();
                 bodyOrGadgetDesc.text = currentB.data.description.ToString();
@@ -481,14 +493,19 @@ public class GarageManager : MonoBehaviour
                 Image cig = confirmImageGadget.GetComponent<Image>();
                 cig.sprite = currentG.data.model;
 
+                GOStickBody.SetActive(false);
+
                 popupPanel.SetActive(true);
 
                 Button yesBtn = yesButton.GetComponent<Button>();
                 yesBtn.onClick.RemoveAllListeners();
                 yesBtn.onClick.AddListener(() =>
                 {
+                    GOStickBody.SetActive(true);
                     popupPanel.SetActive(false);
                     RemoveGadgetFromInventory(currIdx);
+                    EmptyingBodyButtons();
+                    SetupRemoveGadgetButtons();
                 });
                 textField.SetActive(true);
             });
@@ -525,6 +542,7 @@ public class GarageManager : MonoBehaviour
         popupPanel.SetActive(false);
         confirmImageBody.SetActive(false);
         confirmImageGadget.SetActive(false);
+        GOStickBody.SetActive(true);
     }
 
     public void RebuildEquippedGadgets()
