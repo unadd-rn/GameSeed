@@ -8250,11 +8250,11 @@ MonoBehaviour:
   HPos5: {fileID: 328158432}
   HPos6: {fileID: 329673571}
   Bar: {fileID: 158708057}
-  layer1: {r: 1, g: 0.21069163, b: 0.21069163, a: 1}
-  layer2: {r: 0.22327036, g: 0.22327036, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7188537, b: 0.23137254, a: 1}
-  layer4: {r: 0.5911315, g: 0.2295596, b: 1, a: 1}
-  layer5: {r: 0.23905289, g: 0.9622642, b: 0.28653654, a: 1}
+  layer1: {r: 0.40731633, g: 0.2117647, b: 1, a: 1}
+  layer2: {r: 0.83834255, g: 0.2235294, b: 1, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.8719593, a: 1}
+  layer4: {r: 1, g: 0.23137254, b: 0.549231, a: 1}
+  layer5: {r: 0.9607843, g: 0.23921566, b: 0.25988123, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
@@ -8321,6 +8321,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &1216302342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10922,8 +10923,9 @@ MonoBehaviour:
   bodies:
   - {fileID: 11400000, guid: 38aa31195f85ae84ba3156bbebef7e1f, type: 2}
   - {fileID: 11400000, guid: 4ecd5384eb8e45b4e935f3e296e4831d, type: 2}
-  - {fileID: 11400000, guid: 9cd0d90ac87b97d4aa1175023ee7a6a5, type: 2}
+  - {fileID: 11400000, guid: 78af31d9bb0c44b4389f8639fb1f22c5, type: 2}
   - {fileID: 11400000, guid: 247e889b3f032604596ce5aea3acfbae, type: 2}
+  - {fileID: 11400000, guid: 6d00ebfb78024aa4da15f68dcd856711, type: 2}
 --- !u!23 &1543817073 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5553547069057059481, guid: 3d0e7c64c207a5a41a851ffdfaf9290f,
@@ -12886,18 +12888,18 @@ MonoBehaviour:
   HPos6: {fileID: 204517112}
   Bar: {fileID: 1664787835}
   layer1: {r: 1, g: 0.21176471, b: 0.21176471, a: 1}
-  layer2: {r: 0.22352941, g: 0.22352941, b: 1, a: 1}
-  layer3: {r: 1, g: 0.7176471, b: 0.23137255, a: 1}
-  layer4: {r: 0.5921569, g: 0.23137255, b: 1, a: 1}
-  layer5: {r: 0.23921569, g: 0.9647059, b: 0.2901961, a: 1}
+  layer2: {r: 1, g: 0.2235294, b: 0.5430437, a: 1}
+  layer3: {r: 1, g: 0.23137254, b: 0.966446, a: 1}
+  layer4: {r: 0.7652851, g: 0.23137254, b: 1, a: 1}
+  layer5: {r: 0.47012037, g: 0.23921569, b: 0.9647059, a: 1}
   invincibilityDuration: 0.5
   pindahLength: 2
   checkRadius: 1.5
   enemyAI: {fileID: 2055251481}
   enemyBodyScript: {fileID: 1543817072}
   enemyGadgetScript: {fileID: 2055251490}
-  bodyDropChance: 1
-  gadgetDropChance: 1
+  bodyDropChance: 0.6
+  gadgetDropChance: 0.6
   bodyGetUI: {fileID: 760765183}
 --- !u!114 &2055251490
 MonoBehaviour:
@@ -12984,6 +12986,7 @@ MonoBehaviour:
   minDistanceToEnemy: 0.5
   invisibilityDuration: 1
   visualModel: {fileID: 0}
+  edgePadding: 0.5
 --- !u!114 &2055251494
 MonoBehaviour:
   m_ObjectHideFlags: 0
